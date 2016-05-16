@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "start-debug":"DEBUG=react-robots:* npm start",
+    "start-watch":"nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
