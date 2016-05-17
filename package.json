@@ -16,6 +16,7 @@
     "morgan": "~1.6.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-router": "^2.4.0",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {

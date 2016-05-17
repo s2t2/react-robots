@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 var RobotsTable = React.createClass({
   getInitialState: function() {
@@ -45,7 +44,4 @@ var RobotsTable = React.createClass({
   }
 });
 
-ReactDOM.render(
-  <RobotsTable/>,
-  document.getElementById('robots-table')
-);
+module.exports = RobotsTable;
