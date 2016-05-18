@@ -17,31 +17,14 @@ import RobotsTable from './components/RobotsTable.jsx';
 //  document.getElementById('robots-table')
 //);
 
+ReactDOM.render(
+  <Router history={hashHistory}>
+    <Route path="/" component={App}/>
+    <Route path="/robots" component={RobotsTable} />
+    <Route path="/robots/1" component={RobotsTable} />
+  </Router>
 
-// <Route path="/" component={App}/>
-// <Route path="/robots" component={RobotsTable} />
-// <Route path="/robots/1" component={RobotsTable} />
+  ,document.getElementById('app')
+)
 
-const routeConfig = [
-  {
-    path: '/',
-    component: App
-  },
-  {
-    path: '/robots',
-    component: RobotsTable
-  },
-  {
-    path: '/robots/1',
-    component: RobotsTable
-  }
-]
-
-ReactDOM.render((
-  <Router history={hashHistory} routes={routeConfig} />
-), document.getElementById('app'))
-
-if (module.hot) {
-  //module.hot.decline("./routes.js");
-  module.hot.accept();
-} // enables hot module replacement when applicable
+if (module.hot) {module.hot.accept();} // enables hot module replacement when applicable
