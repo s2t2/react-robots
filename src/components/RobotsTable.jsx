@@ -61,7 +61,7 @@ var RobotsTable = React.createClass({
               return (
                 <tr key={robot.id}>
                   <td>{robot.id}</td>
-                  <td><a href={'robots/'+robot.id} >{robot.name}</a></td>
+                  <td><a href={'/robots/'+robot.id} >{robot.name}</a></td>
                   <td>{robot.description}</td>
                   <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
                   <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
