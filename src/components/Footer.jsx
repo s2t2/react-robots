@@ -4,7 +4,7 @@ var Footer = React.createClass({
   render:function(){
     return (
       <footer>
-        <p><a href="#">source</a></p>
+        <p><a href="https://github.com/s2t2/react-robots">source</a></p>
       </footer>
     )
   }
