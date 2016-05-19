@@ -7,12 +7,34 @@ var RobotsTable = React.createClass({
   },
 
   getRobots: function(){
+    //
+    // get robots from the "database"
+    //
     var robots = [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
       {id: 3, name:"bb8",  description:"rolls around"}
     ];
-    this.setState({robots: robots});
+
+    //
+    // parse query params
+    //
+    var pagePath = window.location.pathname; // like ... "/robots" or "robots/" or /robots/1" or "/robots/1/"
+    var robotId = pagePath.split("/robots/")[1]; // like ... undefined or "" or "1" or "1/"
+    if (robotId && robotId.includes("/")) {
+      robotId = robotId.split("/")[0]; // like ... undefined or "1"
+    }
+    console.log("PATH:", pagePath, "ROBOT ID:", robotId);
+
+    //
+    // filter robots based on query params
+    //
+    var selectedRobots = robots;
+    if (robotId) {
+      selectedRobots = robots.filter(function(r){ return r.id == robotId; });
+    }
+
+    this.setState({robots: selectedRobots});
   },
 
   componentDidMount: function(){

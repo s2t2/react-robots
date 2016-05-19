@@ -9,3 +9,5 @@ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-e
 npm install --save react react-dom
 npm install --save moment-timezone
 ````
+
+Not using react-router because it conflicts with HMR.
