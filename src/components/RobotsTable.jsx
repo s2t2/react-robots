@@ -1,5 +1,4 @@
 import React from 'react';
-
 var moment = require('moment-timezone');
 
 var RobotsTable = React.createClass({
