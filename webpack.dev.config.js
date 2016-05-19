@@ -30,7 +30,14 @@ module.exports = {
       {
         test: /\.css$/,
         loader: "style-loader!css-loader"
+      },
+      {
+        include: /\.json$/,
+        loaders: ['json-loader']
       }
     ]
   },
+  //resolve: {
+  //  extensions: ['', '.json', '.jsx', '.js']
+  //}
 };
