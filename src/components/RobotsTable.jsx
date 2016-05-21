@@ -1,22 +1,62 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 var RobotsTable = React.createClass({
-  getInitialState: function() {
-    return {robots: []};
-  },
-
   getRobots: function(){
+    console.log("GET ROBOTS");
+
     var robots = [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
       {id: 3, name:"bb8",  description:"rolls around"}
     ];
-    this.setState({robots: robots});
+    var selectedRobots = robots;
+
+    var robotId = this.props.params.id;
+
+    if (robotId) {
+      console.log("ROBOT ID:", robotId);
+      selectedRobots = robots.filter(function(r){ return r.id == robotId; })
+    };
+
+    return selectedRobots;
   },
 
-  componentDidMount: function(){
-    this.getRobots();
+  getInitialState: function() {
+    console.log("GET INITIAL STATE")
+    return {robots: []};
   },
+
+  componentWillMount: function(){
+    console.log("COMPONENT WILL MOUNT")
+    var selectedRobots = this.getRobots();
+    this.setState({robots: selectedRobots});
+  },
+
+  //componentDidMount: function(){
+  //  console.log("COMPONENT DID MOUNT");
+  //},
+
+  componentWillReceiveProps: function(nextProps) {
+    console.log("COMPONENT WILL RECEIVE PROPS")
+    var selectedRobots = [];
+    //var selectedRobots = this.getRobots();
+    this.setState({robots: selectedRobots});
+  },
+
+  //shouldComponentUpdate: function(nextProps, nextState) {
+  //  console.log("SHOULD COMPONENT UPDATE", this.state.robots, nextProps, nextState)
+  //  //return nextProps.id !== this.props.id;
+  //  return true
+  //},
+
+  componentWillUpdate: function(nextProps, nextState){
+    console.log("COMPONENT WILL UPDATE")
+  },
+
+  //componentDidUpdate: function(nextProps, nextState){
+  //  console.log("COMPONENT DID UPDATE", nextProps, nextState)
+  //},
 
   render: function(){
     return (
@@ -32,7 +72,7 @@ var RobotsTable = React.createClass({
             this.state.robots.map( function(robot){
               return (
                 <tr key={robot.id}>
-                  <td><a href={'robots/'+robot.id} >{robot.name}</a></td>
+                  <td><Link to={'/robots/'+robot.id}>{robot.name}</Link></td>
                   <td>{robot.description}</td>
                 </tr>
               );

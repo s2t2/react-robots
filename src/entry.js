@@ -6,22 +6,37 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 
 import App from './components/App.jsx';
-//ReactDOM.render(
-//  <App/>,
-//  document.getElementById('app')
-//);
-
 import RobotsTable from './components/RobotsTable.jsx';
-//ReactDOM.render(
-//  <RobotsTable/>,
-//  document.getElementById('robots-table')
-//);
+
+//var robots = [
+//  {id: 1, name:"c3po", description:"specializes in language translation"},
+//  {id: 2, name:"r2d2", description:"holds a secret message"},
+//  {id: 3, name:"bb8",  description:"rolls around"}
+//];
+//
+//var selectRobots = function(nextState, replaceState){
+//  var robotId = nextState.params.id;
+//  var selectedRobots;
+//
+//  if (robotId) {
+//    console.log("ROBOT ID:", robotId);
+//    selectedRobots = robots.filter(function(r){ return r.id == robotId; })
+//  } else {
+//    selectedRobots = robots;
+//  }
+//
+//  replaceState({
+//    robots: selectedRobots
+//  })
+//  console.log(nextState)
+//};
 
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}/>
-    <Route path="/robots" component={RobotsTable} />
-    <Route path="/robots/1" component={RobotsTable} />
+    <Route path="/robots" component={RobotsTable} >
+      <Route path=":id" component={RobotsTable}/>
+    </Route>
   </Router>
 
   ,document.getElementById('app')
