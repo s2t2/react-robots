@@ -1,4 +1,6 @@
+require("../node_modules/bootstrap/dist/css/bootstrap.css");
 require("../public/stylesheets/style.css");
+
 require("../public/javascripts/bootstrap-flash.js");
 
 import React from 'react';
