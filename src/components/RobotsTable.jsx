@@ -1,45 +1,59 @@
 import React from 'react';
+import { Link } from 'react-router';
 var moment = require('moment-timezone');
 
 var RobotsTable = React.createClass({
-  getInitialState: function() {
-    return {robots: []};
-  },
 
-  getRobots: function(){
-    //
-    // get robots from the "database"
-    //
+  getRobots: function(propz){
+    //console.log("GET ROBOTS");
     var robots = [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
       {id: 3, name:"bb8",  description:"rolls around"}
     ];
 
-    //
-    // parse query params
-    //
-    var pagePath = window.location.pathname; // like ... "/robots" or "robots/" or /robots/1" or "/robots/1/"
-    var robotId = pagePath.split("/robots/")[1]; // like ... undefined or "" or "1" or "1/"
-    if (robotId && robotId.includes("/")) {
-      robotId = robotId.split("/")[0]; // like ... undefined or "1"
-    }
-    console.log("PATH:", pagePath, "ROBOT ID:", robotId);
-
-    //
-    // filter robots based on query params
-    //
     var selectedRobots = robots;
+    var robotId = propz.params.id;
     if (robotId) {
-      selectedRobots = robots.filter(function(r){ return r.id == robotId; });
-    }
+      console.log("ROBOT ID:", robotId);
+      selectedRobots = robots.filter(function(r){ return r.id == robotId; })
+    };
 
     this.setState({robots: selectedRobots});
   },
 
-  componentDidMount: function(){
-    this.getRobots();
+  getInitialState: function() {
+    //console.log("GET INITIAL STATE")
+    return {robots: []};
   },
+
+  componentWillMount: function(){
+    //console.log("COMPONENT WILL MOUNT")
+    this.getRobots(this.props);
+  },
+
+  //componentDidMount: function(){
+  //  console.log("COMPONENT DID MOUNT");
+  //},
+
+  componentWillReceiveProps: function(nextProps) {
+    //console.log("COMPONENT WILL RECEIVE PROPS", this.props.params, nextProps.params)
+    this.getRobots(nextProps);
+  },
+
+  //shouldComponentUpdate: function(nextProps, nextState) {
+  //  console.log("SHOULD COMPONENT UPDATE", this.state.robots, nextProps, nextState)
+  //  //return nextProps.id !== this.props.id;
+  //  return true
+  //},
+
+  componentWillUpdate: function(nextProps, nextState){
+    //console.log("COMPONENT WILL UPDATE")
+  },
+
+  //componentDidUpdate: function(nextProps, nextState){
+  //  console.log("COMPONENT DID UPDATE", nextProps, nextState)
+  //},
 
   render: function(){
     return (
@@ -61,7 +75,7 @@ var RobotsTable = React.createClass({
               return (
                 <tr key={robot.id}>
                   <td>{robot.id}</td>
-                  <td><a href={'/robots/'+robot.id} >{robot.name}</a></td>
+                  <td><Link to={'/robots/'+robot.id}>{robot.name}</Link></td>
                   <td>{robot.description}</td>
                   <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
                   <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>

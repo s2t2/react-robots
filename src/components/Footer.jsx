@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 var Footer = React.createClass({
-  render:function(){
+  render: function(){
     return (
       <footer>
-        <p><a href="https://github.com/s2t2/react-robots">source</a></p>
+        <p><a href={this.props.repoUrl}>source</a></p>
       </footer>
     )
   }
