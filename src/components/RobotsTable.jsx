@@ -2,24 +2,23 @@ import React from 'react';
 import { Link } from 'react-router';
 
 var RobotsTable = React.createClass({
-  getRobots: function(){
-    console.log("GET ROBOTS");
 
+  getRobots: function(propz){
+    console.log("GET ROBOTS");
     var robots = [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
       {id: 3, name:"bb8",  description:"rolls around"}
     ];
+
     var selectedRobots = robots;
-
-    var robotId = this.props.params.id;
-
+    var robotId = propz.params.id;
     if (robotId) {
       console.log("ROBOT ID:", robotId);
       selectedRobots = robots.filter(function(r){ return r.id == robotId; })
     };
 
-    return selectedRobots;
+    this.setState({robots: selectedRobots});
   },
 
   getInitialState: function() {
@@ -29,8 +28,7 @@ var RobotsTable = React.createClass({
 
   componentWillMount: function(){
     console.log("COMPONENT WILL MOUNT")
-    var selectedRobots = this.getRobots();
-    this.setState({robots: selectedRobots});
+    this.getRobots(this.props);
   },
 
   //componentDidMount: function(){
@@ -38,10 +36,8 @@ var RobotsTable = React.createClass({
   //},
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("COMPONENT WILL RECEIVE PROPS")
-    var selectedRobots = [];
-    //var selectedRobots = this.getRobots();
-    this.setState({robots: selectedRobots});
+    console.log("COMPONENT WILL RECEIVE PROPS", this.props.params, nextProps.params)
+    this.getRobots(nextProps);
   },
 
   //shouldComponentUpdate: function(nextProps, nextState) {
