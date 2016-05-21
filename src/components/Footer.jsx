@@ -5,7 +5,7 @@ var Footer = React.createClass({
   render: function(){
     return (
       <footer>
-        <p><Link to={this.props.repoUrl}>source</Link></p>
+        <p><a href={this.props.repoUrl}>source</a></p>
       </footer>
     )
   }

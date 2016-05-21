@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 var RobotsTable = React.createClass({
 
   getRobots: function(propz){
-    console.log("GET ROBOTS");
+    //console.log("GET ROBOTS");
     var robots = [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
@@ -22,12 +22,12 @@ var RobotsTable = React.createClass({
   },
 
   getInitialState: function() {
-    console.log("GET INITIAL STATE")
+    //console.log("GET INITIAL STATE")
     return {robots: []};
   },
 
   componentWillMount: function(){
-    console.log("COMPONENT WILL MOUNT")
+    //console.log("COMPONENT WILL MOUNT")
     this.getRobots(this.props);
   },
 
@@ -36,7 +36,7 @@ var RobotsTable = React.createClass({
   //},
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("COMPONENT WILL RECEIVE PROPS", this.props.params, nextProps.params)
+    //console.log("COMPONENT WILL RECEIVE PROPS", this.props.params, nextProps.params)
     this.getRobots(nextProps);
   },
 
@@ -47,7 +47,7 @@ var RobotsTable = React.createClass({
   //},
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("COMPONENT WILL UPDATE")
+    //console.log("COMPONENT WILL UPDATE")
   },
 
   //componentDidUpdate: function(nextProps, nextState){

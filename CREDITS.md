@@ -13,6 +13,7 @@
   + http://stackoverflow.com/questions/36143570/react-router-cannot-read-property-push-of-undefined#comment59927443_36143570
   + https://gist.github.com/koistya/ba7ad06d2624e10e07ee
   + https://css-tricks.com/learning-react-router/
+  + https://github.com/reactjs/react-router/issues/1147
 
 ## Bootstrap
 
