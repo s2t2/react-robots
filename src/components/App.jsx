@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import Header from './Header.jsx';
+import PageHeader from './PageHeader.jsx';
+import Footer from './Footer.jsx';
+
 var App = React.createClass({
   render: function(){
     return (
       <div>
-        <p>App</p>
-        <ul role="nav">
-          <li> <Link to="/robots">Bots</Link> </li>
-          <li> <Link to="/robots/1">Bot</Link> </li>
-        </ul>
+        <Header title="Robots App!" />
+        <PageHeader title="Robots" />
+        {this.props.children}
+        <hr style={{marginTop: '2em'}} />
+        <Footer repoUrl="https://github.com/s2t2/react-robots" />
       </div>
     )
   }
