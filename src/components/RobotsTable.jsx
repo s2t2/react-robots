@@ -15,7 +15,7 @@ var RobotsTable = React.createClass({
     var selectedRobots = robots;
     var robotId = propz.params.id;
     if (robotId) {
-      console.log("ROBOT ID:", robotId);
+      //console.log("ROBOT ID:", robotId);
       selectedRobots = robots.filter(function(r){ return r.id == robotId; })
     };
 
@@ -23,7 +23,7 @@ var RobotsTable = React.createClass({
   },
 
   getInitialState: function() {
-    //console.log("GET INITIAL STATE")
+    //console.log("GET INITIAL TABLE STATE")
     return {robots: []};
   },
 
@@ -37,7 +37,7 @@ var RobotsTable = React.createClass({
   //},
 
   componentWillReceiveProps: function(nextProps) {
-    //console.log("COMPONENT WILL RECEIVE PROPS", this.props.params, nextProps.params)
+    console.log("TABLE WILL RECEIVE PROPS", this.props.params, nextProps.params)
     this.getRobots(nextProps);
   },
 

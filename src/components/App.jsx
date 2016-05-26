@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 import Header from './Header.jsx';
 import PageHeader from './PageHeader.jsx';
 import Footer from './Footer.jsx';
 
 var App = React.createClass({
+  componentWillReceiveProps: function(nextProps) {
+    console.log("APP WILL RECEIVE PROPS", this.props.params, nextProps.params)
+  },
+
   render: function(){
     return (
       <div>

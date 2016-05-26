@@ -5,19 +5,20 @@ require("../public/javascripts/bootstrap-flash.js");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, Redirect } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
 import App from './components/App.jsx';
 import RobotsTable from './components/RobotsTable.jsx';
+import RobotsForm from './components/RobotsForm.jsx';
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route component={App}>
-      <Route path="/" component={RobotsTable}>
-        <Route path="robots" component={RobotsTable}>
-          <Route path=":id" component={RobotsTable}/>
-        </Route>
-      </Route>
+    { /* <Redirect from="/" to="robots"/> */ }
+    <Route path="/" component={App}>
+      <IndexRoute component={RobotsTable}/>
+      <Route path="robots" component={RobotsTable}/>
+      <Route path="robots/new" component={RobotsForm}/>
+      <Route path="robots/:id" component={RobotsTable}/>
     </Route>
   </Router>
 

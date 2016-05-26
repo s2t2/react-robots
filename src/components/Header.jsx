@@ -6,10 +6,12 @@ var Header = React.createClass({
     return (
       <header>
         <div id="flash-messages"></div>
-        <h1> <Link to="/">{this.props.title}</Link></h1>
-        <a type="button" className="btn btn-primary pull-right" href="/robots/new">
+
+        <h1><Link to="/">{this.props.title}</Link></h1>
+
+        <Link to="/robots/new" type="button" className="btn btn-primary pull-right">
           <span className="glyphicon glyphicon-plus"></span> new
-        </a>
+        </Link>
       </header>
     )
   }
