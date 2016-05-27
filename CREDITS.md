@@ -18,6 +18,7 @@
   + https://github.com/reactjs/react-router/issues/1147
   + https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.m4tz3pi34
   + https://github.com/reactjs/react-router/blob/master/docs/guides/RouteConfiguration.md
+  + https://github.com/reactjs/react-router/blob/master/docs/API.md#pushpathorloc
 
 ### Forms
 
@@ -29,11 +30,12 @@
   + https://facebook.github.io/react/docs/more-about-refs.html
   + https://facebook.github.io/react/docs/forms.html
 
-### Binding `this`
+### What is `this`?
 
  + https://www.sitepoint.com/bind-javascripts-this-keyword-react/
  + https://facebook.github.io/react/tips/communicate-between-components.html
  + http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html
+ + https://discuss.reactjs.org/t/how-do-i-get-data-from-a-child-component-into-onclick-of-a-button-passed-in-props/3170
 
 ## Bootstrap
 
