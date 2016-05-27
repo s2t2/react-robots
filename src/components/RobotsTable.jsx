@@ -27,8 +27,17 @@ var RobotsTable = React.createClass({
     this.setState({robots: selectedRobots});
   },
 
+  deleteRobot: function(event){
+    console.log(event)
+    //console.log(this, this.props)
+    //this.props.router.push('/');
+  },
+
   render: function(){
     return (
+      <button className='btn btn-danger' onClick={this.deleteRobot}>
+        <span className="glyphicon glyphicon-trash"></span> delete
+      </button>
       <table className="table table-bordered table-hover table-responsive" style={{width:"100%"}}>
         <thead>
           <tr>
@@ -59,11 +68,9 @@ var RobotsTable = React.createClass({
                     </form>
                   </td>
                   <td>
-                    <form action={ '/robots/'+robot.id+'/destroy' } method='POST'>
-                      <button className='btn btn-danger' type='submit'>
-                        <span className="glyphicon glyphicon-trash"></span> delete
-                      </button>
-                    </form>
+                    <button className='btn btn-danger'>
+                      <span className="glyphicon glyphicon-trash"></span> delete
+                    </button>
                   </td>
                 </tr>
               );
