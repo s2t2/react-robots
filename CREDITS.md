@@ -17,6 +17,15 @@
   + https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.m4tz3pi34
   + https://github.com/reactjs/react-router/blob/master/docs/guides/RouteConfiguration.md
 
+### Forms
+
+  + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/confirming-navigation/app.js
+  + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/auth-flow-async-with-query-params/app.js
+  + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/auth-with-shared-root/components/Login.js#L13-L29
+  + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/auth-flow/app.js#L68-L83
+  + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/master-detail/app.js#L126-L133
+  + https://facebook.github.io/react/docs/more-about-refs.html
+  + https://facebook.github.io/react/docs/forms.html
 
 ## Bootstrap
 
