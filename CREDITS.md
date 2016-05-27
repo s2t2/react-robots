@@ -1,6 +1,8 @@
 # Credits, Notes, and Reference
 
-## React Router
+## React
+
+### React Router
 
   + http://blog.mxstbr.com/2016/01/react-apps-with-pages/
   + https://github.com/reactjs/react-router
@@ -26,6 +28,12 @@
   + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/master-detail/app.js#L126-L133
   + https://facebook.github.io/react/docs/more-about-refs.html
   + https://facebook.github.io/react/docs/forms.html
+
+### Binding `this`
+
+ + https://www.sitepoint.com/bind-javascripts-this-keyword-react/
+ + https://facebook.github.io/react/tips/communicate-between-components.html
+ + http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html
 
 ## Bootstrap
 

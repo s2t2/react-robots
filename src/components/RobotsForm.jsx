@@ -4,23 +4,32 @@ import { withRouter } from 'react-router';
 var RobotsForm = withRouter (
   React.createClass({
 
-    // @params [Object] reffs For some reason this function doesnt recognize this.refs, so they have to be passed in.
-    setRobotState(reffs){
-      var name = reffs.robotNameRef.value;
-      var description = reffs.robotDescriptionRef.value;
+    getInitialState: function() {
+      return {
+        bot: {}
+      };
+    },
+
+    //componentWillUpdate: function(nextProps, nextState){
+    //  console.log("UPDATED", nextState.bot)
+    //},
+
+    setRobot(){
+      var name = this.refs.robotNameRef.value;
+      var description = this.refs.robotDescriptionRef.value;
+      console.log("SET ROBOT:", name, description);
       this.setState({
         bot: {name: name, description: description}
       });
-      console.log(this.state);
     },
 
-    handleChange(event){
-      this.setRobotState(this.refs);
+    handleChange: function(event){
+      this.setRobot();
     },
 
-    handleSubmit(event){
+    handleSubmit: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
-      this.setRobotState(this.refs);
+      this.setRobot();
       this.props.router.push('/');
     },
 

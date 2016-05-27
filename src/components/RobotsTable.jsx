@@ -3,6 +3,17 @@ import { Link } from 'react-router';
 var moment = require('moment-timezone');
 
 var RobotsTable = React.createClass({
+  getInitialState: function() {
+    return {robots: []};
+  },
+
+  componentWillMount: function(){
+    this.getRobots(this.props);
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.getRobots(nextProps);
+  },
 
   getRobots: function(propz){
     var robots = [
@@ -14,18 +25,6 @@ var RobotsTable = React.createClass({
     var robotId = propz.params.id;
     if (robotId) { selectedRobots = robots.filter(function(r){ return r.id == robotId; }) };
     this.setState({robots: selectedRobots});
-  },
-
-  getInitialState: function() {
-    return {robots: []};
-  },
-
-  componentWillMount: function(){
-    this.getRobots(this.props);
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    this.getRobots(nextProps);
   },
 
   render: function(){
