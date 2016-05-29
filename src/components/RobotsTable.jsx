@@ -12,28 +12,29 @@ var RobotsTable = withRouter (
 
     getInitialState: function() {
       console.log("TABLE -- INITIAL STATE")
-      return {robots: this.robots};
+      var robots = this.getRobots(this.props);
+      return {robots: robots};
     },
 
     componentWillMount: function(){
       console.log("TABLE -- WILL MOUNT")
-      this.getRobots(this.props);
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("TABLE -- RECEIVE PROPS", nextProps)
-      this.getRobots(nextProps);
+      console.log("TABLE -- RECEIVE PROPS", nextProps.params)
+      var robots = this.getRobots(nextProps);
+      this.setState({robots: robots});
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-      console.log("TABLE -- WILL UPDATE", nextProps, nextState);
+      console.log("TABLE -- WILL UPDATE", nextProps.params, nextState);
     },
 
     getRobots: function(propz){
       var robotId = propz.params.id;
-      var selectedRobots = this.robots;
-      if (robotId) { selectedRobots = this.robots.filter(function(r){ return r.id == robotId; }) };
-      this.setState({robots: selectedRobots});
+      var selectedRobots = this.robots; //TODO: database call
+      if (robotId) { selectedRobots = this.robots.filter(function(r){ return r.id == robotId; }) }; //TODO: database call
+      return selectedRobots;
     },
 
     editRobot: function(robotId){
