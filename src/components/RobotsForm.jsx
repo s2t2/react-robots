@@ -5,10 +5,9 @@ var RobotsForm = withRouter (
   React.createClass({
 
     getInitialState: function() {
-      console.log("FORM - INITIAL STATE")
-      return {
-        bot: {}
-      };
+      console.log("FORM - INITIAL STATE", this.props.params)
+      var bot = this.getRobot(this.props.params);
+      return {bot: bot};
     },
 
     componentWillMount: function(){
@@ -16,11 +15,21 @@ var RobotsForm = withRouter (
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("FORM -- RECEIVE PROPS", nextProps)
+      console.log("FORM -- RECEIVE PROPS", nextProps.params)
+      var bot = this.getRobot(nextProps.params);
+      this.setState({bot:bot})
     },
 
     componentWillUpdate: function(nextProps, nextState){
-      console.log("FORM -- WILL UPDATE", nextProps, nextState)
+      console.log("FORM -- WILL UPDATE", nextProps.params, nextState)
+    },
+
+    getRobot(paramz){
+      var bot = {name: "my bot", description: "does stuff"}
+      if (paramz.id) {
+        bot = {name: "bot #"+paramz.id, description:"todo: look this up!"}
+      }
+      return bot
     },
 
     setRobot(){
@@ -43,19 +52,21 @@ var RobotsForm = withRouter (
     },
 
     render: function(){
+      var component = this;
+
       return (
-        <form className="form-horizontal" onSubmit={this.handleSubmit} onChange={this.handleChange}>
+        <form className="form-horizontal" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label for="robotName" className="col-sm-2 control-label">Name</label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" name="robotName" ref="robotNameRef" placeholder="My Robot" defaultValue="my bot"/>
+              <input type="text" className="form-control" name="robotName" ref="robotNameRef" placeholder="My Robot" value={component.state.bot.name} onChange={this.handleChange}/>
             </div>
           </div>
 
           <div className="form-group">
             <label for="robotDescription" className="col-sm-2 control-label">Description</label>
             <div className="col-sm-10">
-              <textarea className="form-control" rows="3" name="robotDescription" ref="robotDescriptionRef" placeholder="All the things..." defaultValue="does stuff"></textarea>
+              <textarea className="form-control" rows="3" name="robotDescription" ref="robotDescriptionRef" placeholder="All the things..." value={component.state.bot.description} onChange={this.handleChange}></textarea>
             </div>
           </div>
 
