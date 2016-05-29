@@ -29,6 +29,7 @@
   + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/master-detail/app.js#L126-L133
   + https://facebook.github.io/react/docs/more-about-refs.html
   + https://facebook.github.io/react/docs/forms.html
+  + https://blog.iansinnott.com/managing-state-and-controlled-form-fields-with-react/
 
 ### What is `this` and how to access component functions?
 
