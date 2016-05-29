@@ -21,13 +21,13 @@ var RobotsTable = withRouter (
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("TABLE -- RECEIVE PROPS", nextProps.params)
+      console.log("TABLE -- RECEIVE PROPS")
       var robots = this.getRobots(nextProps);
       this.setState({robots: robots});
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-      console.log("TABLE -- WILL UPDATE", nextProps.params, nextState);
+      console.log("TABLE -- WILL UPDATE");
     },
 
     getRobots: function(propz){

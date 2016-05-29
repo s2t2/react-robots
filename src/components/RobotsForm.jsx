@@ -5,9 +5,10 @@ var RobotsForm = withRouter (
   React.createClass({
 
     getInitialState: function() {
-      console.log("FORM - INITIAL STATE", this.props.params)
-      var bot = this.getRobot(this.props.params);
-      return {bot: bot};
+      console.log("FORM - INITIAL STATE")
+      return {
+        bot: this.getRobot(this.props.params)
+      };
     },
 
     componentWillMount: function(){
@@ -15,13 +16,14 @@ var RobotsForm = withRouter (
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("FORM -- RECEIVE PROPS", nextProps.params)
-      var bot = this.getRobot(nextProps.params);
-      this.setState({bot:bot})
+      console.log("FORM -- RECEIVE PROPS")
+      this.setState({
+        bot: this.getRobot(nextProps.params)
+      })
     },
 
     componentWillUpdate: function(nextProps, nextState){
-      console.log("FORM -- WILL UPDATE", nextProps.params, nextState)
+      console.log("FORM -- WILL UPDATE")
     },
 
     getRobot(paramz){
@@ -33,12 +35,12 @@ var RobotsForm = withRouter (
     },
 
     setRobot(){
-      var name = this.refs.robotNameRef.value;
-      var description = this.refs.robotDescriptionRef.value;
-      console.log("SET ROBOT:", name, description);
-      this.setState({
-        bot: {name: name, description: description}
-      });
+      var bot = {
+        name: this.refs.robotNameRef.value,
+        description: this.refs.robotDescriptionRef.value
+      }
+      console.log("SET ROBOT:", bot);
+      this.setState({bot: bot});
     },
 
     handleChange: function(event){
@@ -52,7 +54,7 @@ var RobotsForm = withRouter (
     },
 
     render: function(){
-      var component = this;
+      var component = this; // maybe can remove this if child elements are translated into child components
 
       return (
         <form className="form-horizontal" onSubmit={this.handleSubmit}>
