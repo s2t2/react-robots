@@ -5,14 +5,23 @@ var RobotsForm = withRouter (
   React.createClass({
 
     getInitialState: function() {
+      console.log("FORM - INITIAL STATE")
       return {
         bot: {}
       };
     },
 
-    //componentWillUpdate: function(nextProps, nextState){
-    //  console.log("UPDATED", nextState.bot)
-    //},
+    componentWillMount: function(){
+      console.log("FORM -- WILL MOUNT")
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+      console.log("FORM -- RECEIVE PROPS", nextProps)
+    },
+
+    componentWillUpdate: function(nextProps, nextState){
+      console.log("FORM -- WILL UPDATE", nextProps, nextState)
+    },
 
     setRobot(){
       var name = this.refs.robotNameRef.value;

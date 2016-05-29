@@ -30,12 +30,13 @@
   + https://facebook.github.io/react/docs/more-about-refs.html
   + https://facebook.github.io/react/docs/forms.html
 
-### What is `this`?
+### What is `this` and how to access component functions?
 
  + https://www.sitepoint.com/bind-javascripts-this-keyword-react/
  + https://facebook.github.io/react/tips/communicate-between-components.html
  + http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html
  + https://discuss.reactjs.org/t/how-do-i-get-data-from-a-child-component-into-onclick-of-a-button-passed-in-props/3170
+ + https://groups.google.com/forum/#!topic/reactjs/Xv9_kVoJJOw
 
 ## Bootstrap
 
