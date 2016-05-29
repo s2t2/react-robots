@@ -1,106 +1,97 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 var moment = require('moment-timezone');
 
-var RobotsTable = React.createClass({
-
-  getRobots: function(propz){
-    //console.log("GET ROBOTS");
-    var robots = [
+var RobotsTable = withRouter (
+  React.createClass({
+    robots: [
       {id: 1, name:"c3po", description:"specializes in language translation"},
       {id: 2, name:"r2d2", description:"holds a secret message"},
       {id: 3, name:"bb8",  description:"rolls around"}
-    ];
+    ],
 
-    var selectedRobots = robots;
-    var robotId = propz.params.id;
-    if (robotId) {
-      //console.log("ROBOT ID:", robotId);
-      selectedRobots = robots.filter(function(r){ return r.id == robotId; })
-    };
+    getInitialState: function() {
+      console.log("TABLE -- INITIAL STATE")
+      var robots = this.getRobots(this.props);
+      return {robots: robots};
+    },
 
-    this.setState({robots: selectedRobots});
-  },
+    componentWillMount: function(){
+      console.log("TABLE -- WILL MOUNT")
+    },
 
-  getInitialState: function() {
-    //console.log("GET INITIAL TABLE STATE")
-    return {robots: []};
-  },
+    componentWillReceiveProps: function(nextProps) {
+      console.log("TABLE -- RECEIVE PROPS")
+      var robots = this.getRobots(nextProps);
+      this.setState({robots: robots});
+    },
 
-  componentWillMount: function(){
-    //console.log("COMPONENT WILL MOUNT")
-    this.getRobots(this.props);
-  },
+    componentWillUpdate: function(nextProps, nextState) {
+      console.log("TABLE -- WILL UPDATE");
+    },
 
-  //componentDidMount: function(){
-  //  console.log("COMPONENT DID MOUNT");
-  //},
+    getRobots: function(propz){
+      var robotId = propz.params.id;
+      var selectedRobots = this.robots; //TODO: database call
+      if (robotId) { selectedRobots = this.robots.filter(function(r){ return r.id == robotId; }) }; //TODO: database call
+      return selectedRobots;
+    },
 
-  componentWillReceiveProps: function(nextProps) {
-    console.log("TABLE WILL RECEIVE PROPS", this.props.params, nextProps.params)
-    this.getRobots(nextProps);
-  },
+    editRobot: function(robotId){
+      console.log("EDIT ROBOT #", robotId);
+      this.props.router.push('/robots/'+robotId+'/edit');
+    },
 
-  //shouldComponentUpdate: function(nextProps, nextState) {
-  //  console.log("SHOULD COMPONENT UPDATE", this.state.robots, nextProps, nextState)
-  //  //return nextProps.id !== this.props.id;
-  //  return true
-  //},
+    deleteRobot: function(robotId){
+      console.log("DELETE ROBOT #", robotId);
+      this.props.router.push("/");
+    },
 
-  componentWillUpdate: function(nextProps, nextState){
-    //console.log("COMPONENT WILL UPDATE")
-  },
+    render: function(){
+      var component = this; // maybe can remove this if child elements are translated into child components
 
-  //componentDidUpdate: function(nextProps, nextState){
-  //  console.log("COMPONENT DID UPDATE", nextProps, nextState)
-  //},
-
-  render: function(){
-    return (
-      <table className="table table-bordered table-hover table-responsive" style={{width:"100%"}}>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.robots.map( function(robot){
-              return (
-                <tr key={robot.id}>
-                  <td>{robot.id}</td>
-                  <td><Link to={'/robots/'+robot.id}>{robot.name}</Link></td>
-                  <td>{robot.description}</td>
-                  <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
-                  <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
-                  <td>
-                    <form action={ '/robots/'+robot.id+'/edit' } method='GET'>
-                      <button className='btn btn-warning' type='submit'>
+      return (
+        <table className="table table-bordered table-hover table-responsive" style={{width:"100%"}}>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.robots.map( function(robot){
+                return (
+                  <tr key={robot.id} data-robot-id={robot.id}>
+                    <td>{robot.id}</td>
+                    <td><Link to={'/robots/'+robot.id}>{robot.name}</Link></td>
+                    <td>{robot.description}</td>
+                    <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
+                    <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
+                    <td>
+                      <button className='btn btn-warning' onClick={ component.editRobot.bind(null, robot.id) }>
                         <span className="glyphicon glyphicon-pencil"></span> edit
                       </button>
-                    </form>
-                  </td>
-                  <td>
-                    <form action={ '/robots/'+robot.id+'/destroy' } method='POST'>
-                      <button className='btn btn-danger' type='submit'>
+                    </td>
+                    <td>
+                      <button className='btn btn-danger' onClick={ component.deleteRobot.bind(null, robot.id) }>
                         <span className="glyphicon glyphicon-trash"></span> delete
                       </button>
-                    </form>
-                  </td>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
-    )
-  }
-});
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      )
+    }
+  })
+)
 
 module.exports = RobotsTable;

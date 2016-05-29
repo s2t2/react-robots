@@ -19,6 +19,7 @@ ReactDOM.render(
       <Route path="robots" component={RobotsTable}/>
       <Route path="robots/new" component={RobotsForm}/>
       <Route path="robots/:id" component={RobotsTable}/>
+      <Route path="robots/:id/edit" component={RobotsForm}/>
     </Route>
   </Router>
 
