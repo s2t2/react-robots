@@ -27,17 +27,19 @@
   + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/auth-with-shared-root/components/Login.js#L13-L29
   + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/auth-flow/app.js#L68-L83
   + https://github.com/reactjs/react-router/blob/39a87cb777a44972683a3323c3adb86cef26797b/examples/master-detail/app.js#L126-L133
-  + https://facebook.github.io/react/docs/more-about-refs.html
   + https://facebook.github.io/react/docs/forms.html
-  + https://blog.iansinnott.com/managing-state-and-controlled-form-fields-with-react/
 
-### What is `this` and how to access component functions?
+
+### Debugging `this` and passing stuff between components
 
  + https://www.sitepoint.com/bind-javascripts-this-keyword-react/
  + https://facebook.github.io/react/tips/communicate-between-components.html
  + http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html
  + https://discuss.reactjs.org/t/how-do-i-get-data-from-a-child-component-into-onclick-of-a-button-passed-in-props/3170
  + https://groups.google.com/forum/#!topic/reactjs/Xv9_kVoJJOw
+ + https://facebook.github.io/react/docs/more-about-refs.html
+ + https://blog.iansinnott.com/managing-state-and-controlled-form-fields-with-react/
+ + http://stackoverflow.com/questions/24147331/react-the-right-way-to-pass-form-element-state-to-sibling-parent-elements
 
 ## Bootstrap
 
