@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import {getRobot} from '../helpers/RobotsFormHelper.js';
 import RobotsFormInputName from './RobotsFormInputName.jsx';
 import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
 import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';
@@ -10,50 +9,63 @@ var RobotsForm = withRouter (
   React.createClass({
 
     getInitialState: function() {
-      console.log("FORM - INITIAL STATE")
+      console.log("FORM - INITIAL STATE");
       return {
-        bot: getRobot(this.props.params)
+        bot: this.getRobot(this.props.params)
       };
     },
 
     componentWillMount: function(){
-      console.log("FORM -- WILL MOUNT", this.state)
+      console.log("FORM -- WILL MOUNT", this.state.bot);
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("FORM -- RECEIVE PROPS")
+      console.log("FORM -- RECEIVE PROPS");
       this.setState({
-        bot: getRobot(nextProps.params)
-      })
+        bot: this.getRobot(nextProps.params)
+      });
     },
 
     componentWillUpdate: function(nextProps, nextState){
-      console.log("FORM -- WILL UPDATE")
+      console.log("FORM -- WILL UPDATE", nextState.bot);
+    },
+
+    getRobot: function(paramz){
+      var bot = {name: "my bot", description: "does stuff"};
+      if (paramz.id) {
+        bot = {name: "bot #"+paramz.id, description:"todo: look this up!"} //TODO: database call
+      };
+      return bot;
+    },
+
+    setName: function(newName){
+      var bot = this.state.bot;
+      bot.name = newName;
+      console.log("SET ROBOT NAME:", bot);
+      this.setState({bot: bot});
+    },
+
+    setDescription: function(newDesc){
+      var bot = this.state.bot;
+      bot.description = newDesc;
+      console.log("SET ROBOT DESC:", bot);
+      this.setState({bot: bot});
     },
 
     submitForm: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
-
-      var name = this.refs.robotNameRef.value // Uncaught TypeError: Cannot read property 'value' of undefined
-      var desc = this.refs.robotDescriptionRef.value // Uncaught TypeError: Cannot read property 'value' of undefined
-      var bot = {
-        name: name,
-        description: desc
-      };
-      console.log("SET ROBOT:", bot);
-      this.setState({bot: bot});
-
-      console.log("FORM -- SUBMIT", this.state)
+      console.log("FORM -- SUBMIT", this.state.bot); //TODO: database call
       this.props.router.push('/');
     },
 
     render: function(){
+
       return (
         <form className="form-horizontal" onSubmit={this.submitForm}>
-          <RobotsFormInputName params={this.props.params}/>
-          <RobotsFormInputDescription params={this.props.params}/>
+          <RobotsFormInputName params={this.props.params} bot={this.state.bot} setName={this.setName}/>
+          <RobotsFormInputDescription params={this.props.params} bot={this.state.bot} setDescription={this.setDescription}/>
 
-          <RobotsFormSubmitButton/>
+          <RobotsFormSubmitButton bot={this.state.bot}/>
         </form>
       )
     }
