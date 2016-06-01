@@ -58,3 +58,8 @@
 ## Express JSON API
 
   + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
+
+## Mongo
+
+  + https://github.com/data-creative/express-on-rails-starter-app
+  + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-6b-express-mongodb-datastore/
