@@ -54,3 +54,7 @@
 ## Other
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
+
+## Express JSON API
+
+  + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
