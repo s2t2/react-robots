@@ -1,3 +1,4 @@
+var $ = require('jquery');
 var moment = require('moment-timezone');
 import React from 'react';
 import { Link, withRouter } from 'react-router';
@@ -12,7 +13,21 @@ var RobotsTableRow = withRouter (
 
     deleteRobot: function(robotId){
       console.log("DELETE ROBOT #", robotId);
-      this.props.router.push("/");
+      $.ajax({
+        url: '/api/robots/'+robotId+"/destroy",
+        method: "POST",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          this.setState({robots: [], flash: {success: "DELETED ROBOT"}});
+          this.props.router.push("/");
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+          this.setState({robots: [], flash: {danger: ["COULDN'T DELETE ROBOT #"+robotId]}});
+          this.props.router.push("/");
+        }.bind(this)
+      });
     },
 
     render: function(){

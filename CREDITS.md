@@ -60,6 +60,7 @@
   + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
   + http://stackoverflow.com/questions/10563644/how-to-specify-http-error-code
   + http://www.restapitutorial.com/httpstatuscodes.html
+  + http://api.jquery.com/jquery.ajax/
 
 ## Mongo
 

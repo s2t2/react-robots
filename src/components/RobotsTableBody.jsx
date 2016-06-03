@@ -9,12 +9,15 @@ var RobotsTableBody = withRouter (
 
     getInitialState: function() {
       console.log("TABLE BODY -- INITIAL STATE");
-      return {robots: []};
+      return {
+        robots: []
+        //, flash:{}
+      };
     },
 
-    componentWillMount: function(){
-      console.log("TABLE BODY -- WILL MOUNT");
-    },
+    //componentWillMount: function(){
+    //  console.log("TABLE BODY -- WILL MOUNT");
+    //},
 
     componentDidMount: function(){
       console.log("TABLE BODY -- DID MOUNT");
@@ -27,48 +30,43 @@ var RobotsTableBody = withRouter (
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-      console.log("TABLE BODY -- WILL UPDATE", nextProps.params, nextState.flash);
+      console.log("TABLE BODY -- WILL UPDATE -- PARAMS:", nextProps.params, "AND STATE:", nextState);
     },
 
     getRobots: function(paramz){
-      console.log("GET ROBOTS");
       if(paramz.id){
+        console.log("GET ROBOT");
         $.ajax({
           url: '/api/robots/'+paramz.id,
           dataType: 'json',
           cache: false,
           success: function(data) {
-            this.setState({robots: [data]}); // wrap the robot in an empty array to facilitate array mapping
+            console.log("SET ROBOT");
+            this.setState({robots: [data], flash: {success: ["FOUND ROBOT"]}});
           }.bind(this),
           error: function(xhr, status, err) {
-            console.error(this.props.url, status, err.toString());
-            this.setState({
-              flash: {
-                danger: ["COULDN'T FIND ROBOT #"+paramz.id]
-              }
-            });
+            console.log("COULDN'T SET ROBOT");
+            this.setState({robots: [], flash: {danger: ["COULDN'T FIND ROBOT #"+paramz.id]}});
             this.props.router.push("/");
           }.bind(this)
         });
       } else {
+        console.log("GET ROBOTS");
         $.ajax({
           url: '/api/robots',
           dataType: 'json',
           cache: false,
           success: function(data) {
-            this.setState({robots: data});
+            console.log("SET ROBOTS")
+            this.setState({robots: data, flash: {success: ["FOUND ROBOTS"]}});
           }.bind(this),
           error: function(xhr, status, err) {
-            console.error(this.props.url, status, err.toString());
-            this.setState({
-              flash: {
-                danger: ["COULDN'T FIND ROBOTS"]
-              }
-            });
+            console.log("COULDN'T SET ROBOTS");
+            console.log(this.props.url, status, err.toString());
+            this.setState({robots: [], flash: {danger: ["COULDN'T FIND ROBOTS"]}});
             this.props.router.push("/");
           }.bind(this)
         });
-
       };
     },
 

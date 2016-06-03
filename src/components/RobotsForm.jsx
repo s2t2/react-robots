@@ -15,9 +15,9 @@ var RobotsForm = withRouter (
       };
     },
 
-    componentWillMount: function(){
-      console.log("FORM -- WILL MOUNT", this.state.bot);
-    },
+    //componentWillMount: function(){
+    //  console.log("FORM -- WILL MOUNT", this.state.bot);
+    //},
 
     componentWillReceiveProps: function(nextProps) {
       console.log("FORM -- RECEIVE PROPS");
@@ -26,9 +26,9 @@ var RobotsForm = withRouter (
       });
     },
 
-    componentWillUpdate: function(nextProps, nextState){
-      console.log("FORM -- WILL UPDATE", nextState.bot);
-    },
+    //componentWillUpdate: function(nextProps, nextState){
+    //  console.log("FORM -- WILL UPDATE", nextState.bot);
+    //},
 
     getRobot: function(paramz){
       var bot = {name: "my bot", description: "does stuff"};

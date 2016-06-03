@@ -2,17 +2,17 @@ import React from 'react';
 
 var RobotsFormInputName = React.createClass({
 
-  componentWillMount: function(){
-    console.log("FORM NAME -- WILL MOUNT", this.props.bot);
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    console.log("FORM NAME -- RECEIVE PROPS", nextProps.bot);
-  },
-
-  componentWillUpdate: function(nextProps, nextState){
-    console.log("FORM NAME -- WILL UPDATE", nextProps.bot);
-  },
+  //componentWillMount: function(){
+  //  console.log("FORM NAME -- WILL MOUNT", this.props.bot);
+  //},
+//
+  //componentWillReceiveProps: function(nextProps) {
+  //  console.log("FORM NAME -- RECEIVE PROPS", nextProps.bot);
+  //},
+//
+  //componentWillUpdate: function(nextProps, nextState){
+  //  console.log("FORM NAME -- WILL UPDATE", nextProps.bot);
+  //},
 
   changeName(){
     var newName = this.refs.robotNameRef.value;
