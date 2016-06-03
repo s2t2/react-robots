@@ -10,8 +10,8 @@ var RobotsTableBody = withRouter (
     getInitialState: function() {
       console.log("TABLE BODY -- INITIAL STATE");
       return {
-        robots: []
-        //, flash:{}
+        robots: [],
+        flash: {}
       };
     },
 
@@ -42,7 +42,7 @@ var RobotsTableBody = withRouter (
           cache: false,
           success: function(data) {
             console.log("SET ROBOT");
-            this.setState({robots: [data], flash: {success: ["FOUND ROBOT"]}});
+            this.setState({robots: [data]});
           }.bind(this),
           error: function(xhr, status, err) {
             console.log("COULDN'T SET ROBOT");
@@ -58,11 +58,10 @@ var RobotsTableBody = withRouter (
           cache: false,
           success: function(data) {
             console.log("SET ROBOTS")
-            this.setState({robots: data, flash: {success: ["FOUND ROBOTS"]}});
+            this.setState({robots: data});
           }.bind(this),
           error: function(xhr, status, err) {
             console.log("COULDN'T SET ROBOTS");
-            console.log(this.props.url, status, err.toString());
             this.setState({robots: [], flash: {danger: ["COULDN'T FIND ROBOTS"]}});
             this.props.router.push("/");
           }.bind(this)
