@@ -4,6 +4,14 @@ var Robot = require("../models/robot");
 var robots = [
     {name:"c3po", description:"specializes in language translation"},
     {name:"r2d2", description:"holds a secret message"},
+    {name:"c3po", description:"specializes in language translation"},
+    {name:"r2d2", description:"holds a secret message"},
+    {name:"c3po", description:"specializes in language translation"},
+    {name:"r2d2", description:"holds a secret message"},
+    {name:"c3po", description:"specializes in language translation"},
+    {name:"r2d2", description:"holds a secret message"},
+    {name:"c3po", description:"specializes in language translation"},
+    {name:"r2d2", description:"holds a secret message"},
     {name:"bb8",  description:"rolls around"}
 ];
 

@@ -25,10 +25,10 @@ var App = React.createClass({
     return (
       {
         flash: {
-          //warning: ["this is a flash message"],
-          //danger: ["dangerous", "duo"],
-          //success: ["awesome", "hero"],
-          //info: []
+          warning: [],
+          danger: [],
+          success: [],
+          info: []
         }
       }
     )
@@ -39,7 +39,12 @@ var App = React.createClass({
     if(this.props.location.state){
       console.log("APP -- SET FLASH", this.props.location.state.flash)
       this.setState({
-        flash: this.props.location.state.flash
+        flash: {
+          warning: this.state.flash.warning.concat(this.props.location.state.flash.warning),
+          danger: this.state.flash.danger.concat(this.props.location.state.flash.danger),
+          success: this.state.flash.success.concat(this.props.location.state.flash.success),
+          info: this.state.flash.info.concat(this.props.location.state.flash.info),
+        }
       })
     }
 
@@ -50,7 +55,12 @@ var App = React.createClass({
     if (nextProps.location.state){
       console.log("APP -- SET FLASH", nextProps.location.state.flash)
       this.setState({
-        flash: nextProps.location.state.flash
+        flash: {
+          warning: this.state.flash.warning.concat(nextProps.location.state.flash.warning),
+          danger: this.state.flash.danger.concat(nextProps.location.state.flash.danger),
+          success: this.state.flash.success.concat(nextProps.location.state.flash.success),
+          info: this.state.flash.info.concat(nextProps.location.state.flash.info),
+        }
       })
     }
   },

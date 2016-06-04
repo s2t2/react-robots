@@ -1,8 +1,20 @@
 import React from 'react';
+var $ = require('jquery'); // avoids "Uncaught ReferenceError: $ is not defined"
+global.jQuery = require('jquery'); // avoids "Uncaught ReferenceError: jQuery is not defined"
+require('bootstrap');// avoids "Uncaught TypeError: $(...).alert is not a function"
 
 var Flash = React.createClass({
+  dismissMessage: function(){
+    console.log("DISMISS")
+    $().alert('close') // closes data-dismiss="alert" http://getbootstrap.com/javascript/#alerts-methods
+    //this.setState({
+    //  flash:{} //clear the flash
+    //});
+  },
+
   render: function(){
-    var flash = this.props.flashHash; // this.state.flash
+    var component = this;
+    var flash = component.props.flashHash //component.state.flash //this.props.flashHash; // this.state.flash
     //console.log("FLASH", flash)
     //var flashMessages = Object.keys(flash).map(function(messageType){
     var flashMessages = Object.keys(flash).map(function(messageType){
@@ -10,14 +22,18 @@ var Flash = React.createClass({
       //console.log("MESSAGES", messageType, messages);
       return (
         messages.map(function(messageContent){
-          var messageId = messages.indexOf(messageContent);
-          //console.log("MESSAGE #"+messageId , messageType, messageContent);
-          return (
-            <div key={messageType + "-" + messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert">
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              {messageContent}
-            </div>
-          );
+          if(messageContent){// temporary guard against undefined messages
+            var messageId = messages.indexOf(messageContent);
+            console.log("MESSAGE #"+messageId , messageType, messageContent);
+            return (
+              <div key={messageType + "-" + messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert">
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true" onClick={component.dismissMessage}>&times;</span>
+                </button>
+                {messageContent}
+              </div>
+            );
+          }
         })
       )
     });
