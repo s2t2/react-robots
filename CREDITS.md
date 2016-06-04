@@ -61,6 +61,8 @@
   + http://stackoverflow.com/questions/10563644/how-to-specify-http-error-code
   + http://www.restapitutorial.com/httpstatuscodes.html
   + http://api.jquery.com/jquery.ajax/
+  + http://stackoverflow.com/questions/26066785/proper-way-to-set-response-status-and-json-content-in-a-rest-api-made-with-nodej
+  + http://expressjs.com/en/4x/api.html
 
 ## Mongo
 

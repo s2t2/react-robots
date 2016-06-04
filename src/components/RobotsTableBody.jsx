@@ -10,8 +10,7 @@ var RobotsTableBody = withRouter (
     getInitialState: function() {
       console.log("TABLE BODY -- INITIAL STATE");
       return {
-        robots: [],
-        flash: {}
+        robots: []
       };
     },
 
@@ -45,9 +44,15 @@ var RobotsTableBody = withRouter (
             this.setState({robots: [data]});
           }.bind(this),
           error: function(xhr, status, err) {
+            console.error(xhr, status, err);
             console.log("COULDN'T SET ROBOT");
-            this.setState({robots: [], flash: {danger: ["COULDN'T FIND ROBOT #"+paramz.id]}});
-            this.props.router.push("/");
+            this.props.router.push({
+              pathname: '/',
+              state: {
+                robots: [],
+                flash: {danger: ["Couldn't find robot #"+paramz.id]}
+              }
+            });
           }.bind(this)
         });
       } else {
@@ -61,9 +66,15 @@ var RobotsTableBody = withRouter (
             this.setState({robots: data});
           }.bind(this),
           error: function(xhr, status, err) {
+            console.error(xhr, status, err);
             console.log("COULDN'T SET ROBOTS");
-            this.setState({robots: [], flash: {danger: ["COULDN'T FIND ROBOTS"]}});
-            this.props.router.push("/");
+            this.props.router.push({
+              pathname: '/',
+              state: {
+                robots: [],
+                flash: {danger: ["Couldn't find any robots"]}
+              }
+            });
           }.bind(this)
         });
       };

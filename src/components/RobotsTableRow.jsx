@@ -19,13 +19,17 @@ var RobotsTableRow = withRouter (
         dataType: 'json',
         cache: false,
         success: function(data) {
-          this.setState({robots: [], flash: {success: "DELETED ROBOT"}});
-          this.props.router.push("/");
+          this.props.router.push({
+            pathname: '/',
+            state: {robots: [], flash: {success: ["Deleted robot #"+robotId]}}
+          });
         }.bind(this),
         error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-          this.setState({robots: [], flash: {danger: ["COULDN'T DELETE ROBOT #"+robotId]}});
-          this.props.router.push("/");
+          console.error(xhr, status, err);
+          this.props.router.push({
+            pathname: '/',
+            state: {robots: [], flash: {danger: ["Couldn't delete robot #"+robotId]}}
+          });
         }.bind(this)
       });
     },
