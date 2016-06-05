@@ -55,7 +55,7 @@
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
 
-## Express JSON API
+## Express JSON API and AJAX
 
   + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
   + http://stackoverflow.com/questions/10563644/how-to-specify-http-error-code
@@ -63,6 +63,14 @@
   + http://api.jquery.com/jquery.ajax/
   + http://stackoverflow.com/questions/26066785/proper-way-to-set-response-status-and-json-content-in-a-rest-api-made-with-nodej
   + http://expressjs.com/en/4x/api.html
+  + http://andrewhfarmer.com/ajax-libraries/
+  + http://andrewhfarmer.com/react-ajax-best-practices/
+
+## Socket.io
+
+  + http://stackoverflow.com/questions/20892324/node-js-how-to-pass-mongoose-results-to-my-socket-emit
+  + http://socket.io/
+  + https://github.com/socketio/socket.io
 
 ## Mongo
 

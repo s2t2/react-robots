@@ -2,24 +2,6 @@ import React from 'react';
 
 var RobotsFormInputDescription = React.createClass({
 
-  //componentWillMount: function(){
-  //  console.log("FORM DESC -- WILL MOUNT", this.props.bot);
-  //},
-//
-  //componentWillReceiveProps: function(nextProps) {
-  //  console.log("FORM DESC -- RECEIVE PROPS", nextProps.bot);
-  //},
-//
-  //componentWillUpdate: function(nextProps, nextState){
-  //  console.log("FORM DESC -- WILL UPDATE", nextProps.bot);
-  //},
-
-  changeDescription(){
-    var newDescription = this.refs.robotDescriptionRef.value;
-    console.log("CHANGE DESC", newDescription);
-    this.props.setDescription(newDescription);
-  },
-
   render: function(){
     return (
       <div className="form-group">
@@ -29,6 +11,32 @@ var RobotsFormInputDescription = React.createClass({
         </div>
       </div>
     )
+  },
+
+  //
+  // EVENT LIFECYCLE
+  //
+
+  componentWillMount: function(){
+    console.log("FORM DESC -- WILL MOUNT", this.props.bot);
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    console.log("FORM DESC -- RECEIVE PROPS", nextProps.bot);
+  },
+
+  componentWillUpdate: function(nextProps, nextState){
+    console.log("FORM DESC -- WILL UPDATE", nextProps.bot);
+  },
+
+  //
+  // MY FUNCTIONS
+  //
+
+  changeDescription(){
+    var newDescription = this.refs.robotDescriptionRef.value;
+    console.log("CHANGE DESC", newDescription);
+    this.props.setDescription(newDescription);
   }
 });
 

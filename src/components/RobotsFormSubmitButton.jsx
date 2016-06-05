@@ -1,23 +1,6 @@
 import React from 'react';
 
 var RobotsFormSubmitButton = React.createClass({
-
-  //componentWillMount: function(){
-  //  console.log("FORM SUBMIT -- WILL MOUNT", this.props.bot)
-  //},
-//
-  //componentWillReceiveProps: function(nextProps) {
-  //  console.log("FORM SUBMIT -- RECEIVE PROPS", nextProps.bot)
-  //},
-//
-  //componentWillUpdate: function(nextProps, nextState){
-  //  console.log("FORM SUBMIT -- WILL UPDATE", nextProps.bot)
-  //},
-
-  clickSubmit: function(){
-    console.log("FORM SUBMIT -- CLICK", this.props.bot)
-  },
-
   render: function(){
     return (
       <div className="form-group">
@@ -26,6 +9,30 @@ var RobotsFormSubmitButton = React.createClass({
         </div>
       </div>
     )
+  },
+
+  //
+  // EVENT LIFECYCLE
+  //
+
+  componentWillMount: function(){
+    console.log("FORM SUBMIT WILL MOUNT", this.props.bot)
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    console.log("FORM SUBMIT DID RECEIVE PROPS", nextProps.bot)
+  },
+
+  componentWillUpdate: function(nextProps, nextState){
+    console.log("FORM SUBMIT WILL UPDATE", nextProps.bot)
+  },
+
+  //
+  // MY FUNCTIONS
+  //
+
+  clickSubmit: function(){
+    console.log("SUBMIT", this.props.bot)
   }
 });
 

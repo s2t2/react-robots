@@ -1,25 +1,6 @@
 import React from 'react';
 
 var RobotsFormInputName = React.createClass({
-
-  //componentWillMount: function(){
-  //  console.log("FORM NAME -- WILL MOUNT", this.props.bot);
-  //},
-//
-  //componentWillReceiveProps: function(nextProps) {
-  //  console.log("FORM NAME -- RECEIVE PROPS", nextProps.bot);
-  //},
-//
-  //componentWillUpdate: function(nextProps, nextState){
-  //  console.log("FORM NAME -- WILL UPDATE", nextProps.bot);
-  //},
-
-  changeName(){
-    var newName = this.refs.robotNameRef.value;
-    console.log("CHANGE NAME", newName);
-    this.props.setName(newName);
-  },
-
   render: function(){
     return (
       <div className="form-group">
@@ -29,6 +10,32 @@ var RobotsFormInputName = React.createClass({
         </div>
       </div>
     )
+  },
+
+  //
+  // EVENT LIFECYCLE
+  //
+
+  componentWillMount: function(){
+    console.log("FORM NAME -- WILL MOUNT", this.props.bot);
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    console.log("FORM NAME -- RECEIVE PROPS", nextProps.bot);
+  },
+
+  componentWillUpdate: function(nextProps, nextState){
+    console.log("FORM NAME -- WILL UPDATE", nextProps.bot);
+  },
+
+  //
+  // MY FUNCTIONS
+  //
+
+  changeName(){
+    var newName = this.refs.robotNameRef.value;
+    console.log("CHANGE NAME", newName);
+    this.props.setName(newName);
   }
 });
 
