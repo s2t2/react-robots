@@ -7,7 +7,6 @@ import Footer from './Footer.jsx';
 
 var App = React.createClass({
   render: function(){
-
     return (
       <div>
         <Flash flashHash={this.state.flash}/>
@@ -20,54 +19,79 @@ var App = React.createClass({
     )
   },
 
+  emptyFlash: {
+    flash: {
+      warning: ["one","two"],
+      danger: ["dangerous", "duo"],
+      success: ["great"],
+      info: [],
+    }
+  },
+
+  testFlash: {
+    flash: {
+      warning: ["one","two"],
+      danger: ["dangerous", "duo"],
+      success: ["great"],
+      info: [],
+    }
+  },
+
+  //
+  // EVENT LIFECYCLE
+  //
+
   getInitialState: function(){
-    console.log("APP -- INITIAL STATE");
-    return (
-      {
-        flash: {
-          warning: [],
-          danger: [],
-          success: [],
-          info: []
-        }
-      }
-    )
+    console.log("APP GET INITIAL STATE");
+    return (this.testFlash) // (this.emptyFlash)
   },
 
   componentDidMount: function(){
-    console.log("APP -- DID MOUNT", this.props, this.state);
-    if(this.props.location.state){
-      console.log("APP -- SET FLASH", this.props.location.state.flash)
-      this.setState({
-        flash: {
-          warning: this.state.flash.warning.concat(this.props.location.state.flash.warning),
-          danger: this.state.flash.danger.concat(this.props.location.state.flash.danger),
-          success: this.state.flash.success.concat(this.props.location.state.flash.success),
-          info: this.state.flash.info.concat(this.props.location.state.flash.info),
-        }
-      })
-    }
-
+    console.log("APP DID MOUNT");
+    this.setFlash(this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("APP -- RECEIVE PROPS", nextProps )
-    if (nextProps.location.state){
-      console.log("APP -- SET FLASH", nextProps.location.state.flash)
-      this.setState({
-        flash: {
-          warning: this.state.flash.warning.concat(nextProps.location.state.flash.warning),
-          danger: this.state.flash.danger.concat(nextProps.location.state.flash.danger),
-          success: this.state.flash.success.concat(nextProps.location.state.flash.success),
-          info: this.state.flash.info.concat(nextProps.location.state.flash.info),
-        }
-      })
-    }
+    console.log("APP WILL RECEIVE PROPS")
+    this.setFlash(nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("APP WILL UPDATE", nextProps, nextState)
+    console.log("APP WILL UPDATE")
   },
+
+  //
+  // MY FUNCTIONS
+  //
+
+  setFlash: function(propz){
+    if (propz.location.state){
+      console.log("SETTING FLASH", this.state.flash, propz.location.state.flash)
+      var warning = [], danger = [], success = [], info = [];
+      if(propz.location.state.flash.warning){
+        warning = propz.location.state.flash.warning
+      }
+      if(propz.location.state.flash.danger){
+        danger = propz.location.state.flash.danger
+      }
+      if(propz.location.state.flash.success){
+        success = propz.location.state.flash.success
+      }
+      if(propz.location.state.flash.info){
+        info = propz.location.state.flash.info
+      }
+      this.setState({
+        flash: {
+          warning: this.state.flash.warning.concat(warning),
+          danger: this.state.flash.danger.concat(danger),
+          success: this.state.flash.success.concat(success),
+          info: this.state.flash.info.concat(info),
+        }
+      })
+    } else {
+      console.log("NOT SETTING FLASH");
+    }
+  }
 });
 
 module.exports = App;
