@@ -1,39 +1,28 @@
 import React from 'react';
-var $ = require('jquery'); // avoids "Uncaught ReferenceError: $ is not defined"
-global.jQuery = require('jquery'); // avoids "Uncaught ReferenceError: jQuery is not defined"
-require('bootstrap');// avoids "Uncaught TypeError: $(...).alert is not a function"
 
 var Flash = React.createClass({
-  dismissMessage: function(){
-    console.log("DISMISS")
-    $().alert('close') // closes data-dismiss="alert" http://getbootstrap.com/javascript/#alerts-methods
-    //this.setState({
-    //  flash:{} //clear the flash
-    //});
-  },
-
   render: function(){
     var component = this;
-    var flash = component.props.flashHash //component.state.flash //this.props.flashHash; // this.state.flash
-    //console.log("FLASH", flash)
-    //var flashMessages = Object.keys(flash).map(function(messageType){
+    var flash = component.props.flashHash;
+    console.log("FLASH", flash)
     var flashMessages = Object.keys(flash).map(function(messageType){
       var messages = flash[messageType];
       //console.log("MESSAGES", messageType, messages);
       return (
         messages.map(function(messageContent){
-          if(messageContent){// temporary guard against undefined messages
-            var messageId = messages.indexOf(messageContent);
-            console.log("MESSAGE #"+messageId , messageType, messageContent);
-            return (
-              <div key={messageType + "-" + messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert">
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true" onClick={component.dismissMessage}>&times;</span>
-                </button>
-                {messageContent}
-              </div>
-            );
-          }
+          var messageIndex = messages.indexOf(messageContent);
+          var messageId = messageType + "-" + messageIndex;
+          //console.log("MESSAGE #"+messageId, messageContent);
+          return (
+            <div key={messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert" data-message-id={messageId}>
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" onClick={component.dismissMessage.bind(null, messageId)}>
+                  &times;
+                </span>
+              </button>
+              {messageContent}
+            </div>
+          );
         })
       )
     });
@@ -44,43 +33,54 @@ var Flash = React.createClass({
     )
   },
 
-  //getInitialState: function(){
-  //  console.log("FLASH -- INITIAL STATE");
-  //  return (
-  //    {
-  //      flash: {
-  //        //warning: ["this is a flash message"],
-  //        //danger: ["dangerous", "duo"],
-  //        //success: ["awesome", "hero"],
-  //        //info: []
-  //      }
-  //    }
-  //  )
-  //},
+  //
+  // EVENT LIFECYCLE
+  //
 
   componentDidMount: function(){
-    console.log("FLASH -- DID MOUNT", this.props, this.state);
-    //if(this.props.location){
-    //  this.setState({
-    //    flash: this.props.location.state.flash
-    //  })
-    //}
-
+    console.log("FLASH DID MOUNT");
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    console.log("FLASH -- RECEIVE PROPS", nextProps );
-
-    //if (nextProps.location){
-    //  this.setState({
-    //    flash: nextProps.location.state.flash
-    //  })
-    //}
-
+  componentWillReceiveProps: function(nextProps){
+    console.log("FLASH WILL RECEIVE PROPS");
   },
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("FLASH WILL UPDATE", nextProps, nextState)
+    console.log("FLASH WILL UPDATE");
+  },
+
+  //
+  // MY FUNCTIONS
+  //
+
+  dismissMessage: function(messageId){
+    console.log("DISMISS MESSAGE", messageId);
+
+    // remove this element from the document
+    //$().alert('close') // closes data-dismiss="alert" http://getbootstrap.com/javascript/#alerts-methods
+    var messageDiv = document.querySelector("[data-message-id='" + messageId + "']"); // selector like ... "[data-message-id='warning-0']"
+    console.log(typeof messageDiv)
+    if (messageDiv){
+      console.log("REMOVING", messageId)
+      messageDiv.remove(); // this is unnecessary?
+    } else {
+      console.log("ALREADY REMOVED", messageId)
+    }
+
+
+
+    // remove this message from the flash
+    //this.props.removeFromFlash(messageId)
+    //console.log("REMOVING FROM FLASH")
+
+    //this.props.resetFlash();
+
+
+
+
+
+
+
   }
 });
 
