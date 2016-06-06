@@ -11,12 +11,13 @@ var Flash = React.createClass({
       return (
         messages.map(function(messageContent){
           var messageIndex = messages.indexOf(messageContent);
+          var dismissalParams = {messageType: messageType, messageIndex: messageIndex};
           var messageId = messageType + "-" + messageIndex;
-          //console.log("MESSAGE #"+messageId, messageContent);
+          //console.log("MESSAGE", messageId, messageContent);
           return (
-            <div key={messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert" data-message-id={messageId}>
+            <div key={messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert">
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true" onClick={component.dismissMessage.bind(null, messageId)}>
+                <span aria-hidden="true" onClick={component.dismissMessage.bind(null, dismissalParams)}>
                   &times;
                 </span>
               </button>
@@ -55,32 +56,7 @@ var Flash = React.createClass({
 
   dismissMessage: function(messageId){
     console.log("DISMISS MESSAGE", messageId);
-
-    // remove this element from the document
-    //$().alert('close') // closes data-dismiss="alert" http://getbootstrap.com/javascript/#alerts-methods
-    var messageDiv = document.querySelector("[data-message-id='" + messageId + "']"); // selector like ... "[data-message-id='warning-0']"
-    console.log(typeof messageDiv)
-    if (messageDiv){
-      console.log("REMOVING", messageId)
-      messageDiv.remove(); // this is unnecessary?
-    } else {
-      console.log("ALREADY REMOVED", messageId)
-    }
-
-
-
-    // remove this message from the flash
-    //this.props.removeFromFlash(messageId)
-    //console.log("REMOVING FROM FLASH")
-
-    //this.props.resetFlash();
-
-
-
-
-
-
-
+    this.props.removeFromFlash(messageId);
   }
 });
 

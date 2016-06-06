@@ -9,7 +9,7 @@ var App = React.createClass({
   render: function(){
     return (
       <div>
-        <Flash flashHash={this.state.flash}/>
+        <Flash flashHash={this.state.flash} removeFromFlash={this.removeFromFlash}/>
         <Header title="Robots App!" />
         <PageHeader title="Robots" />
         {this.props.children}
@@ -20,21 +20,17 @@ var App = React.createClass({
   },
 
   emptyFlash: {
-    flash: {
-      warning: ["one","two"],
-      danger: ["dangerous", "duo"],
-      success: ["great"],
-      info: [],
-    }
+    warning: [],
+    danger: [],
+    success: [],
+    info: [],
   },
 
   testFlash: {
-    flash: {
-      warning: ["one","two"],
-      danger: ["dangerous", "duo"],
-      success: ["great"],
-      info: [],
-    }
+    warning: ["one","two"],
+    danger: ["dangerous", "duo"],
+    success: ["great"],
+    info: [],
   },
 
   //
@@ -43,7 +39,7 @@ var App = React.createClass({
 
   getInitialState: function(){
     console.log("APP GET INITIAL STATE");
-    return (this.testFlash) // (this.emptyFlash)
+    return ({flash: this.testFlash})
   },
 
   componentDidMount: function(){
@@ -64,6 +60,7 @@ var App = React.createClass({
   // MY FUNCTIONS
   //
 
+  // todo: re-write
   setFlash: function(propz){
     if (propz.location.state){
       console.log("SETTING FLASH", this.state.flash, propz.location.state.flash)
@@ -91,7 +88,34 @@ var App = React.createClass({
     } else {
       console.log("NOT SETTING FLASH");
     }
-  }
+  },
+
+  /* TEST:
+      var flash = {
+        warning: ["one","two"],
+        danger: ["dangerous", "duo"],
+        success: ["great"],
+        info: [],
+      }
+      var i = flash.danger.indexOf("duo")
+      flash.danger //> ["dangerous", "duo"]
+      flash.danger.splice(i, 1)
+      flash.danger //> ["dangerous"]
+  */
+  // @params [Object] options
+  // @params [Object] options [String] messageType The name of the message's contextual array.
+  // @params [Object] options [String] messageIndex The message's index within its contextual array.
+  // @example removeFromFlash({messageType: "danger", messageindex: 0})
+  removeFromFlash: function(options){
+    console.log("REMOVE FROM FLASH", options.messageType, options.messageIndex)
+    var flash = this.state.flash;
+    flash[options.messageType].splice(options.messageIndex, 1)
+    this.setState({flash: flash});
+  },
+
+  //overwriteFlash function(newFlash){
+  //  this.setState({flash: newFlash})
+  //}
 });
 
 module.exports = App;

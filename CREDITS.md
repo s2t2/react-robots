@@ -47,9 +47,10 @@
   + https://github.com/webpack/css-loader/issues/151
   + https://github.com/webpack/css-loader/issues/38#issuecomment-72287584
 
-## JSX
+## JSX and JavasScript
 
   + http://wesbos.com/react-jsx-comments/
+  + http://www.w3schools.com/js/js_array_methods.asp
 
 ## Other
 
