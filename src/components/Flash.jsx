@@ -4,7 +4,7 @@ var Flash = React.createClass({
   render: function(){
     var component = this;
     var flash = component.props.flashHash;
-    console.log("FLASH", flash)
+    //console.log("FLASH", flash)
     var flashMessages = Object.keys(flash).map(function(messageType){
       var messages = flash[messageType];
       //console.log("MESSAGES", messageType, messages);

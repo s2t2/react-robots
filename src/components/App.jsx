@@ -39,30 +39,35 @@ var App = React.createClass({
 
   getInitialState: function(){
     console.log("APP GET INITIAL STATE");
-    return ({flash: this.testFlash})
+    return ({flash: this.emptyFlash})
   },
 
   componentDidMount: function(){
-    console.log("APP DID MOUNT");
+    console.log("APP DID MOUNT", this.props.location.state.flash);
     this.setFlash(this.props);
+    //this.clearProps(this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("APP WILL RECEIVE PROPS")
+    console.log("APP WILL RECEIVE PROPS", nextProps.location.state.flash)
     this.setFlash(nextProps);
+    //this.clearProps(nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("APP WILL UPDATE")
+    console.log("APP WILL UPDATE", this.props.location.state.flash, nextProps.location.state.flash)
+  },
+
+  componentDidUpdate: function(prevProps, prevState){
+    console.log("APP DID UPDATE", prevProps.location.state.flash, this.props.location.state.flash)
   },
 
   //
   // MY FUNCTIONS
   //
 
-  // todo: re-write
   setFlash: function(propz){
-    if (propz.location.state){
+    if (propz && propz.location && propz.location.state && propz.location.state.flash){
       console.log("SETTING FLASH", this.state.flash, propz.location.state.flash)
       var warning = [], danger = [], success = [], info = [];
       if(propz.location.state.flash.warning){
@@ -88,6 +93,11 @@ var App = React.createClass({
     } else {
       console.log("NOT SETTING FLASH");
     }
+  },
+
+  clearProps: function(propz){
+    console.log("REMOVE MESSAGE FROM PROPS")
+    propz.location.state.flash = this.emptyFlash
   },
 
   // Remove a given flash message from state.
