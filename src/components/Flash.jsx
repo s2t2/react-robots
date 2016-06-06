@@ -11,13 +11,13 @@ var Flash = React.createClass({
       return (
         messages.map(function(messageContent){
           var messageIndex = messages.indexOf(messageContent);
-          var dismissalParams = {messageType: messageType, messageIndex: messageIndex};
+          var messageParams = {messageType: messageType, messageIndex: messageIndex};
           var messageId = messageType + "-" + messageIndex;
           //console.log("MESSAGE", messageId, messageContent);
           return (
             <div key={messageId} className={"alert alert-" + messageType + " alert-dismissible"} role="alert">
               <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true" onClick={component.dismissMessage.bind(null, dismissalParams)}>
+                <span aria-hidden="true" onClick={component.props.removeFromFlash.bind(null, messageParams)}>
                   &times;
                 </span>
               </button>
@@ -48,15 +48,6 @@ var Flash = React.createClass({
 
   componentWillUpdate: function(nextProps, nextState){
     console.log("FLASH WILL UPDATE");
-  },
-
-  //
-  // MY FUNCTIONS
-  //
-
-  dismissMessage: function(messageId){
-    console.log("DISMISS MESSAGE", messageId);
-    this.props.removeFromFlash(messageId);
   }
 });
 

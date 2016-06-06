@@ -90,32 +90,17 @@ var App = React.createClass({
     }
   },
 
-  /* TEST:
-      var flash = {
-        warning: ["one","two"],
-        danger: ["dangerous", "duo"],
-        success: ["great"],
-        info: [],
-      }
-      var i = flash.danger.indexOf("duo")
-      flash.danger //> ["dangerous", "duo"]
-      flash.danger.splice(i, 1)
-      flash.danger //> ["dangerous"]
-  */
-  // @params [Object] options
-  // @params [Object] options [String] messageType The name of the message's contextual array.
-  // @params [Object] options [String] messageIndex The message's index within its contextual array.
+  // Remove a given flash message from state.
+  // @params [Object] messageParams
+  // @params [Object] messageParams [String] messageType The name of the message's contextual array.
+  // @params [Object] messageParams [String] messageIndex The message's index within its contextual array.
   // @example removeFromFlash({messageType: "danger", messageindex: 0})
-  removeFromFlash: function(options){
-    console.log("REMOVE FROM FLASH", options.messageType, options.messageIndex)
+  removeFromFlash: function(messageParams){
+    console.log("REMOVE FROM FLASH", messageParams.messageType, messageParams.messageIndex)
     var flash = this.state.flash;
-    flash[options.messageType].splice(options.messageIndex, 1)
+    flash[messageParams.messageType].splice(messageParams.messageIndex, 1);
     this.setState({flash: flash});
-  },
-
-  //overwriteFlash function(newFlash){
-  //  this.setState({flash: newFlash})
-  //}
+  }
 });
 
 module.exports = App;
