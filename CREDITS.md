@@ -51,6 +51,7 @@
 
   + http://wesbos.com/react-jsx-comments/
   + http://www.w3schools.com/js/js_array_methods.asp
+  + http://stackoverflow.com/questions/20003676/how-to-get-current-index-in-array-prototype-map
 
 ## Other
 

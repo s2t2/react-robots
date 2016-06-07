@@ -9,8 +9,7 @@ var Flash = React.createClass({
       var messages = flash[messageType];
       //console.log("MESSAGES", messageType, messages);
       return (
-        messages.map(function(messageContent){
-          var messageIndex = messages.indexOf(messageContent);
+        messages.map(function(messageContent, messageIndex){
           var messageParams = {messageType: messageType, messageIndex: messageIndex};
           var messageId = messageType + "-" + messageIndex;
           //console.log("MESSAGE", messageId, messageContent);
