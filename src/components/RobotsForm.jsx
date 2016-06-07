@@ -26,8 +26,8 @@ var RobotsForm = withRouter (
     getInitialState: function() {
       console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.determineRobot(this.props),
-        formAction: this.determineFormAction(this.props)
+        bot: this.defaultBot(),
+        formAction: this.formAction(this.props)
       };
     },
 
@@ -35,11 +35,14 @@ var RobotsForm = withRouter (
       console.log("FORM WILL MOUNT", this.state.bot);
     },
 
+    componentDidMount: function(){
+      console.log("FORM DID MOUNT", this.state.bot);
+      this.determineRobot(this.props);
+    },
+
     componentWillReceiveProps: function(nextProps) {
       console.log("FORM WILL RECEIVE PROPS");
-      this.setState({
-        bot: this.determineRobot(nextProps)
-      });
+      this.determineRobot(nextProps);
     },
 
     componentWillUpdate: function(nextProps, nextState){
@@ -50,7 +53,11 @@ var RobotsForm = withRouter (
     // MY FUNCTIONS
     //
 
-    determineFormAction: function(propz){
+    defaultBot: function(){
+      return {name:"", description:""}
+    },
+
+    formAction: function(propz){
       console.log("FORM DETERMINING ACTION BASED ON PROPS", propz)
       var formAction = (propz.params && propz.params.id) ? "UPDATE_ROBOT" : "CREATE_ROBOT";
       return formAction;
@@ -58,22 +65,45 @@ var RobotsForm = withRouter (
 
     determineRobot: function(propz){
       console.log("FORM DETERMINING ROBOT BASED ON PROPS", propz)
-      var bot;
-      if(propz.location && propz.location.state && propz.location.state.formBot){
-        // PREVIOUS FORM VALUES (NEW / EDIT)
-        bot = propz.location.state.formBot;
-      } else if (propz.location && propz.location.state && propz.location.state.showBot) {
-        // PREVIOUS SHOW PAGE VALUES (EDIT)
-        bot = propz.location.state.showBot;
-      } else if (propz.params && propz.params.id) {
-        // DATABASE VALUES (EDIT)
-        bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
-        //bot = {name: "my bot", description: "does stuff"} // this.getRobot(propz.params.id);
-      } else {
-        // DEFAULT VALUES (NEW)
-        bot = {name: "my bot", description: "does stuff"}
+      if(propz.location && propz.location.state && propz.location.state.formBot){ // PREVIOUS FORM VALUES (NEW / EDIT)
+        this.setState({
+          bot: propz.location.state.formBot
+        });
+      } else if (propz.location && propz.location.state && propz.location.state.showBot) { // PREVIOUS SHOW PAGE VALUES (EDIT)
+        this.setState({
+          bot: propz.location.state.showBot
+        });
+      } else if (propz.params && propz.params.id) { // DATABASE VALUES (EDIT)
+        this.setRobot(propz.params.id);
+      } else { // DEFAULT VALUES (NEW)
+        this.setState({
+          bot: this.defaultBot()
+        });
       }
-      return bot;
+    },
+
+    setRobot: function(robotId){
+      var requestUrl = '/api/robots/'+robotId;
+      console.log("AJAX REQUEST", requestUrl)
+      $.ajax({
+        url: requestUrl,
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          console.log("REQUEST SUCCESS", data);
+          this.setState({bot: data});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log("REQUEST ERROR", xhr, status, err);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              robots: [],
+              flash: {danger: ["Couldn't find robot #"+robotId]}
+            }
+          });
+        }.bind(this)
+      });
     },
 
     setName: function(newName){

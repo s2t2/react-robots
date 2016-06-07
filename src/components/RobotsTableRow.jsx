@@ -44,23 +44,24 @@ var RobotsTableRow = withRouter (
     },
 
     deleteRobot: function(robotId){
-      console.log("DELETE ROBOT #", robotId);
+      var requestUrl = '/api/robots/'+robotId+"/destroy";
+      console.log("AJAX REQUEST", requestUrl);
       $.ajax({
-        url: '/api/robots/'+robotId+"/destroy",
+        url: requestUrl,
         method: "POST",
         dataType: 'json',
         cache: false,
         success: function(data) {
           this.props.router.push({
             pathname: '/',
-            state: {robots: [], flash: {success: ["Deleted robot #"+robotId]}}
+            state: {flash: {success: ["Deleted robot #"+robotId]}}
           });
         }.bind(this),
         error: function(xhr, status, err) {
           console.error(xhr, status, err);
           this.props.router.push({
             pathname: '/',
-            state: {robots: [], flash: {danger: ["Couldn't delete robot #"+robotId]}}
+            state: {flash: {danger: ["Couldn't delete robot #"+robotId]}}
           });
         }.bind(this)
       });
