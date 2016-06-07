@@ -26,7 +26,7 @@ var RobotsForm = withRouter (
     getInitialState: function() {
       console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.getRobot(this.props.params)
+        bot: this.getRobot(this.props)
       };
     },
 
@@ -37,7 +37,7 @@ var RobotsForm = withRouter (
     componentWillReceiveProps: function(nextProps) {
       console.log("FORM WILL RECEIVE PROPS");
       this.setState({
-        bot: this.getRobot(nextProps.params)
+        bot: this.getRobot(nextProps)
       });
     },
 
@@ -49,11 +49,17 @@ var RobotsForm = withRouter (
     // MY FUNCTIONS
     //
 
-    getRobot: function(paramz){
+    getRobot: function(propz){
+      console.log("GETTING ROBOT BASED ON PROPS", propz, propz.params)
+
       var bot = {name: "my bot", description: "does stuff"};
-      if (paramz.id) {
-        bot = {name: "bot #"+paramz.id, description:"todo: look this up!"} //TODO: database call
+
+      if(propz.location && propz.location.state && propz.location.state.formBot){
+        bot = propz.location.state.formBot;
+      } else if (propz.params.id) {
+        bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
       };
+
       return bot;
     },
 
@@ -95,10 +101,12 @@ var RobotsForm = withRouter (
         error: function(xhr, status, err) {
           console.log(xhr, status, err);
           var errorMessages = xhr.responseJSON.errors;
+          var formBot = xhr.responseJSON.bot;
           this.props.router.push({
             pathname: '/robots/new',
             state: {
-              flash: {warning: errorMessages}
+              flash: {warning: errorMessages},
+              formBot: formBot
             }
           });
         }.bind(this)
