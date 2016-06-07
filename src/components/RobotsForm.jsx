@@ -26,7 +26,8 @@ var RobotsForm = withRouter (
     getInitialState: function() {
       console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.getRobot(this.props)
+        bot: this.getRobot(this.props),
+        formAction: this.determineFormAction(this.props)
       };
     },
 
@@ -49,17 +50,22 @@ var RobotsForm = withRouter (
     // MY FUNCTIONS
     //
 
+    determineFormAction: function(propz){
+      console.log("DETERMINING FORM ACTION BASED ON PROPS", propz)
+      var formAction = (propz.params && propz.params.id) ? "UPDATE_ROBOT" : "CREATE_ROBOT";
+      return formAction;
+    },
+
     getRobot: function(propz){
-      console.log("GETTING ROBOT BASED ON PROPS", propz, propz.params)
-
-      var bot = {name: "my bot", description: "does stuff"};
-
-      if(propz.location && propz.location.state && propz.location.state.formBot){
+      console.log("GETTING ROBOT BASED ON PROPS", propz)
+      var bot;
+      if(propz.location && propz.location.state && propz.location.state.formBot){ // NEW OR EDIT ROBOT - PREVIOUS FORM VALUES
         bot = propz.location.state.formBot;
-      } else if (propz.params.id) {
+      } else if (propz.params && propz.params.id) { // EDIT ROBOT - DATABASE VALUES
         bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
-      };
-
+      } else { // NEW ROBOT - DEFAULT VALUES
+        bot = {name: "my bot", description: "does stuff"}
+      }
       return bot;
     },
 
@@ -79,7 +85,18 @@ var RobotsForm = withRouter (
 
     submitForm: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
-      console.log("SUBMITTING FORM DATA", this.state.bot);
+      console.log("SUBMITTING FORM DATA", this.state.bot, "WITH ACTION", this.state.formAction);
+      switch (this.state.formAction) {
+        case "CREATE_ROBOT":
+          this.createRobot()
+          break;
+        case "UPDATE_ROBOT":
+          this.updateRobot()
+          break;
+      };
+    },
+
+    createRobot(){
       $.ajax({
         url: "api/robots",
         method: "POST",
@@ -111,6 +128,10 @@ var RobotsForm = withRouter (
           });
         }.bind(this)
       });
+    },
+
+    updateRobot(){
+      console.log("UPDATING ... TODO")
     }
   })
 );
