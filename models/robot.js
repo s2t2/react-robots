@@ -20,13 +20,13 @@ var RobotSchema = new Schema(
   }
 );
 
-RobotSchema.statics.devRobots = [
+RobotSchema.statics.productionRobots = [
   {name:"c3po", description:"specializes in language translation"},
   {name:"r2d2", description:"holds a secret message"},
   {name:"bb8",  description:"rolls around"}
 ];
 
-RobotSchema.statics.testRobots = [
+RobotSchema.statics.devRobots = [
   {name:"c3po", description:"specializes in language translation"},
   {name:"r2d2", description:"holds a secret message"},
   {name:"c3po", description:"specializes in language translation"},

@@ -35,7 +35,8 @@ router.post('/api/recycle', function(req, res, next) {
           res.json({error:"OOPS"});
         } else {
           console.log("DELETED ROBOTS")
-          Robot.create(Robot.devRobots, function (err, new_bots) {
+          var toBeBots = (process.env.NODE_ENV == 'production') ? Robot.productionRobots : Robot.devRobots;
+          Robot.create(toBeBots, function (err, new_bots) {
             res.status(200);
             res.setHeader('Content-Type', 'application/json');
             res.json({message: "OK", deletedRobotsCount: bots.length});
