@@ -98,7 +98,7 @@ var RobotsForm = withRouter (
           this.createRobot()
           break;
         case "UPDATE_ROBOT":
-          this.updateRobot(this.state.bot)
+          this.updateRobot()
           break;
       };
     },
@@ -137,17 +137,17 @@ var RobotsForm = withRouter (
       });
     },
 
-    updateRobot: function(formBot){
-      var requestUrl = "api/robots/"+formBot._id+"/update";
-      console.log("AJAX", requestUrl, "WITH DATA", formBot)
+    updateRobot: function(){
+      var requestUrl = "api/robots/"+this.state.bot._id+"/update";
+      console.log("AJAX", requestUrl, "WITH DATA", this.state.bot)
       $.ajax({
         url: requestUrl,
         method: "POST",
         dataType: 'json',
         cache: false,
         data: {
-          robotName: formBot.name,
-          robotDescription: formBot.description
+          robotName: this.state.bot.name,
+          robotDescription: this.state.bot.description
         },
         success: function(data) {
           console.log("UPDATED DATA", data);
