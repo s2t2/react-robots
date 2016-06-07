@@ -50,16 +50,15 @@ var RobotsForm = withRouter (
     //
 
     getRobot: function(propz){
-      console.log("GETTING ROBOT BASED ON PROPS", propz, propz.params)
-
-      var bot = {name: "my bot", description: "does stuff"};
-
-      if(propz.location && propz.location.state && propz.location.state.formBot){
+      console.log("GETTING ROBOT BASED ON PROPS", propz)
+      var bot;
+      if(propz.location && propz.location.state && propz.location.state.formBot){ // NEW OR EDIT ROBOT - PREVIOUS FORM VALUES
         bot = propz.location.state.formBot;
-      } else if (propz.params.id) {
+      } else if (propz.params.id) { // EDIT ROBOT - DATABASE VALUES
         bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
-      };
-
+      } else { // NEW ROBOT - DEFAULT VALUES
+        bot = {name: "my bot", description: "does stuff"}
+      }
       return bot;
     },
 
@@ -80,37 +79,53 @@ var RobotsForm = withRouter (
     submitForm: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
       console.log("SUBMITTING FORM DATA", this.state.bot);
-      $.ajax({
-        url: "api/robots",
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        data: {
-          robotName: this.state.bot.name,
-          robotDescription: this.state.bot.description
-        },
-        success: function(data) {
-          console.log("DATA", data);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {success: ["Created robot #"+data._id]}
-            }
+
+      if(this.props && this.props.location && this.props.location.state && this.props.location.state.formAction){
+        var formAction = this.props.location.state.formAction; //
+        console.log("SUBMITTING WITH ACTION:",formAction);
+
+      } else {
+        console.error("OOPS, NEED TO KNOW WHICH API ENDPOINT TO POST DATA TO ... EXPECTING EITHER 'CREATE_ROBOT' or 'UPDATE_ROBOT'. ASSUMING YOU WANT TO 'CREATE_ROBOT'")
+        if (formAction == "UPDATE_ROBOT") {
+          console.log("TODO: UPDATING ...")
+
+
+
+
+        } else { // ASSUMING FORM ACTION IS EITHER 'CREATE_ROBOT' OR UNDEFINED
+          $.ajax({
+            url: "api/robots",
+            method: "POST",
+            dataType: 'json',
+            cache: false,
+            data: {
+              robotName: this.state.bot.name,
+              robotDescription: this.state.bot.description
+            },
+            success: function(data) {
+              console.log("DATA", data);
+              this.props.router.push({
+                pathname: '/',
+                state: {
+                  flash: {success: ["Created robot #"+data._id]}
+                }
+              });
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.log(xhr, status, err);
+              var errorMessages = xhr.responseJSON.errors;
+              var formBot = xhr.responseJSON.bot;
+              this.props.router.push({
+                pathname: '/robots/new',
+                state: {
+                  flash: {warning: errorMessages},
+                  formBot: formBot
+                }
+              });
+            }.bind(this)
           });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log(xhr, status, err);
-          var errorMessages = xhr.responseJSON.errors;
-          var formBot = xhr.responseJSON.bot;
-          this.props.router.push({
-            pathname: '/robots/new',
-            state: {
-              flash: {warning: errorMessages},
-              formBot: formBot
-            }
-          });
-        }.bind(this)
-      });
+        } // if formAction == 'UPDATE_ROBOT'
+      } // if formAction exists
     }
   })
 );

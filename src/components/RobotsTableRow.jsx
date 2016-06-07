@@ -34,7 +34,12 @@ var RobotsTableRow = withRouter (
 
     editRobot: function(robotId){
       console.log("EDIT ROBOT #", robotId);
-      this.props.router.push('/robots/'+robotId+'/edit');
+      this.props.router.push({
+        pathname: '/robots/'+robotId+'/edit',
+        state: {
+          formAction: "UPDATE_ROBOT"
+        }
+      });
     },
 
     deleteRobot: function(robotId){
