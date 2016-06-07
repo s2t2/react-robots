@@ -20,4 +20,24 @@ var RobotSchema = new Schema(
   }
 );
 
+RobotSchema.statics.devRobots = [
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"bb8",  description:"rolls around"}
+];
+
+RobotSchema.statics.testRobots = [
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"c3po", description:"specializes in language translation"},
+  {name:"r2d2", description:"holds a secret message"},
+  {name:"bb8",  description:"rolls around"}
+];
+
 module.exports = mongoose.model('Robot', RobotSchema);

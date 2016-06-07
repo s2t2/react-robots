@@ -43,23 +43,23 @@ var App = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log("APP DID MOUNT", this.props.location.state.flash);
+    console.log("APP DID MOUNT"); // this.props.location.state.flash
     this.setFlash(this.props);
     //this.clearProps(this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("APP WILL RECEIVE PROPS", nextProps.location.state.flash)
+    console.log("APP WILL RECEIVE PROPS") // nextProps.location.state.flash
     this.setFlash(nextProps);
     //this.clearProps(nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("APP WILL UPDATE", this.props.location.state.flash, nextProps.location.state.flash)
+    console.log("APP WILL UPDATE") // this.props.location.state.flash, nextProps.location.state.flash
   },
 
   componentDidUpdate: function(prevProps, prevState){
-    console.log("APP DID UPDATE", prevProps.location.state.flash, this.props.location.state.flash)
+    console.log("APP DID UPDATE") // prevProps.location.state.flash, this.props.location.state.flash
   },
 
   //

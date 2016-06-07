@@ -15,6 +15,37 @@ router.get('/api/robots', function(req, res, next) {
   });
 });
 
+/* RECYCLE */
+
+router.post('/api/recycle', function(req, res, next) {
+  console.log("RECYCLE PENDING")
+  Robot.find(function (err, bots) {
+    if (err) {
+      console.log("OOPS", err)
+      res.status(400);
+      res.setHeader('Content-Type', 'application/json');
+      res.json({error:"OOPS"});
+    } else {
+      console.log("FOUND", bots.length, "ROBOTS TO BE DELETED")
+      Robot.remove(bots, function (rmErr) {
+        if (rmErr){
+          console.log("OOPS", rmErr)
+          res.status(400);
+          res.setHeader('Content-Type', 'application/json');
+          res.json({error:"OOPS"});
+        } else {
+          console.log("DELETED ROBOTS")
+          Robot.create(Robot.devRobots, function (err, new_bots) {
+            res.status(200);
+            res.setHeader('Content-Type', 'application/json');
+            res.json({message: "OK", deletedRobotsCount: bots.length});
+          }); // Robot.create
+        }; // if rmErr
+      }); // Robot.remove
+    }; // if err
+  }); // Robot.find
+});
+
 /* SHOW */
 
 router.get('/api/robots/:id', function(req, res, next) {
