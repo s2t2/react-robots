@@ -94,10 +94,11 @@ var RobotsForm = withRouter (
         }.bind(this),
         error: function(xhr, status, err) {
           console.log(xhr, status, err);
+          var errorMessages = xhr.responseJSON.errors;
           this.props.router.push({
             pathname: '/robots/new',
             state: {
-              flash: {warning: ["Couldn't create robot", "here are the reasons why..."]}
+              flash: {warning: errorMessages}
             }
           });
         }.bind(this)

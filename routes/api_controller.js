@@ -25,17 +25,12 @@ router.post('/api/robots', function(req, res, next) {
   bot.save(function(saveErr, bot_id) {
       if (saveErr){
         console.log(saveErr);
-        //var error_messages = mongooseError.toMessages(saveErr);
-        //req.flash('danger', error_messages);
-        //res.render('robots/new', {
-        //    page_title: 'Add a new Robot',
-        //    form_action: create_robot_path,
-        //    robot:
-        //});
+        var errorMessages = mongooseError.toMessages(saveErr);
+        console.log(errorMessages);
         res.status(400);
         res.setHeader('Content-Type', 'application/json');
         res.json({
-          errors: ["OOPS", saveErr],
+          errors: errorMessages,
           bot: {name: robotName, description: robotDescription} // pass-back input values
         });
       } else {
