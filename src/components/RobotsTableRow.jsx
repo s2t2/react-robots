@@ -15,7 +15,7 @@ var RobotsTableRow = withRouter (
           <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
           <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
           <td>
-            <button className='btn btn-warning' onClick={ this.editRobot.bind(null, robot._id) }>
+            <button className='btn btn-warning' onClick={ this.editRobot.bind(null, robot) }>
               <span className="glyphicon glyphicon-pencil"></span> edit
             </button>
           </td>
@@ -32,9 +32,15 @@ var RobotsTableRow = withRouter (
     // MY FUNCTIONS
     //
 
-    editRobot: function(robotId){
+    editRobot: function(robot){
+      var robotId = robot._id;
       console.log("EDIT ROBOT #", robotId);
-      this.props.router.push('/robots/'+robotId+'/edit');
+      this.props.router.push({
+        pathname: '/robots/'+robotId+'/edit',
+        state: {
+          showBot: robot
+        }
+      });
     },
 
     deleteRobot: function(robotId){

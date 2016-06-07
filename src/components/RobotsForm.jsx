@@ -61,8 +61,16 @@ var RobotsForm = withRouter (
       var bot;
       if(propz.location && propz.location.state && propz.location.state.formBot){ // NEW OR EDIT ROBOT - PREVIOUS FORM VALUES
         bot = propz.location.state.formBot;
+      } else if (propz.location && propz.location.state && propz.location.state.showBot) { // EDIT ROBOT - PREVIOUS SHOW PAGE VALUES
+        bot = propz.location.state.showBot;
       } else if (propz.params && propz.params.id) { // EDIT ROBOT - DATABASE VALUES
+
+
+
+
         bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
+
+
       } else { // NEW ROBOT - DEFAULT VALUES
         bot = {name: "my bot", description: "does stuff"}
       }
