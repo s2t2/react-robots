@@ -68,26 +68,19 @@ var App = React.createClass({
 
   setFlash: function(propz){
     if (propz && propz.location && propz.location.state && propz.location.state.flash){
-      console.log("SETTING FLASH", this.state.flash, propz.location.state.flash)
-      var warning = [], danger = [], success = [], info = [];
-      if(propz.location.state.flash.warning){
-        warning = propz.location.state.flash.warning
-      }
-      if(propz.location.state.flash.danger){
-        danger = propz.location.state.flash.danger
-      }
-      if(propz.location.state.flash.success){
-        success = propz.location.state.flash.success
-      }
-      if(propz.location.state.flash.info){
-        info = propz.location.state.flash.info
-      }
+      var flash = this.state.flash;
+      var propsFlash = propz.location.state.flash;
+      console.log("SETTING FLASH", flash, propsFlash)
+      var warning = (propsFlash.warning) ? propsFlash.warning : [];
+      var danger = (propsFlash.danger) ? propsFlash.danger : [];
+      var success = (propsFlash.success) ? propsFlash.success : [];
+      var info = (propsFlash.info) ? propsFlash.info : [];
       this.setState({
         flash: {
-          warning: this.state.flash.warning.concat(warning),
-          danger: this.state.flash.danger.concat(danger),
-          success: this.state.flash.success.concat(success),
-          info: this.state.flash.info.concat(info),
+          warning: flash.warning.concat(warning),
+          danger: flash.danger.concat(danger),
+          success: flash.success.concat(success),
+          info: flash.info.concat(info),
         }
       })
     } else {
