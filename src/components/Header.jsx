@@ -35,7 +35,7 @@ var Header = withRouter(
           this.props.router.push({
             pathname: '/',
             state: {
-              flash: {success: ["Recycled "+ data.deletedRobotsCount+ " robots"]}
+              flash: {success: ["Recycled "+ data.deletedRobotsCount+ " robots into "+ data.createdRobotsCount + " robots."]}
             }
           });
         }.bind(this),

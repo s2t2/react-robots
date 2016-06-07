@@ -26,7 +26,7 @@ var RobotsForm = withRouter (
     getInitialState: function() {
       console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.getRobot(this.props),
+        bot: this.determineRobot(this.props),
         formAction: this.determineFormAction(this.props)
       };
     },
@@ -38,7 +38,7 @@ var RobotsForm = withRouter (
     componentWillReceiveProps: function(nextProps) {
       console.log("FORM WILL RECEIVE PROPS");
       this.setState({
-        bot: this.getRobot(nextProps)
+        bot: this.determineRobot(nextProps)
       });
     },
 
@@ -51,27 +51,26 @@ var RobotsForm = withRouter (
     //
 
     determineFormAction: function(propz){
-      console.log("DETERMINING FORM ACTION BASED ON PROPS", propz)
+      console.log("FORM DETERMINING ACTION BASED ON PROPS", propz)
       var formAction = (propz.params && propz.params.id) ? "UPDATE_ROBOT" : "CREATE_ROBOT";
       return formAction;
     },
 
-    getRobot: function(propz){
-      console.log("GETTING ROBOT BASED ON PROPS", propz)
+    determineRobot: function(propz){
+      console.log("FORM DETERMINING ROBOT BASED ON PROPS", propz)
       var bot;
-      if(propz.location && propz.location.state && propz.location.state.formBot){ // NEW OR EDIT ROBOT - PREVIOUS FORM VALUES
+      if(propz.location && propz.location.state && propz.location.state.formBot){
+        // PREVIOUS FORM VALUES (NEW / EDIT)
         bot = propz.location.state.formBot;
-      } else if (propz.location && propz.location.state && propz.location.state.showBot) { // EDIT ROBOT - PREVIOUS SHOW PAGE VALUES
+      } else if (propz.location && propz.location.state && propz.location.state.showBot) {
+        // PREVIOUS SHOW PAGE VALUES (EDIT)
         bot = propz.location.state.showBot;
-      } else if (propz.params && propz.params.id) { // EDIT ROBOT - DATABASE VALUES
-
-
-
-
+      } else if (propz.params && propz.params.id) {
+        // DATABASE VALUES (EDIT)
         bot = {name: "bot #"+propz.params.id, description:"todo: look this up!"} //TODO: database call
-
-
-      } else { // NEW ROBOT - DEFAULT VALUES
+        //bot = {name: "my bot", description: "does stuff"} // this.getRobot(propz.params.id);
+      } else {
+        // DEFAULT VALUES (NEW)
         bot = {name: "my bot", description: "does stuff"}
       }
       return bot;
@@ -99,12 +98,12 @@ var RobotsForm = withRouter (
           this.createRobot()
           break;
         case "UPDATE_ROBOT":
-          this.updateRobot()
+          this.updateRobot(this.state.bot)
           break;
       };
     },
 
-    createRobot(){
+    createRobot: function(){
       $.ajax({
         url: "api/robots",
         method: "POST",
@@ -115,7 +114,7 @@ var RobotsForm = withRouter (
           robotDescription: this.state.bot.description
         },
         success: function(data) {
-          console.log("DATA", data);
+          console.log("CREATED DATA", data);
           this.props.router.push({
             pathname: '/',
             state: {
@@ -138,8 +137,40 @@ var RobotsForm = withRouter (
       });
     },
 
-    updateRobot(){
-      console.log("UPDATING ... TODO")
+    updateRobot: function(formBot){
+      var requestUrl = "api/robots/"+formBot._id+"/update";
+      console.log("AJAX", requestUrl, "WITH DATA", formBot)
+      $.ajax({
+        url: requestUrl,
+        method: "POST",
+        dataType: 'json',
+        cache: false,
+        data: {
+          robotName: formBot.name,
+          robotDescription: formBot.description
+        },
+        success: function(data) {
+          console.log("UPDATED DATA", data);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              flash: {success: ["Updated robot #"+data._id]}
+            }
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log("DIDN'T UPDATE DATA", xhr, status, err);
+          var errorMessages = xhr.responseJSON.errors;
+          var formBot = xhr.responseJSON.bot;
+          this.props.router.push({
+            pathname: '/robots/'+ formBot._id +'/edit',
+            state: {
+              flash: {warning: errorMessages},
+              formBot: formBot
+            }
+          });
+        }.bind(this)
+      });
     }
   })
 );
