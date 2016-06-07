@@ -26,12 +26,12 @@ var Header = withRouter(
     recycleRobots: function(){
       console.log("RECYCLE");
       $.ajax({
-        url: "api/recycle",
+        url: "api/robots/recycle",
         method: "POST",
         dataType: 'json',
         cache: false,
         success: function(data) {
-          console.log("DATA",data)
+          console.log("DATA", data)
           this.props.router.push({
             pathname: '/',
             state: {

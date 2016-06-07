@@ -15,9 +15,41 @@ router.get('/api/robots', function(req, res, next) {
   });
 });
 
+/* CREATE */
+
+router.post('/api/robots', function(req, res, next) {
+  console.log("CAPTURING FORM DATA:", req.body);
+  var robotName = req.body.robotName;
+  var robotDescription = req.body.robotDescription;
+  var bot = new Robot({name: robotName, description: robotDescription});
+  bot.save(function(saveErr, bot_id) {
+      if (saveErr){
+        console.log(saveErr);
+        //var error_messages = mongooseError.toMessages(saveErr);
+        //req.flash('danger', error_messages);
+        //res.render('robots/new', {
+        //    page_title: 'Add a new Robot',
+        //    form_action: create_robot_path,
+        //    robot:
+        //});
+        res.status(400);
+        res.setHeader('Content-Type', 'application/json');
+        res.json({
+          errors: ["OOPS", saveErr],
+          bot: {name: robotName, description: robotDescription} // pass-back input values
+        });
+      } else {
+        console.log("CREATED ROBOT", bot)
+        res.status(200);
+        res.setHeader('Content-Type', 'application/json');
+        res.json(bot);
+      };
+  });
+});
+
 /* RECYCLE */
 
-router.post('/api/recycle', function(req, res, next) {
+router.post('/api/robots/recycle', function(req, res, next) {
   console.log("RECYCLE PENDING")
   Robot.find(function (err, bots) {
     if (err) {

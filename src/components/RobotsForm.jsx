@@ -1,3 +1,4 @@
+var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
@@ -72,8 +73,35 @@ var RobotsForm = withRouter (
 
     submitForm: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
-      console.log("FORM SUBMIT", this.state.bot); //TODO: database call
-      this.props.router.push('/');
+      console.log("SUBMITTING FORM DATA", this.state.bot);
+      $.ajax({
+        url: "api/robots",
+        method: "POST",
+        dataType: 'json',
+        cache: false,
+        data: {
+          robotName: this.state.bot.name,
+          robotDescription: this.state.bot.description
+        },
+        success: function(data) {
+          console.log("DATA", data);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              flash: {success: ["Created robot #"+data._id]}
+            }
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log(xhr, status, err);
+          this.props.router.push({
+            pathname: '/robots/new',
+            state: {
+              flash: {warning: ["Couldn't create robot", "here are the reasons why..."]}
+            }
+          });
+        }.bind(this)
+      });
     }
   })
 );
