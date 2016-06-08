@@ -66,7 +66,7 @@ var App = React.createClass({
   // MY FUNCTIONS
   //
 
-  // @params [String] strategy Indicate whether you want to compile flash using the "MERGE" or "OVERWRITE" strategy.
+  // @param [String] strategy Indicate whether you want to compile flash using the "MERGE" or "OVERWRITE" strategy.
   compileFlash: function(strategy, propz){
     switch (strategy) {
       case "MERGE":
@@ -105,8 +105,8 @@ var App = React.createClass({
   },
 
   // Converts partial flash (i.e. not having all expected keys) into fully-formed flash (a.k.a. a "FlashHash")
-  // @params [Object] partialFlash
-  // @returns [FlashHash]
+  // @param [Object] partialFlash
+  // @return [FlashHash]
   fullFlash: function(partialFlash){
     return {
       warning: partialFlash.warning || [],
@@ -117,9 +117,9 @@ var App = React.createClass({
   },
 
   // Merges the second flash into the first. Appends new flash message(s) to the first flash.
-  // @params [FlashHash] flash
-  // @params [Object] proposedFlash
-  // @returns [FlashHash]
+  // @param [FlashHash] flash
+  // @param [Object] proposedFlash
+  // @return [FlashHash]
   mergeFlashes: function(flash, proposedFlash){
     return {
       warning: flash.warning.concat(proposedFlash.warning),
@@ -130,9 +130,9 @@ var App = React.createClass({
   },
 
   // Remove a given flash message from state.
-  // @params [Object] messageParams
-  // @params [Object] messageParams [String] messageType The name of the message's contextual array (e.g. "danger", "alert", "warning", or "info").
-  // @params [Object] messageParams [String] messageIndex The message's index within its contextual array.
+  // @param [Object] messageParams
+  // @param [Object] messageParams [String] messageType The name of the message's contextual array (e.g. "danger", "alert", "warning", or "info").
+  // @param [Object] messageParams [String] messageIndex The message's index within its contextual array.
   // @example removeFromFlash({messageType: "danger", messageindex: 0})
   removeFromFlash: function(messageParams){
     console.log("REMOVE FROM FLASH", messageParams.messageType, messageParams.messageIndex)

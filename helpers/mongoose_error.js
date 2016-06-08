@@ -39,7 +39,7 @@ var exports = module.exports = {};
 //    reason: undefined
 //  }
 //
-// @return [Array] errorMessages
+// @return [Array]
 exports.toMessages = function(err){
   var messages;
   switch (err.name) {
