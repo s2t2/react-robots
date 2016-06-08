@@ -33,6 +33,8 @@ var App = React.createClass({
     info: [],
   },
 
+  flashCompilationStrategy: "OVERWRITE", // indicate desired flash behavior ("MERGE" or "OVERWRITE")
+
   //
   // EVENT LIFECYCLE
   //
@@ -44,12 +46,12 @@ var App = React.createClass({
 
   componentDidMount: function(){
     console.log("APP DID MOUNT");
-    this.overwriteFlash(this.props); //this.setFlash(this.props);
+    this.compileFlash(this.flashCompilationStrategy, this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
     console.log("APP WILL RECEIVE PROPS");
-    this.overwriteFlash(nextProps); // this.setFlash(nextProps);
+    this.compileFlash(this.flashCompilationStrategy, nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
@@ -64,56 +66,71 @@ var App = React.createClass({
   // MY FUNCTIONS
   //
 
-  // Appends new flash message(s) to the existing flash hash.
+  // @params [String] strategy Indicate whether you want to compile flash using the "MERGE" or "OVERWRITE" strategy.
+  compileFlash: function(strategy, propz){
+    switch (strategy) {
+      case "MERGE":
+        this.setFlash(propz);
+        break;
+      case "OVERWRITE":
+        this.overwriteFlash(propz);
+        break;
+      default:
+        console.log("FLASH COMPILATION ERROR")
+    };
+  },
+
+  // Set flash message state using merge strategy.
   setFlash: function(propz){
     if (propz && propz.location && propz.location.state && propz.location.state.flash){
-      var flash = this.state.flash;
-      var propsFlash = propz.location.state.flash;
-      console.log("SETTING FLASH", flash, propsFlash)
-      var warning = (propsFlash.warning) ? propsFlash.warning : [];
-      var danger = (propsFlash.danger) ? propsFlash.danger : [];
-      var success = (propsFlash.success) ? propsFlash.success : [];
-      var info = (propsFlash.info) ? propsFlash.info : [];
-      this.setState({
-        flash: {
-          warning: flash.warning.concat(warning),
-          danger: flash.danger.concat(danger),
-          success: flash.success.concat(success),
-          info: flash.info.concat(info),
-        }
-      })
+      var propsFlash = this.fullFlash(propz.location.state.flash);
+      var newFlash = this.mergeFlashes(this.state.flash, propsFlash);
+      console.log("SETTING FLASH", newFlash);
+      this.setState({flash: newFlash});
     } else {
       console.log("NOT SETTING FLASH");
     }
   },
 
-  // Overwrites the existing flash hash with new flash message(s).
+  // Set flash message state using overwrite strategy. Overwrites the existing flash hash with new flash message(s).
   overwriteFlash: function(propz){
     if (propz && propz.location && propz.location.state && propz.location.state.flash){
-      var flash = this.state.flash;
-      var propsFlash = propz.location.state.flash;
-      console.log("OVERWRITING FLASH", flash, propsFlash)
-      var warning = (propsFlash.warning) ? propsFlash.warning : [];
-      var danger = (propsFlash.danger) ? propsFlash.danger : [];
-      var success = (propsFlash.success) ? propsFlash.success : [];
-      var info = (propsFlash.info) ? propsFlash.info : [];
-      this.setState({
-        flash: {
-          warning: warning,
-          danger: danger,
-          success: success,
-          info: info,
-        }
-      })
+      var newFlash = this.fullFlash(propz.location.state.flash);
+      console.log("OVERWRITING FLASH", newFlash);
+      this.setState({flash: newFlash});
     } else {
-      console.log("NOT OVERWRITING FLASH");
+      console.log("WRITING FLASH");
       this.setState({flash: this.emptyFlash}); // clear the flash when navigating to a new page
+    }
+  },
+
+  // Converts partial flash (i.e. not having all expected keys) into fully-formed flash (a.k.a. a "FlashHash")
+  // @params [Object] partialFlash
+  // @returns [FlashHash]
+  fullFlash: function(partialFlash){
+    var warning = (partialFlash.warning) ? partialFlash.warning : [];
+    var danger = (partialFlash.danger) ? partialFlash.danger : [];
+    var success = (partialFlash.success) ? partialFlash.success : [];
+    var info = (partialFlash.info) ? partialFlash.info : [];
+    return {warning: warning, danger: danger, success: success, info: info};
+  },
+
+  // Merges the second flash into the first. Appends new flash message(s) to the first flash.
+  // @params [FlashHash] flash
+  // @params [Object] proposedFlash
+  // @returns [FlashHash]
+  mergeFlashes: function(flash, proposedFlash){
+    return {
+      warning: flash.warning.concat(proposedFlash.warning),
+      danger: flash.danger.concat(proposedFlash.danger),
+      success: flash.success.concat(proposedFlash.success),
+      info: flash.info.concat(proposedFlash.info),
     }
   },
 
   // Remove a given flash message from state.
   // @params [Object] messageParams
-  // @params [Object] messageParams [String] messageType The name of the message's contextual array.
+  // @params [Object] messageParams [String] messageType The name of the message's contextual array (e.g. "danger", "alert", "warning", or "info").
   // @params [Object] messageParams [String] messageIndex The message's index within its contextual array.
   // @example removeFromFlash({messageType: "danger", messageindex: 0})
   removeFromFlash: function(messageParams){
