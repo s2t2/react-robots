@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router';
 var Header = withRouter(
   React.createClass({
     render: function(){
-      var buttonStyle = {marginLeft: "0.5em"};
+      var buttonStyle = {marginLeft: "0.5em", marginTop:"0.7em"};
       return (
         <header>
           <div id="flash-messages"></div>
@@ -16,7 +16,7 @@ var Header = withRouter(
             <span className="glyphicon glyphicon-plus"></span> new
           </Link>
 
-          <button type="button" className="btn btn-success pull-right" onClick={this.recycleRobots}>
+          <button type="button" className="btn btn-success pull-right" style={buttonStyle} onClick={this.recycleRobots}>
             <span className="glyphicon glyphicon-retweet"></span> recycle
           </button>
         </header>
