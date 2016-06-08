@@ -1,5 +1,6 @@
 # A CRUD App using React and MongoDB
 
+*MERN* Stack: Mongo, Express, React, Node.
 
 ## Contributing
 

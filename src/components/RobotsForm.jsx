@@ -19,6 +19,8 @@ var RobotsForm = withRouter (
       )
     },
 
+    defaultBot: {name:"", description:""},
+
     //
     // EVENT LIFECYCLE
     //
@@ -26,7 +28,7 @@ var RobotsForm = withRouter (
     getInitialState: function() {
       console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.defaultBot(),
+        bot: this.defaultBot,
         formAction: this.formAction(this.props)
       };
     },
@@ -53,10 +55,6 @@ var RobotsForm = withRouter (
     // MY FUNCTIONS
     //
 
-    defaultBot: function(){
-      return {name:"", description:""}
-    },
-
     formAction: function(propz){
       console.log("FORM DETERMINING ACTION BASED ON PROPS", propz)
       var formAction = (propz.params && propz.params.id) ? "UPDATE_ROBOT" : "CREATE_ROBOT";
@@ -77,7 +75,7 @@ var RobotsForm = withRouter (
         this.setRobot(propz.params.id);
       } else { // DEFAULT VALUES (NEW)
         this.setState({
-          bot: this.defaultBot()
+          bot: this.defaultBot
         });
       }
     },

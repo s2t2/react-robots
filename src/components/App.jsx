@@ -43,29 +43,28 @@ var App = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log("APP DID MOUNT"); // this.props.location.state.flash
-    this.setFlash(this.props);
-    //this.clearProps(this.props);
+    console.log("APP DID MOUNT");
+    this.overwriteFlash(this.props); //this.setFlash(this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("APP WILL RECEIVE PROPS") // nextProps.location.state.flash
-    this.setFlash(nextProps);
-    //this.clearProps(nextProps);
+    console.log("APP WILL RECEIVE PROPS");
+    this.overwriteFlash(nextProps); // this.setFlash(nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
-    console.log("APP WILL UPDATE") // this.props.location.state.flash, nextProps.location.state.flash
+    console.log("APP WILL UPDATE");
   },
 
   componentDidUpdate: function(prevProps, prevState){
-    console.log("APP DID UPDATE") // prevProps.location.state.flash, this.props.location.state.flash
+    console.log("APP DID UPDATE");
   },
 
   //
   // MY FUNCTIONS
   //
 
+  // Appends new flash message(s) to the existing flash hash.
   setFlash: function(propz){
     if (propz && propz.location && propz.location.state && propz.location.state.flash){
       var flash = this.state.flash;
@@ -88,9 +87,28 @@ var App = React.createClass({
     }
   },
 
-  clearProps: function(propz){
-    console.log("REMOVE MESSAGE FROM PROPS")
-    propz.location.state.flash = this.emptyFlash
+  // Overwrites the existing flash hash with new flash message(s).
+  overwriteFlash: function(propz){
+    if (propz && propz.location && propz.location.state && propz.location.state.flash){
+      var flash = this.state.flash;
+      var propsFlash = propz.location.state.flash;
+      console.log("OVERWRITING FLASH", flash, propsFlash)
+      var warning = (propsFlash.warning) ? propsFlash.warning : [];
+      var danger = (propsFlash.danger) ? propsFlash.danger : [];
+      var success = (propsFlash.success) ? propsFlash.success : [];
+      var info = (propsFlash.info) ? propsFlash.info : [];
+      this.setState({
+        flash: {
+          warning: warning,
+          danger: danger,
+          success: success,
+          info: info,
+        }
+      })
+    } else {
+      console.log("NOT OVERWRITING FLASH");
+      this.setState({flash: this.emptyFlash}); // clear the flash when navigating to a new page
+    }
   },
 
   // Remove a given flash message from state.
