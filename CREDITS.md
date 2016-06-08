@@ -57,14 +57,21 @@
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
 
-## Express JSON API and AJAX
+## Express JSON API and Middleware
 
   + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
   + http://stackoverflow.com/questions/10563644/how-to-specify-http-error-code
-  + http://www.restapitutorial.com/httpstatuscodes.html
-  + http://api.jquery.com/jquery.ajax/
   + http://stackoverflow.com/questions/26066785/proper-way-to-set-response-status-and-json-content-in-a-rest-api-made-with-nodej
   + http://expressjs.com/en/4x/api.html
+  + http://www.restapitutorial.com/httpstatuscodes.html
+  + http://www.bennadel.com/blog/2400-handling-forbidden-restful-requests-401-vs-403-vs-404.htm
+  + https://github.com/fireridlle/express-custom-response/blob/master/lib/express-custom-response.js
+  + http://expressjs.com/en/guide/using-middleware.html
+  + http://stackoverflow.com/questions/34113590/how-to-add-custom-function-to-response-object-in-node-js
+
+## AJAX
+
+  + http://api.jquery.com/jquery.ajax/
   + http://andrewhfarmer.com/ajax-libraries/
   + http://andrewhfarmer.com/react-ajax-best-practices/
 

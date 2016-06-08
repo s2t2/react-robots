@@ -4,69 +4,60 @@ var router = express.Router();
 var mongooseError = require("../helpers/mongoose_error");
 var Robot = require("../models/robot");
 
+/* CUSTOM RESPONSE METHODS */
+
+router.use(function(req, res, next) {
+  res.okay = function(responseData) {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(responseData);
+  };
+  next();
+});
+
+router.use(function(req, res, next) {
+  res.notFound = function(responseData) {
+    res.setHeader('Content-Type', 'application/json');
+    res.status(404).json(responseData);
+  };
+  next();
+});
+
 /* INDEX */
 
 router.get('/api/robots', function(req, res, next) {
   Robot.find( function (err, bots) {
-    console.log("LIST", bots.length, "ROBOTS:", bots);
-    res.status(200);
-    res.setHeader('Content-Type', 'application/json');
-    res.json(bots);
+    res.okay(bots);
   });
 });
 
 /* CREATE */
 
 router.post('/api/robots', function(req, res, next) {
-  console.log("CAPTURING FORM DATA:", req.body);
-  var robotName = req.body.robotName;
-  var robotDescription = req.body.robotDescription;
-  var bot = new Robot({name: robotName, description: robotDescription});
-  bot.save(function(saveErr, botId) {
-      if (saveErr){
-        console.log(saveErr);
-        var errorMessages = mongooseError.toMessages(saveErr);
-        console.log(errorMessages);
-        res.status(400);
-        res.setHeader('Content-Type', 'application/json');
-        res.json({
-          errors: errorMessages,
-          bot: {name: robotName, description: robotDescription} // pass-back input values
-        });
-      } else {
-        console.log("CREATED ROBOT", bot)
-        res.status(200);
-        res.setHeader('Content-Type', 'application/json');
-        res.json(bot);
-      };
+  var formBot = {name: req.body.robotName, description: req.body.robotDescription};
+  var newBot = new Robot({name: formBot.name, description: formBot.description});
+  newBot.save(function(saveErr, botId) {
+    if (saveErr){
+      res.notFound({errors: mongooseError.toMessages(saveErr), bot: {name: formBot.name, description: formBot.description}}); // pass-back input values
+    } else {
+      res.okay(newBot);
+    };
   });
 });
 
 /* RECYCLE */
 
 router.post('/api/robots/recycle', function(req, res, next) {
-  console.log("RECYCLE PENDING")
   Robot.find(function (err, bots) {
     if (err) {
-      console.log("OOPS", err)
-      res.status(400);
-      res.setHeader('Content-Type', 'application/json');
-      res.json({error:"OOPS"});
+      res.notFound({errors:["FIND ERROR"]});
     } else {
-      console.log("FOUND", bots.length, "ROBOTS TO BE DELETED")
       Robot.remove(bots, function (rmErr) {
         if (rmErr){
-          console.log("OOPS", rmErr)
-          res.status(400);
-          res.setHeader('Content-Type', 'application/json');
-          res.json({error:"OOPS"});
+          res.notFound({errors:["REMOVAL ERROR"]});
         } else {
-          console.log("DELETED ROBOTS")
           var toBeBots = (process.env.NODE_ENV == 'production') ? Robot.productionRobots : Robot.devRobots;
           Robot.create(toBeBots, function (err, newBots) {
-            res.status(200);
-            res.setHeader('Content-Type', 'application/json');
-            res.json({message: "OK", deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
+            res.okay({message: "OK", deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
           }); // Robot.create
         }; // if rmErr
       }); // Robot.remove
@@ -80,15 +71,9 @@ router.get('/api/robots/:id', function(req, res, next) {
   var robotId = req.params.id;
   Robot.findById(robotId, function(err, bot) {
     if (err){
-      console.log("COULDN'T SHOW ROBOT #"+robotId);
-      res.status(400);
-      res.setHeader('Content-Type', 'application/json');
-      res.json({error: "OOPS"});
+      res.notFound({errors:["FIND ERROR"]});
     } else {
-      console.log("SHOW ROBOT:", bot);
-      res.status(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.json(bot);
+      res.okay(bot);
     };
   });
 });
@@ -96,42 +81,18 @@ router.get('/api/robots/:id', function(req, res, next) {
 /* UPDATE */
 
 router.post('/api/robots/:id/update', function(req, res, next) {
-  var robotId = req.params.id;
-  var robotName = req.body.robotName;
-  var robotDescription = req.body.robotDescription;
-  console.log("CAPTURING FORM DATA", robotId, robotName, robotDescription)
-
-  Robot.findById(robotId, function(err, bot) {
+  var formBot = { _id: req.params.id, name: req.body.robotName, description: req.body.robotDescription};
+  Robot.findById(formBot._id, function(err, bot) {
     if (err){
-      console.log("COULDN'T FIND ROBOT #"+robotId, err);
-      var errorMessages = mongooseError.toMessages(saveErr);
-      console.log(errorMessages);
-      res.status(400);
-      res.setHeader('Content-Type', 'application/json');
-      res.json({
-        errors: errorMessages,
-        bot: { _id: robotId, name: robotName, description: robotDescription} // pass-back input values
-      });
+      res.notFound({errors: mongooseError.toMessages(err), bot: formBot }); // pass-back form values
     } else {
-      console.log("UPDATE FOUND BOT", bot);
-      bot.name = robotName;
-      bot.description = robotDescription;
+      bot.name = formBot.name;
+      bot.description = formBot.description;
       bot.save(function(saveErr, newBot) {
         if (saveErr){
-          console.log("SAVE ERROR", saveErr);
-          var errorMessages = mongooseError.toMessages(saveErr);
-          console.log(errorMessages);
-          res.status(400);
-          res.setHeader('Content-Type', 'application/json');
-          res.json({
-            errors: errorMessages,
-            bot: { _id: robotId, name: robotName, description: robotDescription} // pass-back input values
-          });
+          res.notFound({errors: mongooseError.toMessages(saveErr), bot: formBot }); // pass-back form values
         } else {
-          console.log("UPDATED ROBOT", newBot)
-          res.status(200);
-          res.setHeader('Content-Type', 'application/json');
-          res.json(bot);
+          res.okay(bot);
         };
       });
     };
@@ -141,20 +102,13 @@ router.post('/api/robots/:id/update', function(req, res, next) {
 /* DESTROY */
 
 router.post('/api/robots/:id/destroy', function(req, res, next) {
-  console.log("DESTRUCTION PENDING")
   var robotId = req.params.id;
   Robot.findById(robotId, function(err, bot) {
     bot.remove( function(rmErr, rmBot) {
       if (rmErr) {
-        console.log("COULDN'T DELETE ROBOT #", robotId);
-        res.status(400);
-        res.setHeader('Content-Type', 'application/json');
-        res.json({errors: ["DESTRUCTION ERROR"]});
+        res.notFound({errors: ["DESTRUCTION ERROR"]})
       } else {
-        console.log("DELETED ROBOT", rmBot);
-        res.status(200);
-        res.setHeader('Content-Type', 'application/json');
-        res.json({message: "DESTRUCTION OK"});
+        res.okay({message: "DESTRUCTION OK"});
       };
     });
   });

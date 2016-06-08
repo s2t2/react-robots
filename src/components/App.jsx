@@ -108,11 +108,12 @@ var App = React.createClass({
   // @params [Object] partialFlash
   // @returns [FlashHash]
   fullFlash: function(partialFlash){
-    var warning = (partialFlash.warning) ? partialFlash.warning : [];
-    var danger = (partialFlash.danger) ? partialFlash.danger : [];
-    var success = (partialFlash.success) ? partialFlash.success : [];
-    var info = (partialFlash.info) ? partialFlash.info : [];
-    return {warning: warning, danger: danger, success: success, info: info};
+    return {
+      warning: partialFlash.warning || [],
+      danger: partialFlash.danger || [],
+      success: partialFlash.success || [],
+      info: partialFlash.info || []
+    };
   },
 
   // Merges the second flash into the first. Appends new flash message(s) to the first flash.

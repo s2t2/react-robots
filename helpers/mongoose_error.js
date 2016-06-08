@@ -2,7 +2,8 @@ var exports = module.exports = {};
 
 // Transform mongoose error object into error message(s).
 //
-// @param [ValidationError] err A mongoose error like...
+// @param [MongooseErrorObject] err
+// A mongoose error like...
 //
 //  {
 //    message: 'Note validation failed',
@@ -38,19 +39,22 @@ var exports = module.exports = {};
 //    reason: undefined
 //  }
 //
-// @return [Array] error_messages
+// @return [Array] errorMessages
 exports.toMessages = function(err){
-    if (err.name == "ValidationError") {
-      var errors = err.errors
-      var error_messages = Object.keys(errors).map(function(k) {
-          var error = errors[k]
-          return error.name+': '+error.path+' is '+error.kind //> ValidatorError: description is required
-      });
-    } else if (err.name == "CastError") {
-        var error_messages = ["Sorry, couldn't find a robot with that identifier..."]
-    } else {
-        var error_messages = ["Oops, something unexpected has happened..."]
-    };
-
-    return error_messages //> ["ValidatorError: description is required", "ValidatorError: title is required"]
+  var messages;
+  switch (err.name) {
+    case "ValidationError":
+      var errors = err.errors;
+      messages = Object.keys(errors).map(function(k) {
+        return errors[k].name+': '+errors[k].path+' is '+errors[k].kind //> ValidatorError: description is required
+      }); //> ["ValidatorError: description is required", "ValidatorError: title is required"]
+      break;
+    case "CastError":
+      messages = ["Sorry, couldn't find a record with that identifier..."];
+      break;
+    default:
+      messages = ["Oops, encountered an unexpected database error..."];
+  };
+  console.log(messages);
+  return messages;
 };
