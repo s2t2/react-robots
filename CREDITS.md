@@ -79,7 +79,13 @@
   + https://github.com/github/fetch#handling-http-error-statuses
   + https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en
 
-The response of a fetch() request is a Stream object, which means that when we call the json() method, a Promise is returned since the reading of the stream will happen asynchronously.
+## Promises and Closures
+
+  + http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/
+  + http://stackoverflow.com/questions/21139504/passing-a-variable-to-an-asynchronous-function-promise-in-javascript
+  + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+  + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+  + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch
 
 ## Socket.io
 

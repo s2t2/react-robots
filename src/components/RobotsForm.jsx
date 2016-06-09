@@ -2,6 +2,8 @@ var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
+import {robotUrl} from '../../helpers/api'
+import {checkStatus, parseJSON, parseError} from '../../helpers/fetch';
 import RobotsFormInputName from './RobotsFormInputName.jsx';
 import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
 import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';
@@ -72,7 +74,7 @@ var RobotsForm = withRouter (
           bot: propz.location.state.showBot
         });
       } else if (propz.params && propz.params.id) { // DATABASE VALUES (EDIT)
-        this.setRobot(propz.params.id);
+        this.getRobot(propz.params.id);
       } else { // DEFAULT VALUES (NEW)
         this.setState({
           bot: this.defaultBot
@@ -80,28 +82,28 @@ var RobotsForm = withRouter (
       }
     },
 
-    setRobot: function(robotId){
-      var requestUrl = '/api/robots/'+robotId;
-      console.log("AJAX REQUEST", requestUrl)
-      $.ajax({
-        url: requestUrl,
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          console.log("REQUEST SUCCESS", data);
-          this.setState({bot: data});
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log("REQUEST ERROR", xhr, status, err);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              robots: [],
-              flash: {danger: ["Couldn't find robot #"+robotId]}
-            }
-          });
-        }.bind(this)
+    // test this by visiting: http://localhost:3000/#/robots/abc/edit
+    getRobot: function(robotId){
+      fetch(robotUrl(robotId))
+        .then(checkStatus)
+          .then(parseJSON).then(this.setRobot)
+          .catch(parseError).then(this.redirectToIndex({danger: ["Couldn't find robot #"+robotId]} )) // this last "then" only gets executed if an exception is caught
+    },
+
+    // expects a partialFlash object (see App.jsx)
+    redirectToIndex: function(partialFlash) {
+      this.props.router.push({
+        pathname: '/',
+        state: {
+          robots: [],
+          flash: partialFlash
+        }
       });
+    },
+
+    setRobot: function(responseData){
+      console.log("REQUEST SUCCESS", responseData);
+      this.setState({bot: responseData});
     },
 
     setName: function(newName){
