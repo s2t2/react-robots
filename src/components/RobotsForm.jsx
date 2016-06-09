@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import {robotUrl, createRobotUrl} from '../../helpers/api'
-import {checkStatus, parseJSON, parseError} from '../../helpers/fetch';
+import {postRequestOptions, checkStatus, parseJSON, parseError} from '../../helpers/fetch';
 import RobotsFormInputName from './RobotsFormInputName.jsx';
 import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
 import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';
@@ -142,20 +142,12 @@ var RobotsForm = withRouter (
         robotDescription: this.state.bot.description
       }
 
-      var requestOptions = {
-        method: 'POST',
-        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-        body: JSON.stringify(formBot)
-      };
-
-      fetch(createRobotUrl, requestOptions)
+      fetch(createRobotUrl, postRequestOptions(formBot))
         .then(checkStatus)
         .then(parseJSON).then(function(json){
-          console.log("THENNNN", json);
           component.redirectToIndex({success: ["Created robot #"+json._id]})
         })
         .catch(parseError).then(function(json){
-          console.log("CATCHHHHH", json);
           component.redirectToForm({warning: json.messages}, json.bot)
         })
 

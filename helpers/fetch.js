@@ -6,6 +6,23 @@
 
 module.exports = {};
 
+//
+// REQUEST FUNCTIONS
+//
+
+// @params [Object] requestData a basic JSON object
+module.exports.postRequestOptions = function(requestData){
+  return {
+    method: 'POST',
+    headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+    body: JSON.stringify(requestData)
+  }
+};
+
+//
+// RESPONSE FUNCTIONS
+//
+
 // @params [fetch Response] response
 module.exports.checkStatus = function(response) {
   if (response.status >= 200 && response.status < 300) {
