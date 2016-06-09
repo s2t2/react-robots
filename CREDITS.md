@@ -47,16 +47,6 @@
   + https://github.com/webpack/css-loader/issues/151
   + https://github.com/webpack/css-loader/issues/38#issuecomment-72287584
 
-## JSX and JavasScript
-
-  + http://wesbos.com/react-jsx-comments/
-  + http://www.w3schools.com/js/js_array_methods.asp
-  + http://stackoverflow.com/questions/20003676/how-to-get-current-index-in-array-prototype-map
-
-## Other
-
-  + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
-
 ## Express JSON API and Middleware
 
   + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
@@ -69,7 +59,13 @@
   + http://expressjs.com/en/guide/using-middleware.html
   + http://stackoverflow.com/questions/34113590/how-to-add-custom-function-to-response-object-in-node-js
 
-## AJAX
+## JSX and JavasScript
+
+  + http://wesbos.com/react-jsx-comments/
+  + http://www.w3schools.com/js/js_array_methods.asp
+  + http://stackoverflow.com/questions/20003676/how-to-get-current-index-in-array-prototype-map
+
+### AJAX
 
   + http://api.jquery.com/jquery.ajax/
   + http://andrewhfarmer.com/ajax-libraries/
@@ -78,8 +74,14 @@
   + http://stackoverflow.com/questions/29473426/fetch-reject-promise-with-json-error-object
   + https://github.com/github/fetch#handling-http-error-statuses
   + https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en
+  + https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Response_objects
+  + https://developer.mozilla.org/en-US/docs/Web/API/FormData
 
-## Promises and Closures
+### Errors
+
+  + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+
+### Promises and Closures
 
   + http://javascriptissexy.com/understand-javascript-callback-functions-and-use-them/
   + http://stackoverflow.com/questions/21139504/passing-a-variable-to-an-asynchronous-function-promise-in-javascript
@@ -103,3 +105,7 @@
 
   + https://github.com/lsegal/yard-js
   + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
+
+## Other
+
+  + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack

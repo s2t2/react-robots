@@ -2,7 +2,7 @@ var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import {robotUrl} from '../../helpers/api'
+import {robotUrl, createRobotUrl} from '../../helpers/api'
 import {checkStatus, parseJSON, parseError} from '../../helpers/fetch';
 import RobotsFormInputName from './RobotsFormInputName.jsx';
 import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
@@ -65,29 +65,30 @@ var RobotsForm = withRouter (
 
     determineRobot: function(propz){
       console.log("FORM DETERMINING ROBOT BASED ON PROPS", propz)
-      if(propz.location && propz.location.state && propz.location.state.formBot){ // PREVIOUS FORM VALUES (NEW / EDIT)
-        this.setState({
-          bot: propz.location.state.formBot
-        });
-      } else if (propz.location && propz.location.state && propz.location.state.showBot) { // PREVIOUS SHOW PAGE VALUES (EDIT)
-        this.setState({
-          bot: propz.location.state.showBot
-        });
-      } else if (propz.params && propz.params.id) { // DATABASE VALUES (EDIT)
+      if(propz.location && propz.location.state && propz.location.state.formBot){
+        // PREVIOUS FORM VALUES (NEW / EDIT)
+        // test this by changing form values to be blank such that they trigger a validation error from the api
+        this.setState({bot: propz.location.state.formBot});
+      } else if (propz.location && propz.location.state && propz.location.state.showBot) {
+        // PREVIOUS SHOW PAGE VALUES (EDIT)
+        // test this by clicking on an "edit" button
+        this.setState({bot: propz.location.state.showBot});
+      } else if (propz.params && propz.params.id) {
+        // DATABASE VALUES (EDIT)
+        // test this by visiting: http://localhost:3000/#/robots/abc/edit
         this.getRobot(propz.params.id);
-      } else { // DEFAULT VALUES (NEW)
-        this.setState({
-          bot: this.defaultBot
-        });
+      } else {
+        // DEFAULT VALUES (NEW)
+        // test this by clicking on the "new" button
+        this.setState({bot: this.defaultBot});
       }
     },
 
-    // test this by visiting: http://localhost:3000/#/robots/abc/edit
     getRobot: function(robotId){
       fetch(robotUrl(robotId))
         .then(checkStatus)
-          .then(parseJSON).then(this.setRobot)
-          .catch(parseError).then(this.redirectToIndex({danger: ["Couldn't find robot #"+robotId]} )) // this last "then" only gets executed if an exception is caught
+        .then(parseJSON).then(this.setRobot)
+        .catch(parseError).then(this.redirectToIndex({danger: ["Couldn't find robot #"+robotId]} ))
     },
 
     // expects a partialFlash object (see App.jsx)
@@ -134,36 +135,39 @@ var RobotsForm = withRouter (
     },
 
     createRobot: function(){
-      $.ajax({
-        url: "api/robots",
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        data: {
-          robotName: this.state.bot.name,
-          robotDescription: this.state.bot.description
-        },
-        success: function(data) {
-          console.log("CREATED DATA", data);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {success: ["Created robot #"+data._id]}
-            }
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log(xhr, status, err);
-          var errorMessages = xhr.responseJSON.messages;
-          var formBot = xhr.responseJSON.bot;
-          this.props.router.push({
-            pathname: '/robots/new',
-            state: {
-              flash: {warning: errorMessages},
-              formBot: formBot
-            }
-          });
-        }.bind(this)
+      var component = this;
+
+      var formBot = {
+        robotName: this.state.bot.name,
+        robotDescription: this.state.bot.description
+      }
+
+      var requestOptions = {
+        method: 'POST',
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        body: JSON.stringify(formBot)
+      };
+
+      fetch(createRobotUrl, requestOptions)
+        .then(checkStatus)
+        .then(parseJSON).then(function(json){
+          console.log("THENNNN", json);
+          component.redirectToIndex({success: ["Created robot #"+json._id]})
+        })
+        .catch(parseError).then(function(json){
+          console.log("CATCHHHHH", json);
+          component.redirectToForm({warning: json.messages}, json.bot)
+        })
+
+    },
+
+    redirectToForm: function(partialFlash, formBot){
+      this.props.router.push({
+        pathname: '/robots/new',
+        state: {
+          flash: partialFlash,
+          bot: formBot
+        }
       });
     },
 
