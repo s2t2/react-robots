@@ -40,6 +40,6 @@ module.exports.parseJSON = function(response){
 };
 
 // @params [Error] err a javascript error containing a fetch Response
-module.exports.parseError = function(err){
-  return err.response.json();
-};
+//module.exports.parseError = function(err){
+//  return err.response.json();
+//};

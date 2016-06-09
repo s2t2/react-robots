@@ -85,10 +85,14 @@ var RobotsForm = withRouter (
     },
 
     getRobot: function(robotId){
+      var component = this;
       fetch(robotUrl(robotId))
         .then(checkStatus)
-        .then(parseJSON).then(this.setRobot)
-        .catch(parseError).then(this.redirectToIndex({danger: ["Couldn't find robot #"+robotId]} ))
+        .then(parseJSON)
+        .then(this.setRobot)
+        .catch(function(err){
+          component.redirectToIndex({danger: ["Couldn't find robot #"+robotId]})
+        })
     },
 
     // expects a partialFlash object (see App.jsx)
@@ -136,21 +140,21 @@ var RobotsForm = withRouter (
 
     createRobot: function(){
       var component = this;
-
-      var formBot = {
+      var requestOptions = postRequestOptions({
         robotName: this.state.bot.name,
         robotDescription: this.state.bot.description
-      }
-
-      fetch(createRobotUrl, postRequestOptions(formBot))
+      })
+      fetch(createRobotUrl, requestOptions)
         .then(checkStatus)
-        .then(parseJSON).then(function(json){
+        .then(parseJSON)
+        .then(function(json){
           component.redirectToIndex({success: ["Created robot #"+json._id]})
         })
-        .catch(parseError).then(function(json){
-          component.redirectToForm({warning: json.messages}, json.bot)
+        .catch(function(err){
+          err.response.json().then(function(json){
+            component.redirectToForm({warning: json.messages}, json.bot)
+          })
         })
-
     },
 
     redirectToForm: function(partialFlash, formBot){
