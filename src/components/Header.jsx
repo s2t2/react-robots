@@ -1,4 +1,3 @@
-var $ = require('jquery');
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 
@@ -25,29 +24,16 @@ var Header = withRouter(
 
     recycleRobots: function(){
       console.log("RECYCLE");
-      $.ajax({
-        url: "api/robots/recycle",
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          console.log("DATA", data)
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {success: ["Recycled "+ data.deletedRobotsCount+ " robots into "+ data.createdRobotsCount + " robots."]}
-            }
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log(xhr, status, err);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {danger: ["Couldn't recycle robots"]}
-            }
-          });
-        }.bind(this)
+      var component = this;
+      var requestUrl = "/api/robots/recycle";
+      var requestOptions = {method: 'post'}
+      fetch(requestUrl, requestOptions).then(function(r) { return r.json(); }).then(function(response) {
+        component.props.router.push({
+          pathname: '/',
+          state: {
+            flash: {success: ["Recycled "+ response.deletedRobotsCount+ " robots into "+ response.createdRobotsCount + " robots."]}
+          }
+        });
       });
     }
   })

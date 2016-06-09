@@ -74,6 +74,7 @@
   + http://api.jquery.com/jquery.ajax/
   + http://andrewhfarmer.com/ajax-libraries/
   + http://andrewhfarmer.com/react-ajax-best-practices/
+  + https://davidwalsh.name/fetch
 
 ## Socket.io
 
