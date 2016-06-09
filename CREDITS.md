@@ -75,6 +75,7 @@
   + http://andrewhfarmer.com/ajax-libraries/
   + http://andrewhfarmer.com/react-ajax-best-practices/
   + https://davidwalsh.name/fetch
+  + http://stackoverflow.com/questions/29473426/fetch-reject-promise-with-json-error-object
 
 ## Socket.io
 

@@ -47,19 +47,13 @@ var RobotsTableRow = withRouter (
       var requestUrl = '/api/robots/'+robotId+"/destroy";
       var requestOptions = {method: 'post'}
       console.log("AJAX REQUEST", requestUrl);
-      fetch(requestUrl, requestOptions).then(function(r){return r.json(); }).then(function(response){
-        console.log("successsss");
+      fetch(requestUrl, requestOptions).then(function(response){
+        var flash = response.ok ? {success: ["Deleted robot #"+robotId]} : {danger: ["Couldn't delete robot #"+robotId]};
         component.props.router.push({
           pathname: '/',
-          state: {flash: {success: ["Deleted robot #"+robotId]}}
+          state: {flash: flash}
         });
-      }).catch(function(error){
-        console.log("CATCH")
-        component.props.router.push({
-          pathname: '/',
-          state: {flash: {danger: ["Couldn't delete robot #"+robotId]}}
-        });
-      });
+      }); // fetch
     }
   })
 );
