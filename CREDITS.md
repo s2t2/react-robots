@@ -76,6 +76,10 @@
   + http://andrewhfarmer.com/react-ajax-best-practices/
   + https://davidwalsh.name/fetch
   + http://stackoverflow.com/questions/29473426/fetch-reject-promise-with-json-error-object
+  + https://github.com/github/fetch#handling-http-error-statuses
+  + https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en
+
+The response of a fetch() request is a Stream object, which means that when we call the json() method, a Promise is returned since the reading of the stream will happen asynchronously.
 
 ## Socket.io
 
