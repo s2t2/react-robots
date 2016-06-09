@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var moment = require('moment-timezone');
 import React from 'react';
 import { Link, withRouter } from 'react-router';
@@ -44,26 +43,22 @@ var RobotsTableRow = withRouter (
     },
 
     deleteRobot: function(robotId){
+      var component = this;
       var requestUrl = '/api/robots/'+robotId+"/destroy";
+      var requestOptions = {method: 'post'}
       console.log("AJAX REQUEST", requestUrl);
-      $.ajax({
-        url: requestUrl,
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          this.props.router.push({
-            pathname: '/',
-            state: {flash: {success: ["Deleted robot #"+robotId]}}
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(xhr, status, err);
-          this.props.router.push({
-            pathname: '/',
-            state: {flash: {danger: ["Couldn't delete robot #"+robotId]}}
-          });
-        }.bind(this)
+      fetch(requestUrl, requestOptions).then(function(r){return r.json(); }).then(function(response){
+        console.log("successsss");
+        component.props.router.push({
+          pathname: '/',
+          state: {flash: {success: ["Deleted robot #"+robotId]}}
+        });
+      }).catch(function(error){
+        console.log("CATCH")
+        component.props.router.push({
+          pathname: '/',
+          state: {flash: {danger: ["Couldn't delete robot #"+robotId]}}
+        });
       });
     }
   })

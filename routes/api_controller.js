@@ -104,13 +104,18 @@ router.post('/api/robots/:id/update', function(req, res, next) {
 router.post('/api/robots/:id/destroy', function(req, res, next) {
   var robotId = req.params.id;
   Robot.findById(robotId, function(err, bot) {
-    bot.remove( function(rmErr, rmBot) {
-      if (rmErr) {
-        res.notFound({messages: ["DESTRUCTION ERROR"]})
-      } else {
-        res.okay({messages: ["DESTRUCTION OK"] });
-      };
-    });
+    if(err){
+      res.notFound({messages: ["FIND ERROR"]})
+    } else {
+      bot.remove( function(rmErr, rmBot) {
+        if (rmErr) {
+          res.notFound({messages: ["DESTRUCTION ERROR"]})
+        } else {
+          res.okay({messages: ["DESTRUCTION OK"] });
+        };
+      });
+    }
+
   });
 });
 

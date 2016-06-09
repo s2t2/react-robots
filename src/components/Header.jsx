@@ -26,7 +26,7 @@ var Header = withRouter(
       console.log("RECYCLE");
       var component = this;
       var requestUrl = "/api/robots/recycle";
-      var requestOptions = {method: 'post'}
+      var requestOptions = {method: 'post'};
       fetch(requestUrl, requestOptions).then(function(r) { return r.json(); }).then(function(response) {
         component.props.router.push({
           pathname: '/',
