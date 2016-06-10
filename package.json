@@ -2,11 +2,19 @@
   "name": "react-robots",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "5.9.1",
+    "npm": "3.7.3"
+  },
   "scripts": {
     "db-seed": "node ./db/seed.js",
+    "build": "webpack --config ./webpack.config.js --progress --colors",
     "start": "node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
-    "start-watch": "nodemon ./bin/www"
+    "start-watch": "nodemon ./bin/www",
+    "postinstall": "npm run build",
+    "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
+    "heroku-postbuild": "npm run db-seed"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -22,7 +30,8 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-router": "^2.4.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "webpack": "^1.13.1"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
@@ -32,7 +41,6 @@
     "css-loader": "^0.23.1",
     "json-loader": "^0.5.4",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   }

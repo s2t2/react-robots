@@ -94,3 +94,7 @@
 
   + https://github.com/lsegal/yard-js
   + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
+
+## Deploying
+
+  + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-7-deploying-node-app-to-heroku/
