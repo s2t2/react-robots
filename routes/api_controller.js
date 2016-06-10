@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 /* INDEX */
 
 router.get('/api/robots', function(req, res, next) {
-  Robot.find( function (err, bots) {
+  Robot.find().sort({created_at: 'desc'}).exec(function (err, bots) {
     res.okay(bots);
   });
 });
