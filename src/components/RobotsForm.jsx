@@ -153,7 +153,7 @@ var RobotsForm = withRouter (
         }.bind(this),
         error: function(xhr, status, err) {
           console.log(xhr, status, err);
-          var errorMessages = xhr.responseJSON.errors;
+          var errorMessages = xhr.responseJSON.messages;
           var formBot = xhr.responseJSON.bot;
           this.props.router.push({
             pathname: '/robots/new',
@@ -189,7 +189,7 @@ var RobotsForm = withRouter (
         }.bind(this),
         error: function(xhr, status, err) {
           console.log("DIDN'T UPDATE DATA", xhr, status, err);
-          var errorMessages = xhr.responseJSON.errors;
+          var errorMessages = xhr.responseJSON.messages;
           var formBot = xhr.responseJSON.bot;
           this.props.router.push({
             pathname: '/robots/'+ formBot._id +'/edit',

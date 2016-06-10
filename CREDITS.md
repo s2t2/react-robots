@@ -88,6 +88,7 @@
   + https://github.com/data-creative/express-on-rails-starter-app
   + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-6b-express-mongodb-datastore/
   + http://mongoosejs.com/docs/guide.html
+  + http://stackoverflow.com/questions/5825520/in-mongoose-how-do-i-sort-by-date-node-js
 
 ## Documentation
 
