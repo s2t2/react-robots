@@ -28,6 +28,7 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
+    "file-loader": "^0.8.5",
     "jquery": "^2.2.4",
     "json-loader": "^0.5.4",
     "moment-timezone": "^0.5.4",
@@ -38,6 +39,7 @@
     "react-router": "^2.4.0",
     "serve-favicon": "~2.3.0",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.1"
   },
   "devDependencies": {
