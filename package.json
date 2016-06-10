@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "db-seed": "node ./db/seed.js",
     "start": "node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www"
@@ -16,6 +17,7 @@
     "express": "~4.13.1",
     "jquery": "^2.2.4",
     "moment-timezone": "^0.5.4",
+    "mongoose": "^4.4.19",
     "morgan": "~1.6.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",

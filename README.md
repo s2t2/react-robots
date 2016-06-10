@@ -1,3 +1,40 @@
+# A CRUD App using React and MongoDB
+
+*MERN* Stack: Mongo, Express, React, Node.
+
+## Contributing
+
+### Installation
+
+Get source code.
+
+```` sh
+git clone git@github.com:s2t2/react-robots.git
+cd react-robots/
+npm install
+````
+
+### Development
+
+Seed a mongo database.
+
+```` sh
+npm run db-seed
+````
+
+Start the web server.
+
+```` sh
+npm start
+````
+
+
+
+
+
+<hr />
+
+
 
 Commands used to make this repo:
 
@@ -9,4 +46,5 @@ npm install --save-dev babel-core babel-loader babel-preset-react babel-preset-e
 npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
+npm install --save mongoose
 ````

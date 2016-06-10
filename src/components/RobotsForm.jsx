@@ -1,3 +1,4 @@
+var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
@@ -7,35 +8,100 @@ import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';
 
 var RobotsForm = withRouter (
   React.createClass({
+    render: function(){
+      return (
+        <form className="form-horizontal" onSubmit={this.submitForm}>
+          <RobotsFormInputName params={this.props.params} bot={this.state.bot} setName={this.setName}/>
+          <RobotsFormInputDescription params={this.props.params} bot={this.state.bot} setDescription={this.setDescription}/>
+
+          <RobotsFormSubmitButton bot={this.state.bot}/>
+        </form>
+      )
+    },
+
+    defaultBot: {name:"", description:""},
+
+    //
+    // EVENT LIFECYCLE
+    //
 
     getInitialState: function() {
-      console.log("FORM - INITIAL STATE");
+      console.log("FORM GET INITIAL STATE");
       return {
-        bot: this.getRobot(this.props.params)
+        bot: this.defaultBot,
+        formAction: this.formAction(this.props)
       };
     },
 
     componentWillMount: function(){
-      console.log("FORM -- WILL MOUNT", this.state.bot);
+      console.log("FORM WILL MOUNT", this.state.bot);
+    },
+
+    componentDidMount: function(){
+      console.log("FORM DID MOUNT", this.state.bot);
+      this.determineRobot(this.props);
     },
 
     componentWillReceiveProps: function(nextProps) {
-      console.log("FORM -- RECEIVE PROPS");
-      this.setState({
-        bot: this.getRobot(nextProps.params)
-      });
+      console.log("FORM WILL RECEIVE PROPS");
+      this.determineRobot(nextProps);
     },
 
     componentWillUpdate: function(nextProps, nextState){
-      console.log("FORM -- WILL UPDATE", nextState.bot);
+      console.log("FORM WILL UPDATE", nextState.bot);
     },
 
-    getRobot: function(paramz){
-      var bot = {name: "my bot", description: "does stuff"};
-      if (paramz.id) {
-        bot = {name: "bot #"+paramz.id, description:"todo: look this up!"} //TODO: database call
-      };
-      return bot;
+    //
+    // MY FUNCTIONS
+    //
+
+    formAction: function(propz){
+      console.log("FORM DETERMINING ACTION BASED ON PROPS", propz)
+      var formAction = (propz.params && propz.params.id) ? "UPDATE_ROBOT" : "CREATE_ROBOT";
+      return formAction;
+    },
+
+    determineRobot: function(propz){
+      console.log("FORM DETERMINING ROBOT BASED ON PROPS", propz)
+      if(propz.location && propz.location.state && propz.location.state.formBot){ // PREVIOUS FORM VALUES (NEW / EDIT)
+        this.setState({
+          bot: propz.location.state.formBot
+        });
+      } else if (propz.location && propz.location.state && propz.location.state.showBot) { // PREVIOUS SHOW PAGE VALUES (EDIT)
+        this.setState({
+          bot: propz.location.state.showBot
+        });
+      } else if (propz.params && propz.params.id) { // DATABASE VALUES (EDIT)
+        this.setRobot(propz.params.id);
+      } else { // DEFAULT VALUES (NEW)
+        this.setState({
+          bot: this.defaultBot
+        });
+      }
+    },
+
+    setRobot: function(robotId){
+      var requestUrl = '/api/robots/'+robotId;
+      console.log("AJAX REQUEST", requestUrl)
+      $.ajax({
+        url: requestUrl,
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          console.log("REQUEST SUCCESS", data);
+          this.setState({bot: data});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log("REQUEST ERROR", xhr, status, err);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              robots: [],
+              flash: {danger: ["Couldn't find robot #"+robotId]}
+            }
+          });
+        }.bind(this)
+      });
     },
 
     setName: function(newName){
@@ -54,20 +120,85 @@ var RobotsForm = withRouter (
 
     submitForm: function(event){
       event.preventDefault(); // prevents the redirect route from receiving params (e.g. http://localhost:3000/#/?_k=10eu8m rather than http://localhost:3000/?description=fun+times#/?_k=kua7fi)
-      console.log("FORM -- SUBMIT", this.state.bot); //TODO: database call
-      this.props.router.push('/');
+      console.log("SUBMITTING FORM DATA", this.state.bot, "WITH ACTION", this.state.formAction);
+      switch (this.state.formAction) {
+        case "CREATE_ROBOT":
+          this.createRobot()
+          break;
+        case "UPDATE_ROBOT":
+          this.updateRobot()
+          break;
+      };
     },
 
-    render: function(){
+    createRobot: function(){
+      $.ajax({
+        url: "api/robots",
+        method: "POST",
+        dataType: 'json',
+        cache: false,
+        data: {
+          robotName: this.state.bot.name,
+          robotDescription: this.state.bot.description
+        },
+        success: function(data) {
+          console.log("CREATED DATA", data);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              flash: {success: ["Created robot #"+data._id]}
+            }
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log(xhr, status, err);
+          var errorMessages = xhr.responseJSON.messages;
+          var formBot = xhr.responseJSON.bot;
+          this.props.router.push({
+            pathname: '/robots/new',
+            state: {
+              flash: {warning: errorMessages},
+              formBot: formBot
+            }
+          });
+        }.bind(this)
+      });
+    },
 
-      return (
-        <form className="form-horizontal" onSubmit={this.submitForm}>
-          <RobotsFormInputName params={this.props.params} bot={this.state.bot} setName={this.setName}/>
-          <RobotsFormInputDescription params={this.props.params} bot={this.state.bot} setDescription={this.setDescription}/>
-
-          <RobotsFormSubmitButton bot={this.state.bot}/>
-        </form>
-      )
+    updateRobot: function(){
+      var requestUrl = "api/robots/"+this.state.bot._id+"/update";
+      console.log("AJAX", requestUrl, "WITH DATA", this.state.bot)
+      $.ajax({
+        url: requestUrl,
+        method: "POST",
+        dataType: 'json',
+        cache: false,
+        data: {
+          robotName: this.state.bot.name,
+          robotDescription: this.state.bot.description
+        },
+        success: function(data) {
+          console.log("UPDATED DATA", data);
+          this.props.router.push({
+            pathname: '/',
+            state: {
+              flash: {success: ["Updated robot #"+data._id]}
+            }
+          });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.log("DIDN'T UPDATE DATA", xhr, status, err);
+          var errorMessages = xhr.responseJSON.messages;
+          var formBot = xhr.responseJSON.bot;
+          this.props.router.push({
+            pathname: '/robots/'+ formBot._id +'/edit',
+            state: {
+              flash: {warning: errorMessages},
+              formBot: formBot
+            }
+          });
+        }.bind(this)
+      });
     }
   })
 );

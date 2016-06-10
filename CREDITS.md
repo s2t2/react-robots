@@ -47,10 +47,48 @@
   + https://github.com/webpack/css-loader/issues/151
   + https://github.com/webpack/css-loader/issues/38#issuecomment-72287584
 
-## JSX
+## JSX and JavasScript
 
   + http://wesbos.com/react-jsx-comments/
+  + http://www.w3schools.com/js/js_array_methods.asp
+  + http://stackoverflow.com/questions/20003676/how-to-get-current-index-in-array-prototype-map
 
 ## Other
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
+
+## Express JSON API and Middleware
+
+  + http://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
+  + http://stackoverflow.com/questions/10563644/how-to-specify-http-error-code
+  + http://stackoverflow.com/questions/26066785/proper-way-to-set-response-status-and-json-content-in-a-rest-api-made-with-nodej
+  + http://expressjs.com/en/4x/api.html
+  + http://www.restapitutorial.com/httpstatuscodes.html
+  + http://www.bennadel.com/blog/2400-handling-forbidden-restful-requests-401-vs-403-vs-404.htm
+  + https://github.com/fireridlle/express-custom-response/blob/master/lib/express-custom-response.js
+  + http://expressjs.com/en/guide/using-middleware.html
+  + http://stackoverflow.com/questions/34113590/how-to-add-custom-function-to-response-object-in-node-js
+
+## AJAX
+
+  + http://api.jquery.com/jquery.ajax/
+  + http://andrewhfarmer.com/ajax-libraries/
+  + http://andrewhfarmer.com/react-ajax-best-practices/
+
+## Socket.io
+
+  + http://stackoverflow.com/questions/20892324/node-js-how-to-pass-mongoose-results-to-my-socket-emit
+  + http://socket.io/
+  + https://github.com/socketio/socket.io
+
+## Mongo
+
+  + https://github.com/data-creative/express-on-rails-starter-app
+  + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-6b-express-mongodb-datastore/
+  + http://mongoosejs.com/docs/guide.html
+  + http://stackoverflow.com/questions/5825520/in-mongoose-how-do-i-sort-by-date-node-js
+
+## Documentation
+
+  + https://github.com/lsegal/yard-js
+  + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
