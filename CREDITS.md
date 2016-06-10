@@ -19,6 +19,8 @@
   + https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.m4tz3pi34
   + https://github.com/reactjs/react-router/blob/master/docs/guides/RouteConfiguration.md
   + https://github.com/reactjs/react-router/blob/master/docs/API.md#pushpathorloc
+  + https://css-tricks.com/learning-react-router/
+  + https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#configuring-your-server
 
 ### Forms
 
@@ -92,3 +94,9 @@
 
   + https://github.com/lsegal/yard-js
   + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
+
+## Deploying
+
+  + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-7-deploying-node-app-to-heroku/
+  + http://stackoverflow.com/questions/28100644/reactjs-uncaught-syntaxerror-unexpected-token
+  + http://stackoverflow.com/questions/35796256/express-webpack-failing-on-dokku-and-heroku/37740210#37740210
