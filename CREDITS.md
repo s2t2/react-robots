@@ -94,3 +94,9 @@
 
   + https://github.com/lsegal/yard-js
   + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
+
+## Deploying
+
+  + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-7-deploying-node-app-to-heroku/
+  + http://stackoverflow.com/questions/28100644/reactjs-uncaught-syntaxerror-unexpected-token
+  + http://stackoverflow.com/questions/35796256/express-webpack-failing-on-dokku-and-heroku/37740210#37740210

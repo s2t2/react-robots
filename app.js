@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -16,11 +16,13 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/dist', express.static(path.join(__dirname, 'dist'))); // so the browser can recognize static files compiled/transpiled from react components in the /dist directory. only needed in production since webpack dev server doesn't use an actual file...
 
 app.use('/', routes);
 app.use('/', api_routes);
@@ -41,9 +43,9 @@ if(process.env.NODE_ENV !== 'production') {
 // this is not the code that tells react which page to use.
 // this requires AJAX requests to use "/" preceding the request url (e.g. "/api/robots" instead of "api/robots")
 // this enables proper requests from both the root url ("/") as well as from nested urls (e.g. "/robots/123")
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'views', 'robots', 'index.ejs'))
-})
+//app.get('*', function (request, response){
+//  response.sendFile(path.resolve(__dirname, 'views', 'robots', 'index.ejs'))
+//})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
