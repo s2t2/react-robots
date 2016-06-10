@@ -19,6 +19,8 @@
   + https://medium.com/@rajaraodv/a-guide-for-building-a-react-redux-crud-app-7fe0b8943d0f#.m4tz3pi34
   + https://github.com/reactjs/react-router/blob/master/docs/guides/RouteConfiguration.md
   + https://github.com/reactjs/react-router/blob/master/docs/API.md#pushpathorloc
+  + https://css-tricks.com/learning-react-router/
+  + https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#configuring-your-server
 
 ### Forms
 

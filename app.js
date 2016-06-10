@@ -37,6 +37,14 @@ if(process.env.NODE_ENV !== 'production') {
   app.use(webpackHotMiddleware(compiler, {log: console.log}))
 }
 
+// when using react browserHistory, anchor all requests relative to one page to fix path issues (e.g. don't post to /robots/1234/api/robots/1234/update)
+// this is not the code that tells react which page to use.
+// this requires AJAX requests to use "/" preceding the request url (e.g. "/api/robots" instead of "api/robots")
+// this enables proper requests from both the root url ("/") as well as from nested urls (e.g. "/robots/123")
+app.get('*', function (request, response){
+  response.sendFile(path.resolve(__dirname, 'views', 'robots', 'index.ejs'))
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

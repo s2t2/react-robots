@@ -25,8 +25,9 @@ var Header = withRouter(
 
     recycleRobots: function(){
       console.log("RECYCLE");
+      var requestUrl = "/api/robots/recycle";
       $.ajax({
-        url: "api/robots/recycle",
+        url: requestUrl,
         method: "POST",
         dataType: 'json',
         cache: false,
