@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'dist')));
+//app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', routes);
 app.use('/', api_routes);
@@ -42,9 +42,9 @@ if(process.env.NODE_ENV !== 'production') {
 // this is not the code that tells react which page to use.
 // this requires AJAX requests to use "/" preceding the request url (e.g. "/api/robots" instead of "api/robots")
 // this enables proper requests from both the root url ("/") as well as from nested urls (e.g. "/robots/123")
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, 'views', 'robots', 'index.ejs'))
-})
+//app.get('*', function (request, response){
+//  response.sendFile(path.resolve(__dirname, 'views', 'robots', 'index.ejs'))
+//})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
