@@ -9,8 +9,12 @@ Robot.find(function (err, bots) {
     if (rmErr) return console.error(rmErr);
     console.log("DELETED", bots.length, "RECORDS")
 
-    Robot.create(Robot.devRobots, function (crErr, newBots) {
-      console.log("CREATED", newBots.length, "RECORDS")
+    Robot.create(Robot.defaultRobots(), function (crErr, newBots) {
+      if (crErr) {
+        console.log(crErr)
+      } else {
+        console.log("CREATED", newBots.length, "RECORDS")
+      }
       db.disconnect(); // close the connection, else it will keep running, which is appropriate for when the web server runs, but not for a script like this.
     });
   });

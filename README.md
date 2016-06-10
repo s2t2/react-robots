@@ -2,6 +2,10 @@
 
 *MERN* Stack: Mongo, Express, React, Node.
 
+## Usage
+
+View this application in production at https://react-robots.herokuapp.com/.
+
 ## Contributing
 
 ### Installation

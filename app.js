@@ -22,8 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/dist', express.static(path.join(__dirname, 'dist'))); // recognize static files compiled/transpiled from react components
+app.use('/dist', express.static(path.join(__dirname, 'dist'))); // so the browser can recognize static files compiled/transpiled from react components in the /dist directory. only needed in production since webpack dev server doesn't use an actual file...
 
 app.use('/', routes);
 app.use('/', api_routes);
