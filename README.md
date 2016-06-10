@@ -33,7 +33,7 @@ npm start
 Run tests.
 
 ```` sh
-npm run test
+npm run test --silent
 ````
 
 
