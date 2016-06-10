@@ -106,6 +106,21 @@
   + https://github.com/lsegal/yard-js
   + http://www.rubydoc.info/gems/yard/file/docs/Tags.md
 
+## Testing
+
+  + https://thewayofcode.wordpress.com/tag/route-unit-test/
+  + https://github.com/wheresrhys/fetch-mock
+  + https://github.com/mjackson/expect
+  + https://github.com/visionmedia/supertest
+  + http://mochajs.org/
+  + https://github.com/mochajs/mocha
+  + https://github.com/mochajs/mocha/wiki
+  + https://github.com/mochajs/mocha
+
+## Node and NPM
+
+ + https://firstdoit.com/no-need-for-globals-using-npm-dependencies-in-npm-scripts-3dfb478908#.wdmywnsf5
+
 ## Other
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack

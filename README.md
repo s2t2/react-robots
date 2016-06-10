@@ -28,6 +28,26 @@ Start the web server.
 npm start
 ````
 
+### Testing
+
+Run tests.
+
+```` sh
+npm run test
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,4 +67,5 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
+npm install --save-dev mocha expect
 ````
