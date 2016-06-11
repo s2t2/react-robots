@@ -25,7 +25,7 @@ router.use(function(req, res, next) {
 /* INDEX */
 
 router.get('/api/robots', function(req, res, next) {
-  Robot.find( function (err, bots) {
+  Robot.find().sort({created_at: 'desc'}).exec(function (err, bots) {
     res.okay(bots);
   });
 });
@@ -55,8 +55,7 @@ router.post('/api/robots/recycle', function(req, res, next) {
         if (rmErr){
           res.notFound({messages: ["REMOVAL ERROR"]});
         } else {
-          var toBeBots = (process.env.NODE_ENV == 'production') ? Robot.productionRobots : Robot.devRobots;
-          Robot.create(toBeBots, function (err, newBots) {
+          Robot.create(Robot.defaultRobots(), function (err, newBots) {
             res.okay({messages: ["OK"], deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
           }); // Robot.create
         }; // if rmErr

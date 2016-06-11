@@ -40,4 +40,8 @@ RobotSchema.statics.devRobots = [
   {name:"bb8",  description:"rolls around"}
 ];
 
+RobotSchema.statics.defaultRobots = function(){
+  return (process.env.NODE_ENV == 'production') ? this.productionRobots : this.devRobots
+}
+
 module.exports = mongoose.model('Robot', RobotSchema);

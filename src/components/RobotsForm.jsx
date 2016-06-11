@@ -168,7 +168,7 @@ var RobotsForm = withRouter (
     },
 
     updateRobot: function(){
-      var requestUrl = "api/robots/"+this.state.bot._id+"/update";
+      var requestUrl = "/api/robots/"+this.state.bot._id+"/update";
       console.log("AJAX", requestUrl, "WITH DATA", this.state.bot)
       $.ajax({
         url: requestUrl,

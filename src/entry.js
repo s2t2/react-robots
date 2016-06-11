@@ -3,15 +3,14 @@ require("../public/stylesheets/style.css");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router';
 
 import App from './components/App.jsx';
 import RobotsTable from './components/RobotsTable.jsx';
 import RobotsForm from './components/RobotsForm.jsx';
 
 ReactDOM.render(
-  <Router history={hashHistory}>
-    { /* <Redirect from="/" to="robots"/> */ }
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={RobotsTable}/>
       <Route path="robots" component={RobotsTable}/>
