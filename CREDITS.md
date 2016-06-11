@@ -124,6 +124,7 @@
   + https://github.com/mochajs/mocha
   + https://github.com/visionmedia/supertest#api
   + http://stackoverflow.com/questions/26429997/res-body-is-empty-in-this-test-that-uses-supertest-and-node-js
+  + http://stackoverflow.com/questions/24723374/async-function-in-mocha-before-is-alway-finished-before-it-spec
 
 ## Node and NPM
 
