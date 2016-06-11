@@ -74,5 +74,5 @@ Commands used to administer and deploy to production the first time:
 heroku create react-robots
 heroku addons:create mongolab:sandbox
 heroku addons:create scheduler
-heroku addons:open scheduler # then add a new job for `npm run db-seed` to run hourly
+heroku addons:open scheduler # then add a new job for `NODE_ENV=production npm run db-seed` to run hourly
 ````
