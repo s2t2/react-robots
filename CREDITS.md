@@ -78,6 +78,7 @@
   + https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en
   + https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Response_objects
   + https://developer.mozilla.org/en-US/docs/Web/API/FormData
+  + https://github.com/request/request
 
 ### Errors
 
@@ -90,6 +91,7 @@
   + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
   + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
   + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch
+  + https://www.promisejs.org/
 
 ## Socket.io
 
@@ -120,6 +122,8 @@
   + https://github.com/mochajs/mocha
   + https://github.com/mochajs/mocha/wiki
   + https://github.com/mochajs/mocha
+  + https://github.com/visionmedia/supertest#api
+  + http://stackoverflow.com/questions/26429997/res-body-is-empty-in-this-test-that-uses-supertest-and-node-js
 
 ## Node and NPM
 

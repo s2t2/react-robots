@@ -1,4 +1,4 @@
-var expect = require('expect')
+var expect = require('expect');
 
 describe('Array', function() {
   describe('#indexOf()', function () {
