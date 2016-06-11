@@ -59,4 +59,6 @@ npm install --save moment-timezone json-loader
 npm install --save mongoose
 heroku create react-robots
 heroku addons:create mongolab:sandbox
+heroku addons:create scheduler
+heroku addons:open scheduler # then add a new job for `npm run db-seed` to run hourly
 ````

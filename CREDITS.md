@@ -100,3 +100,4 @@
   + http://data-creative.info/process-documentation/2016/04/09/node-for-rails-developers-part-7-deploying-node-app-to-heroku/
   + http://stackoverflow.com/questions/28100644/reactjs-uncaught-syntaxerror-unexpected-token
   + http://stackoverflow.com/questions/35796256/express-webpack-failing-on-dokku-and-heroku/37740210#37740210
+  + http://data-creative.info/process-documentation/2015/07/25/how-to-deploy-a-rails-app-to-heroku/#tasks
