@@ -2,10 +2,9 @@ var expect = require('expect');
 var request = require('supertest');
 
 var app = require('../app.js');
+var defaultRobots = require('../db/default_robots').defaultRobots();
 var recycleRobots = require('../db/recycle_robots');
 var Robot = require('../models/robot');
-
-var defaultRobots = Robot.defaultRobots(); // require('../db/default_robots').defaultRobots();
 
 function responseIsArrayOfRobots(res){
   expect(res.body).toBeA("object");

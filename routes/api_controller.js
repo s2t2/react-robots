@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+var defaultRobots = require('../db/default_robots').defaultRobots();
 var mongooseError = require("../helpers/mongoose_error");
 var Robot = require("../models/robot");
 
@@ -55,7 +56,7 @@ router.post('/api/robots/recycle', function(req, res, next) {
         if (rmErr){
           res.notFound({messages: ["REMOVAL ERROR"]});
         } else {
-          Robot.create(Robot.defaultRobots(), function (err, newBots) {
+          Robot.create(defaultRobots, function (err, newBots) {
             res.okay({messages: ["OK"], deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
           }); // Robot.create
         }; // if rmErr

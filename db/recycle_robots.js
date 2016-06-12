@@ -1,4 +1,5 @@
 var Robot = require("../models/robot");
+var defaultRobots = require('../db/default_robots').defaultRobots();
 
 module.exports = function recycleRobots(){
   console.log("RECYCLE PENDING");
@@ -8,7 +9,7 @@ module.exports = function recycleRobots(){
       return Robot.remove(bots)
         .then(function(){
           console.log("DELETED", bots.length, "RECORDS");
-          return Robot.create(Robot.defaultRobots())
+          return Robot.create(defaultRobots)
         })
     })
 };
