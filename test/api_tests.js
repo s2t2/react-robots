@@ -18,8 +18,8 @@ function responseIsArrayOfRobots(res){
 
 describe("API", function(){
   describe("INDEX ROUTE", function(){
-    before(function(){
-      recycleRobots({disconnect:false});
+    before(function(done){
+      recycleRobots().then(done());
     });
 
     it("should return an array of json objects", function(done){

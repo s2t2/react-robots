@@ -15,15 +15,15 @@ var Header = withRouter(
             <span className="glyphicon glyphicon-plus"></span> new
           </Link>
 
-          <button type="button" className="btn btn-success pull-right" style={buttonStyle} onClick={this.recycleRobots}>
+          <button type="button" className="btn btn-success pull-right" style={buttonStyle} onClick={this.handleRecycle}>
             <span className="glyphicon glyphicon-retweet"></span> recycle
           </button>
         </header>
       )
     },
 
-    recycleRobots: function(){
-      console.log("RECYCLE");
+    handleRecycle: function(){
+      console.log("HANDLE RECYCLE");
       var component = this;
       var requestUrl = "/api/robots/recycle";
       var requestOptions = {method: 'post'};
