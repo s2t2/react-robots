@@ -93,6 +93,7 @@
   + https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch
   + https://www.promisejs.org/
   + https://davidwalsh.name/promises
+  + http://stackoverflow.com/questions/37358133/trouble-using-promises-with-mongoose
 
 ## Socket.io
 
