@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var defaultRobots = require('../db/default_robots').defaultRobots();
+var recycleRobots = require('../db/recycle_robots');
 var mongooseError = require("../helpers/mongoose_error");
 var Robot = require("../models/robot");
 
@@ -48,21 +48,13 @@ router.post('/api/robots', function(req, res, next) {
 /* RECYCLE */
 
 router.post('/api/robots/recycle', function(req, res, next) {
-  Robot.find(function (err, bots) {
-    if (err) {
-      res.notFound({messages: ["FIND ERROR"]});
-    } else {
-      Robot.remove(bots, function (rmErr) {
-        if (rmErr){
-          res.notFound({messages: ["REMOVAL ERROR"]});
-        } else {
-          Robot.create(defaultRobots, function (err, newBots) {
-            res.okay({messages: ["OK"], deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
-          }); // Robot.create
-        }; // if rmErr
-      }); // Robot.remove
-    }; // if err
-  }); // Robot.find
+  recycleRobots()
+    .then(function(results){
+      res.okay({messages: ["OK"], deletedRobotsCount: results.deletedRobotsCount, createdRobotsCount: results.createdRobotsCount});
+    })
+    .catch(function(err){
+      res.notFound({messages: ["RECYCLING ERROR"]});
+    })
 });
 
 /* SHOW */
