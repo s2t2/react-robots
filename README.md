@@ -37,7 +37,9 @@ npm start
 Run tests.
 
 ```` sh
-npm run test --silent
+npm run test --silent # runs all tests
+npm run test-api --silent # runs only server-side api tests
+npm run test-components --silent # runs only client-side react component tests
 ````
 
 ### Deploying
@@ -65,7 +67,7 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
-npm install --save-dev mocha expect supertest
+npm install --save-dev mocha expect supertest zombie
 ````
 
 Commands used to administer and deploy to production the first time:

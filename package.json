@@ -14,6 +14,7 @@
     "start-watch": "nodemon ./bin/www",
     "test": "NODE_ENV=test mocha --recursive",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
+    "test-components": "NODE_ENV=test mocha test/components/ --recursive",
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"
@@ -49,6 +50,7 @@
     "mocha": "^2.5.3",
     "supertest": "^1.2.0",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "webpack-hot-middleware": "^2.10.0",
+    "zombie": "^4.2.1"
   }
 }

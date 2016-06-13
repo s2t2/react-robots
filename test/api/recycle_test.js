@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 var expect = require('expect'); // source of `expect()`
 var request = require('supertest'); // source of `.expect()` within a `request` promise chain
 

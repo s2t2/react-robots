@@ -116,17 +116,42 @@
 
 ## Testing
 
-  + https://thewayofcode.wordpress.com/tag/route-unit-test/
-  + https://github.com/wheresrhys/fetch-mock
-  + https://github.com/mjackson/expect
-  + https://github.com/visionmedia/supertest
   + http://mochajs.org/
   + https://github.com/mochajs/mocha
   + https://github.com/mochajs/mocha/wiki
   + https://github.com/mochajs/mocha
+
+### Assertions
+
+  + https://github.com/mjackson/expect
+
+### API Testing
+
+  + https://thewayofcode.wordpress.com/tag/route-unit-test/
+  + https://github.com/wheresrhys/fetch-mock
+  + https://github.com/visionmedia/supertest
   + https://github.com/visionmedia/supertest#api
   + http://stackoverflow.com/questions/26429997/res-body-is-empty-in-this-test-that-uses-supertest-and-node-js
   + http://stackoverflow.com/questions/24723374/async-function-in-mocha-before-is-alway-finished-before-it-spec
+
+### Component Testing
+
+  + https://github.com/ariya/phantomjs
+  + http://phantomjs.org/documentation/
+  + http://code.tutsplus.com/tutorials/testing-javascript-with-phantomjs--net-28243
+  + http://stackoverflow.com/questions/7977945/html-parser-on-node-js
+  + https://github.com/nathanboktae/mocha-phantomjs
+  + http://stackoverflow.com/questions/7591854/is-there-a-capybara-for-node-js
+  + http://zombie.js.org/
+  + https://github.com/assaf/zombie
+  + http://www.redotheweb.com/2013/01/15/functional-testing-for-nodejs-using-mocha-and-zombie-js.html
+  + https://facebook.github.io/jest/
+  + https://blog.algolia.com/how-we-unit-test-react-components-using-expect-jsx/
+  + http://jaketrent.com/post/testing-react-with-jsdom/
+  + https://facebook.github.io/react/docs/test-utils.html
+  + http://airbnb.io/enzyme/
+  + http://www.hammerlab.org/2015/02/14/testing-react-web-apps-with-mocha/
+  + http://www.asbjornenge.com/wwc/testing_react_components.html
 
 ## Node and NPM
 
