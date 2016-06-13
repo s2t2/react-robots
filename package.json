@@ -12,8 +12,8 @@
     "start": "node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www",
-    "test": "NODE_ENV=test mocha",
-    "test-api": "NODE_ENV=test mocha test/api_tests.js",
+    "test": "NODE_ENV=test mocha --recursive",
+    "test-api": "NODE_ENV=test mocha test/api/ --recursive",
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"
