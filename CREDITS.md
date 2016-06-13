@@ -152,6 +152,10 @@
   + http://airbnb.io/enzyme/
   + http://www.hammerlab.org/2015/02/14/testing-react-web-apps-with-mocha/
   + http://www.asbjornenge.com/wwc/testing_react_components.html
+  + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/helpers/brains.js
+  + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/browser_object_test.js
+  + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/requirejs_test.js
+  + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/img_test.js
 
 ## Node and NPM
 
