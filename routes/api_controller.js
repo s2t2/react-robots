@@ -3,25 +3,8 @@ var router = express.Router();
 
 var recycleRobots = require('../db/recycle_robots');
 var mongooseError = require("../helpers/mongoose_error");
+require("../helpers/api.js").enableAPIMethods(router); // enables `res.okay()`, `res.notFound()` et. al.
 var Robot = require("../models/robot");
-
-/* CUSTOM RESPONSE METHODS */
-
-router.use(function(req, res, next) {
-  res.okay = function(responseData) {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(responseData);
-  };
-  next();
-});
-
-router.use(function(req, res, next) {
-  res.notFound = function(responseData) {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(404).json(responseData);
-  };
-  next();
-});
 
 /* INDEX */
 
