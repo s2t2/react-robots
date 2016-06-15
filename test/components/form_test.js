@@ -1,29 +1,38 @@
 process.env.NODE_ENV = 'test';
-
-var Browser = require('zombie');
-
-Browser.localhost('example.com', 3000);
+var expect = require('expect');
+var browser = require('../../helpers/test_browser');
 
 describe("Form", function(){
-  context("when visited", function(){
-    const browser = new Browser();
+  context("when visited on the 'new' page", function(){
+    before(function(){  return browser.visit('/');  });
+    before(function(){  return browser.clickLink('new');  });
 
-    before(function(done) {
-      browser.visit('/', done);
-    });
-
-    //before(function(done) {
-    //  browser
-    //    .fill('email',    'zombie@underworld.dead')
-    //    .fill('password', 'eat-the-living')
-    //    .pressButton('Sign Me Up!', done);
-    //});
-
-    it("should contain empty input values", function(){
-      console.log(browser.document.documentElement.innerHTML)
-      browser.assert.success();
-      browser.assert.text('title', 'Robots App!');
-      browser.assert.element('table');
+    it("should contain a page heading", function(){
+      expect(browser.query("h2").innerHTML).toEqual("New Robot")
     })
+
+    it("should contain a form with empty input values", function(){
+      browser.assert.element('form');
+      //console.log(browser.field('robotName'))
+    })
+
+
+
+
+
+
+
+    //context("when submitted with invalid values", function(){
+    //  //console.log(browser.field('robotName'))
+//
+//
+    //  //before(function(done) {
+    //  //  browser
+    //  //    .fill('email',    'zombie@underworld.dead')
+    //  //    .fill('password', 'eat-the-living')
+    //  //    .pressButton('Sign Me Up!', done);
+    //  //});
+//
+    //})
   })
 })

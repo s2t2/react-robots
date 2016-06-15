@@ -156,6 +156,8 @@
   + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/browser_object_test.js
   + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/requirejs_test.js
   + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/img_test.js
+  + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/src/index.js
+  + https://github.com/assaf/zombie/blob/master/src/assert.js
 
 ## Node and NPM
 
@@ -164,6 +166,7 @@
 ## Other
 
   + http://stackoverflow.com/questions/29548386/how-should-i-use-moment-timezone-with-webpack
+  + https://github.com/maxogden/commonjs-html-prettyprinter
 
 ## Deploying
 
