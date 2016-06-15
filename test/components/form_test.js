@@ -7,12 +7,15 @@ describe("Form", function(){
     before(function(){  return browser.visit('/');  });
     before(function(){  return browser.clickLink('new');  });
 
-    it("should contain a page heading", function(){
+    it("page should contain a heading", function(){
       expect(browser.query("h2").innerHTML).toEqual("New Robot")
     })
 
-    it("should contain a form with empty input values", function(){
+    it("page should contain a form", function(){
       browser.assert.element('form');
+    })
+
+    it("form should contain empty input values", function(){
       //console.log(browser.field('robotName'))
     })
 
