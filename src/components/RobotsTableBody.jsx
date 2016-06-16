@@ -56,7 +56,7 @@ var RobotsTableBody = withRouter (
     //
 
     determinePageTitle: function(paramz){
-      console.log("DETERMINING PAGE TITLE BASED ON PARAMS", paramz, this.state.pageTitle);
+      console.log("DETERMINING PAGE TITLE BASED ON PARAMS", paramz);
       if(paramz.id){
         this.props.setPageTitle("Robot #"+paramz.id);
       } else {

@@ -41,11 +41,13 @@ var RobotsForm = withRouter (
 
     componentDidMount: function(){
       console.log("FORM DID MOUNT", this.state.bot);
+      this.determinePageTitle(this.props.params);
       this.determineRobot(this.props);
     },
 
     componentWillReceiveProps: function(nextProps) {
       console.log("FORM WILL RECEIVE PROPS");
+      this.determinePageTitle(nextProps.params);
       this.determineRobot(nextProps);
     },
 
@@ -54,7 +56,20 @@ var RobotsForm = withRouter (
     },
 
     //
-    // MY FUNCTIONS
+    // PAGE TITLE FUNCTIONS
+    //
+
+    determinePageTitle: function(paramz){
+      console.log("DETERMINING PAGE TITLE BASED ON PARAMS", paramz);
+      if(paramz.id){
+        this.props.setPageTitle("Edit Robot #"+paramz.id);
+      } else {
+        this.props.setPageTitle("New Robot");
+      };
+    },
+
+    //
+    // FORM FUNCTIONS
     //
 
     formAction: function(propz){
