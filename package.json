@@ -15,6 +15,7 @@
     "test": "NODE_ENV=test mocha --recursive",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
     "test-components": "NODE_ENV=test mocha test/components/ --recursive",
+    "test-table": "NODE_ENV=test mocha test/components/table_test.js --recursive",
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"

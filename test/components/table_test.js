@@ -44,6 +44,11 @@ describe("Table", function(){
     before(function(){  return browser.visit('/');  });
     before(function(){  return browser.clickLink('bb8');  });
 
+    it("page should contain a heading", function(){
+      var robotId = browser.location._url.split("robots/")[1].split("/")[0];
+      expect(browser.query("h2").innerHTML).toEqual("Robot #"+robotId);
+    });
+
     it("table should contain only one row", function(){
       var rows = browser.queryAll("tbody tr");
       expect(rows.length).toEqual(1)
