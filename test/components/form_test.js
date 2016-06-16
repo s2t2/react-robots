@@ -20,9 +20,10 @@ describe("Form", function(){
       browser.assert.element('form');
     })
 
-    //it("form values should be blank", function(){
-    //  console.log(browser.field('robotName'))
-    //})
+    it("form values should be blank", function(){
+      browser.assert.input("form input[name=robotName]", "");
+      browser.assert.input("form textarea[name=robotDescription]", "");
+    })
 
     //context("when submitted with invalid values", function(){
     //  //console.log(browser.field('robotName'))
@@ -40,17 +41,24 @@ describe("Form", function(){
   //
 
   context("when visited on the 'edit' page", function(){
+    var robotId, robotName, robotDescription;
     before(function(){  return browser.visit('/');  });
-    before(function(){  return browser.pressButton('edit');  });
-
-    it("page should contain a heading", function(){
-      var robotId = browser.location._url.split("robots/")[1].split("/")[0];
-      expect(browser.query("h2").innerHTML).toEqual("Edit Robot #"+robotId);
+    before(function(){
+      robotId = browser.query("tbody tr td").innerHTML;
+      robotName = browser.query("tbody tr td a").innerHTML;
+      robotDescription = browser.queryAll("tbody tr td")[2].innerHTML;
+      return browser.pressButton('edit');
     });
 
-    //it("form values should be robot attributes", function(){
-    //  var rows = browser.queryAll("tbody tr");
-    //  expect(rows.length).toEqual(1)
-    //});
+    it("page should contain a heading", function(){
+      //var robotId = browser.location._url.split("robots/")[1].split("/")[0];
+      var pageTitle = browser.query("h2").innerHTML;
+      expect(pageTitle).toEqual("Edit Robot #"+robotId);
+    });
+
+    it("form values should be robot attributes", function(){
+      browser.assert.input("form input[name=robotName]", robotName);
+      browser.assert.input("form textarea[name=robotDescription]", robotDescription);
+    });
   });
 });
