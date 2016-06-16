@@ -21,6 +21,7 @@
   + https://github.com/reactjs/react-router/blob/master/docs/API.md#pushpathorloc
   + https://css-tricks.com/learning-react-router/
   + https://github.com/reactjs/react-router/blob/master/docs/guides/Histories.md#configuring-your-server
+  + http://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writting-manually
 
 ### Forms
 

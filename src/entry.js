@@ -3,11 +3,13 @@ require("../public/stylesheets/style.css");
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from 'react-router';
 
 import App from './components/App.jsx';
 import RobotsTable from './components/RobotsTable.jsx';
 import RobotsForm from './components/RobotsForm.jsx';
+
+//var myHistory = process.env.NODE_ENV == "test" ? browserHistory : hashHistory;
 
 ReactDOM.render(
   <Router history={browserHistory}>

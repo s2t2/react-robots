@@ -39,7 +39,7 @@ Run tests.
 ```` sh
 npm run test --silent # runs all tests
 npm run test-api --silent # runs only server-side api tests
-npm run test-components --silent # runs only client-side react component tests. requires the server to be running
+npm run test-components --silent # runs only client-side react component tests. requires the server to be running - use `npm run start-test`
 ````
 
 ### Deploying

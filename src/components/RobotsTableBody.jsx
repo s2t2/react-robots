@@ -37,13 +37,13 @@ var RobotsTableBody = withRouter (
 
     componentDidMount: function(){
       console.log("TABLE BODY DID MOUNT");
-      this.props.setPageTitle("Mount Title");
+      this.determinePageTitle(this.props.params);
       this.determineRobots(this.props.params);
     },
 
     componentWillReceiveProps: function(nextProps) {
       console.log("TABLE BODY WILL RECEIVE PROPS");
-      this.props.setPageTitle("Receive Props Title");
+      this.determinePageTitle(nextProps.params);
       this.determineRobots(nextProps.params);
     },
 
@@ -52,12 +52,24 @@ var RobotsTableBody = withRouter (
     },
 
     //
-    // MY FUNCTIONS
+    // PAGE TITLE FUNCTIONS
+    //
+
+    determinePageTitle: function(paramz){
+      console.log("DETERMINING PAGE TITLE BASED ON PARAMS", paramz, this.state.pageTitle);
+      if(paramz.id){
+        this.props.setPageTitle("Robot #"+paramz.id);
+      } else {
+        this.props.setPageTitle("Robots");
+      };
+    },
+
+    //
+    // FLASH FUNCTIONS
     //
 
     determineRobots: function(paramz){
-      console.log("DETERMINING ROBOTS BASED ON PARAMS", paramz);
-      var robots;
+      console.log("DETERMINING ROBOTS BASED ON PARAMS", paramz, this.state.robots);
       if(paramz.id){
         this.setRobot(paramz.id);
       } else {

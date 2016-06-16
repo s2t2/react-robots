@@ -8,7 +8,15 @@ var responseIsArrayOfRobots = require('../../helpers/api_tests.js').responseIsAr
 
 describe("API", function(){
   describe("INDEX ROUTE", function(){
-    before(function(done){  recycleRobots().then(done());  });
+    before(function(done){
+      recycleRobots()
+        .then(function(results){  console.log("RESULTS", results);  })
+        .catch(function(err){  console.log("ERROR", err);  })
+        .then(function(){
+          console.log("DONE");
+          done();
+        });
+    });
 
     it("should return an array of json objects", function(done){
       request(app).get("/api/robots")

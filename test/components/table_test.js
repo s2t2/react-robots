@@ -1,11 +1,20 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
 var browser = require('../../helpers/test_browser');
+var db = require("../../db.js");
 var recycleRobots = require('../../db/recycle_robots');
 var defaultRobots = require('../../db/default_robots').defaultRobots();
 
 describe("Table", function(){
-  before(function(done){  recycleRobots().then(done());  });
+  before(function(done){
+    recycleRobots()
+      .then(function(results){  console.log("RESULTS", results);  })
+      .catch(function(err){  console.log("ERROR", err);  })
+      .then(function(){
+        console.log("DONE");
+        db.disconnect().then(done());
+      })
+  })
 
   //
   // INDEX PAGE
