@@ -37,12 +37,14 @@ var RobotsTableBody = withRouter (
 
     componentDidMount: function(){
       console.log("TABLE BODY DID MOUNT");
+      this.props.setPageTitle("Mount Title");
       this.determineRobots(this.props.params);
     },
 
     componentWillReceiveProps: function(nextProps) {
       console.log("TABLE BODY WILL RECEIVE PROPS");
-      this.determineRobots(nextProps.params)
+      this.props.setPageTitle("Receive Props Title");
+      this.determineRobots(nextProps.params);
     },
 
     componentWillUpdate: function(nextProps, nextState) {

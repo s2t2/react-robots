@@ -3,7 +3,7 @@ import React from 'react'
 var PageHeader = React.createClass({
   render: function(){
     return (
-      <h2>{this.props.title}</h2>
+      <h2>{this.props.pageTitle}</h2>
     )
   }
 });

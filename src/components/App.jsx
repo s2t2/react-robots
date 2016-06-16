@@ -7,12 +7,17 @@ import Footer from './Footer.jsx';
 
 var App = React.createClass({
   render: function(){
+    var component = this;
+    var childrenWithProps = React.Children.map(this.props.children, function(child) {
+      return React.cloneElement(child, {setPageTitle: component.setPageTitle});
+    });
+
     return (
       <div>
         <Flash flashHash={this.state.flash} removeFromFlash={this.removeFromFlash}/>
         <Header title="Robots App!" />
-        <PageHeader title="Robots" />
-        {this.props.children}
+        <PageHeader pageTitle={this.state.pageTitle} />
+        {childrenWithProps}
         <hr style={{marginTop: '2em'}} />
         <Footer repoUrl="https://github.com/s2t2/react-robots" />
       </div>
@@ -41,7 +46,10 @@ var App = React.createClass({
 
   getInitialState: function(){
     console.log("APP GET INITIAL STATE");
-    return ({flash: this.emptyFlash})
+    return ({
+      flash: this.emptyFlash,
+      pageTitle: "Placeholder Page Title"
+    })
   },
 
   componentDidMount: function(){
@@ -63,7 +71,21 @@ var App = React.createClass({
   },
 
   //
-  // MY FUNCTIONS
+  // PAGE TITLE
+  //
+
+  setPageTitle: function(newTitle){
+    //console.log("CURRENT PAGE TITLE", this.state.pageTitle)
+    if(this.state.pageTitle != newTitle){ //<-- prevents an infinite loop of component refreshes
+      console.log("SETTING PAGE TITLE", newTitle);
+      this.setState({pageTitle: newTitle});
+    } else {
+      console.log("NOT SETTING PAGE TITLE")
+    }
+  },
+
+  //
+  // FLASH
   //
 
   // @param [String] strategy Indicate whether you want to compile flash using the "MERGE" or "OVERWRITE" strategy.
