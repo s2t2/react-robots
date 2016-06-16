@@ -38,11 +38,13 @@ var RobotsTableBody = withRouter (
     componentDidMount: function(){
       console.log("TABLE BODY DID MOUNT");
       this.determineRobots(this.props.params);
+      //this.props.setPageTitle("mount table body"); -- why is this triggering an infinite loop of component updates?
     },
 
     componentWillReceiveProps: function(nextProps) {
       console.log("TABLE BODY WILL RECEIVE PROPS");
-      this.determineRobots(nextProps.params)
+      this.determineRobots(nextProps.params);
+      //this.props.setPageTitle("table body will receive props"); -- why is this triggering an infinite loop of component updates?
     },
 
     componentWillUpdate: function(nextProps, nextState) {
@@ -55,7 +57,6 @@ var RobotsTableBody = withRouter (
 
     determineRobots: function(paramz){
       console.log("DETERMINING ROBOTS BASED ON PARAMS", paramz);
-      var robots;
       if(paramz.id){
         this.setRobot(paramz.id);
       } else {

@@ -7,7 +7,7 @@ var RobotsTable = React.createClass({
     return (
       <table className="table table-bordered table-hover table-responsive" style={{width:"100%"}}>
         <RobotsTableHead/>
-        <RobotsTableBody params={this.props.params}/>
+        <RobotsTableBody params={this.props.params} setPageTitle={this.props.setPageTitle}/>
       </table>
     )
   }

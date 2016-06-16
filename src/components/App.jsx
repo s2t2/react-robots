@@ -7,12 +7,34 @@ import Footer from './Footer.jsx';
 
 var App = React.createClass({
   render: function(){
+
+    //var childrenWithProps = this.props.children;
+
+    //React.cloneElement(this.props.children, {setPageTitle: this.setPageTitle})
+
+    //React.Children.forEach(this.props.children, function(child) {
+    //  console.log("CHILD", child);
+    //});
+
+    var component = this;
+    //var childrenWithProps = React.Children.map(this.props.children, function(child){
+    //  child.props.setPageTitle = component.setPageTitle
+    //  //React.cloneElement(child, {setPageTitle: component.setPageTitle} )
+    //});
+
+    var childrenWithProps = React.Children.map(this.props.children, function(child) {
+      return React.cloneElement(child, {setPageTitle: component.setPageTitle});
+    });
+
+
     return (
       <div>
         <Flash flashHash={this.state.flash} removeFromFlash={this.removeFromFlash}/>
         <Header title="Robots App!" />
-        <PageHeader title="Robots" />
-        {this.props.children}
+        <PageHeader pageTitle={this.state.pageTitle} />
+
+        {childrenWithProps}
+
         <hr style={{marginTop: '2em'}} />
         <Footer repoUrl="https://github.com/s2t2/react-robots" />
       </div>
@@ -41,17 +63,22 @@ var App = React.createClass({
 
   getInitialState: function(){
     console.log("APP GET INITIAL STATE");
-    return ({flash: this.emptyFlash})
+    return ({
+      flash: this.emptyFlash,
+      pageTitle: "Robots"
+    })
   },
 
   componentDidMount: function(){
     console.log("APP DID MOUNT");
     this.compileFlash(this.flashCompilationStrategy, this.props);
+    //this.setPageTitle(this.props);
   },
 
   componentWillReceiveProps: function(nextProps) {
-    console.log("APP WILL RECEIVE PROPS");
+    console.log("APP WILL RECEIVE PROPS", nextProps);
     this.compileFlash(this.flashCompilationStrategy, nextProps);
+    //this.setPageTitle(nextProps);
   },
 
   componentWillUpdate: function(nextProps, nextState){
@@ -63,7 +90,25 @@ var App = React.createClass({
   },
 
   //
-  // MY FUNCTIONS
+  // PAGE TITLE FUNCTIONS
+  //
+
+  //setPageTitle: function(propz){
+  //  console.log("SETTING PAGE TITLE");
+  //  if (propz.params.id){
+  //    this.setState({pageTitle: "Robot #"+propz.params.id});
+  //  } else {
+  //    this.setState({pageTitle: "SOME SET PAGE TITLE"})
+  //  }
+  //},
+
+  setPageTitle: function(title){
+    console.log("SETTING PAGE TITLE", title);
+    this.setState({pageTitle: title});
+  },
+
+  //
+  // FLASH FUNCTIONS
   //
 
   // @param [String] strategy Indicate whether you want to compile flash using the "MERGE" or "OVERWRITE" strategy.

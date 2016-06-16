@@ -43,6 +43,12 @@
  + https://blog.iansinnott.com/managing-state-and-controlled-form-fields-with-react/
  + http://stackoverflow.com/questions/24147331/react-the-right-way-to-pass-form-element-state-to-sibling-parent-elements
 
+### Passing props to all children components
+  + https://facebook.github.io/react/docs/top-level-api.html#react.children
+  + https://facebook.github.io/react/docs/top-level-api.html#react.cloneelement
+  + http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
+  
+
 ## Bootstrap
 
   + http://blog.npmjs.org/post/112064849860/using-jquery-plugins-with-npm
