@@ -9,7 +9,8 @@ import App from './components/App.jsx';
 import RobotsTable from './components/RobotsTable.jsx';
 import RobotsForm from './components/RobotsForm.jsx';
 
-//var myHistory = process.env.NODE_ENV == "test" ? browserHistory : hashHistory;
+// hashHistory causes browser visits to timeout when NODE_ENV == "test"
+// var myHistory = (process.env.NODE_ENV == "test") ? browserHistory : hashHistory;
 
 ReactDOM.render(
   <Router history={browserHistory}>

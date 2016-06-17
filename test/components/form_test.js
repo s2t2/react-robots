@@ -24,16 +24,6 @@ describe("Form", function(){
       browser.assert.input("form input[name=robotName]", "");
       browser.assert.input("form textarea[name=robotDescription]", "");
     })
-
-    //context("when submitted with invalid values", function(){
-    //  //console.log(browser.field('robotName'))
-    //  //before(function(done) {
-    //  //  browser
-    //  //    .fill('email',    'zombie@underworld.dead')
-    //  //    .fill('password', 'eat-the-living')
-    //  //    .pressButton('Sign Me Up!', done);
-    //  //});
-    //})
   })
 
   //
