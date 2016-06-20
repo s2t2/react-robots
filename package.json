@@ -9,16 +9,19 @@
   "scripts": {
     "db-seed": "node ./db/seed.js",
     "build": "webpack --config ./webpack.config.js --progress --colors",
+    "scrape": "node helpers/scrape.js",
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www",
+
     "test": "NODE_ENV=test mocha --recursive",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
     "test-components": "NODE_ENV=test mocha test/components/ --recursive",
     "test-table": "NODE_ENV=test mocha test/components/table_test.js",
     "test-form": "NODE_ENV=test mocha test/components/form_test.js",
     "test-form-submit": "NODE_ENV=test mocha test/components/form_submit_test.js",
+
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"
@@ -51,11 +54,10 @@
   },
   "devDependencies": {
     "expect": "^1.20.1",
-    "html": "0.0.10",
     "mocha": "^2.5.3",
+    "selenium-webdriver": "^2.53.2",
     "supertest": "^1.2.0",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0",
-    "zombie": "^4.2.1"
+    "webpack-hot-middleware": "^2.10.0"
   }
 }

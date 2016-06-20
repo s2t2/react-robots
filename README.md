@@ -67,7 +67,7 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
-npm install --save-dev mocha expect supertest zombie
+npm install --save-dev mocha expect supertest webdriverio
 ````
 
 Commands used to administer and deploy to production the first time:

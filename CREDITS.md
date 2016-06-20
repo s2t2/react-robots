@@ -143,11 +143,16 @@
 
 ### Component Testing
 
+#### Phantom
+
   + https://github.com/ariya/phantomjs
   + http://phantomjs.org/documentation/
   + http://code.tutsplus.com/tutorials/testing-javascript-with-phantomjs--net-28243
   + http://stackoverflow.com/questions/7977945/html-parser-on-node-js
   + https://github.com/nathanboktae/mocha-phantomjs
+
+#### Zombie
+
   + http://stackoverflow.com/questions/7591854/is-there-a-capybara-for-node-js
   + http://zombie.js.org/
   + https://github.com/assaf/zombie
@@ -165,6 +170,11 @@
   + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/test/img_test.js
   + https://github.com/assaf/zombie/blob/ced297869d04bc7fb5bb244989cfc11248585c1a/src/index.js
   + https://github.com/assaf/zombie/blob/master/src/assert.js
+
+#### Selenium
+
+  + http://seleniumhq.github.io/selenium/docs/api/javascript/
+  + https://github.com/webdriverio/webdriverio/
 
 ## Node and NPM
 
