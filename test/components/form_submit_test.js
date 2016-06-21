@@ -31,13 +31,10 @@ describe("Form Submit", function(){
               driver.findElements(By.css("div .alert")).then(function(elements){
                 console.log("MESSAGES", elements.length)
 
-                elements.forEach(function(element){
-                  element.getText().then(function(text){
-                    console.log("MESSAGE", text)
-                  })
-                })
+                expect(elements.length).toEqual(5)
 
                 driver.quit();
+
               }) // FIND MESSAGES
             }) // CLICK SUBMIT
           }) // CLICK NEW

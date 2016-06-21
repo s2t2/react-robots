@@ -175,6 +175,9 @@
 
   + http://seleniumhq.github.io/selenium/docs/api/javascript/
   + https://github.com/webdriverio/webdriverio/
+  + http://www.seleniumhq.org/docs/03_webdriver.jsp#fetching-a-page
+  + http://bites.goodeggs.com/posts/selenium-webdriver-nodejs-tutorial/
+  + http://testerstories.com/2016/03/webdriver-in-javascript-with-promises/
 
 ## Node and NPM
 
