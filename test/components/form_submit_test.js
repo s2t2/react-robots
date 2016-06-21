@@ -1,6 +1,7 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-var browser = require('../../helpers/test_browser');
+var driver = require("../../helpers/test_web_driver.js").driver,
+    By = require("../../helpers/test_web_driver.js").By;
 
 describe("Form Submit", function(){
 
@@ -9,20 +10,50 @@ describe("Form Submit", function(){
   //
 
   context("when visited on the 'new' page", function(){
-    before(function(){  return browser.visit('/');  });
-    before(function(){  return browser.clickLink('new');  });
+    //before(function(){
+    //  return driver.get('http://localhost:3000/');
+    //});
+    //before(function(){
+    //  return driver.findElement(By.partialLinkText('new')).click();
+    //});
+    //after(function(){
+    //  driver.quit();
+    //})
+
+    //context("when submitted with invalid values", function(){
+    //  before(function() {
+    //    return driver.findElement(By.xpath('//button[@type="submit"]')).click();
+    //  });
+//
+    //  it("flash should include error messages", function(){
+    //    driver.findElements(By.css("div .alert")).then(function(elements){
+    //      console.log("MESSAGES", elements.length)
+    //      expect(messages.length).toEqual(3)
+    //    })
+    //  })
+    //})
+
 
     context("when submitted with invalid values", function(){
-      before(function() {
-        return browser.pressButton('Submit');
-      });
-
       it("flash should include error messages", function(){
-        var messages = browser.queryAll(".alert")
-        console.log(messages)
-        expect(messages.length).toEqual(2)
+        driver.get('http://localhost:3000/');
+        driver.findElement(By.partialLinkText('new')).click();
+        driver.findElement(By.xpath('//button[@type="submit"]')).click();
+        driver.findElements(By.css("div .alert")).then(function(elements){
+          console.log("MESSAGES", elements.length)
+          expect(messages.length).toEqual(3)
+        })
+        driver.quit();
       })
     })
+
+
+
+
+
+
+
+
 
     //context("when submitted with an invalid value", function(){
     //  before(function() {
