@@ -28,6 +28,9 @@ driver.findElement(By.tagName("h2")).then(function(element){
 
 driver.findElement(By.partialLinkText('new')).click()
 
+driver.getCurrentUrl().then(function(url){
+  console.log("VISITED", url)
+})
 
 driver.getTitle().then(function(result){
   console.log("SITE TITLE", result)
@@ -40,7 +43,12 @@ driver.findElement(By.tagName("h2")).then(function(element){
 })
 
 
-// SUBMIT
+
+// FILL-IN FORM
+
+driver.findElement(By.name('robotName')).sendKeys("Baker Bot");
+
+// SUBMIT FORM
 
 driver.findElement(By.xpath('//button[@type="submit"]')).click()
 
