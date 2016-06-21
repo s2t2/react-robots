@@ -10,6 +10,7 @@
     "db-seed": "node ./db/seed.js",
     "build": "webpack --config ./webpack.config.js --progress --colors",
     "scrape": "node helpers/scrape.js",
+    "scrape2": "node helpers/scrape2.js",
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
