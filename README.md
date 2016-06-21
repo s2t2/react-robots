@@ -34,15 +34,41 @@ npm start
 
 ### Testing
 
-Run tests.
+Run all tests.
 
 ```` sh
-npm run test --silent # runs all tests
-npm run test-api --silent # runs only server-side api tests
-npm run test-components --silent # runs only client-side react component tests. requires the server to be running - use `npm run start-test`
+npm run test --silent
+
 ````
 
-> NOTE: the .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation.
+#### API Tests
+
+Run API tests only.
+
+```` sh
+npm run test-api --silent
+````
+
+#### Component Tests
+
+Run all component tests only.
+
+> NOTE: Component tests require a test server to be running on localhost:3000. Use `npm run start-test`.
+
+> NOTE: The .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation.
+
+```` sh
+npm run test-components --silent
+````
+
+Run one of the following component tests only.
+
+```` sh
+npm run test-table --silent
+npm run test-form --silent
+npm run test-form-submit-new --silent
+npm run test-form-submit-edit --silent
+````
 
 ### Deploying
 

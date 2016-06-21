@@ -48,6 +48,17 @@ driver.findElement(By.tagName("h2")).then(function(element){
 
 driver.findElement(By.name('robotName')).sendKeys("Baker Bot");
 
+//driver.findElement(By.name('robotName')).then(function(element){
+//  element.getAttribute("value").then(function(botName){
+//    console.log("FORM INPUT VALUE IS", botName)
+//  })
+//})
+
+driver.findElement(By.name('robotName')).getAttribute("value").then(function(botName){
+  console.log("FORM INPUT VALUE IS", botName)
+})
+
+
 // SUBMIT FORM
 
 driver.findElement(By.xpath('//button[@type="submit"]')).click()

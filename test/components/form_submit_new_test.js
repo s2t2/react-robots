@@ -1,13 +1,9 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-import {driver, getIndex, clickNew, fillInRobotName, fillInRobotDescription, clickSubmit, findMessages, findPageTitle} from "../../helpers/test_web_driver.js";
+import {driver, getIndex, clickNew, fillInRobotName, fillInRobotDescription, clickSubmit, findMessages, findPageTitle, findRobotName} from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
-
-  //
-  // NEW PAGE
-  //
 
   context("when visited on the 'new' page", function(){
     before(function(){  return getIndex().then(clickNew);  });
@@ -34,8 +30,12 @@ describe("Form Submit", function(){
         })
       })
 
-      //it("form value should be passed back", function(){
-      //})
+      it("form value should be passed back", function(){
+        return findRobotName().then(function(botName){
+          console.log("PASSED-BACK FORM VALUE", botName)
+          expect(botName).toEqual("Baker Bot")
+        })
+      })
     })
 
     context("when submitted with valid values", function(){
@@ -59,12 +59,4 @@ describe("Form Submit", function(){
       })
     })
   })
-
-  //
-  // EDIT PAGE
-  //
-
-  //context("when visited on the 'edit' page", function(){
-  //
-  //});
 });

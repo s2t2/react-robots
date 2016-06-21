@@ -40,8 +40,12 @@ module.exports.findSiteTitle = function(){
 
 module.exports.findPageTitle = function(){
   return driver.findElement(By.tagName("h2")).then(function(element){
-    return element.getText()
+    return element.getText();
   })
+};
+
+module.exports.findRobotName = function(){
+  return driver.findElement(By.name('robotName')).getAttribute("value");
 };
 
 module.exports.findMessages = function(messageType){
