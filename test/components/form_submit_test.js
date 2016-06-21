@@ -5,6 +5,8 @@ var driver = require("../../helpers/test_web_driver.js").driver,
 
 describe("Form Submit", function(){
 
+  this.timeout(15000)
+
   //
   // NEW PAGE
   //
@@ -20,30 +22,27 @@ describe("Form Submit", function(){
     //  driver.quit();
     //})
 
-    //context("when submitted with invalid values", function(){
-    //  before(function() {
-    //    return driver.findElement(By.xpath('//button[@type="submit"]')).click();
-    //  });
-//
-    //  it("flash should include error messages", function(){
-    //    driver.findElements(By.css("div .alert")).then(function(elements){
-    //      console.log("MESSAGES", elements.length)
-    //      expect(messages.length).toEqual(3)
-    //    })
-    //  })
-    //})
-
-
     context("when submitted with invalid values", function(){
       it("flash should include error messages", function(){
-        driver.get('http://localhost:3000/');
-        driver.findElement(By.partialLinkText('new')).click();
-        driver.findElement(By.xpath('//button[@type="submit"]')).click();
-        driver.findElements(By.css("div .alert")).then(function(elements){
-          console.log("MESSAGES", elements.length)
-          expect(messages.length).toEqual(3)
-        })
-        driver.quit();
+
+        return driver.get('http://localhost:3000/').then(function(){
+          driver.findElement(By.partialLinkText('new')).click().then(function(){
+            driver.findElement(By.xpath('//button[@type="submit"]')).click().then(function(){
+              driver.findElements(By.css("div .alert")).then(function(elements){
+                console.log("MESSAGES", elements.length)
+
+                elements.forEach(function(element){
+                  element.getText().then(function(text){
+                    console.log("MESSAGE", text)
+                  })
+                })
+
+                driver.quit();
+              }) // FIND MESSAGES
+            }) // CLICK SUBMIT
+          }) // CLICK NEW
+        }) // GET INDEX
+
       })
     })
 

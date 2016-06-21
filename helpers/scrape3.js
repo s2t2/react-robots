@@ -1,32 +1,21 @@
 var driver = require("./test_web_driver.js").driver,
     By = require("./test_web_driver.js").By;
 
-// INDEX
+// USING PROMISES
 
-driver.get('http://localhost:3000/')
+driver.get('http://localhost:3000/').then(function(){
+  driver.findElement(By.partialLinkText('new')).click().then(function(){
+    driver.findElement(By.xpath('//button[@type="submit"]')).click().then(function(){
+      driver.findElements(By.css("div .alert")).then(function(elements){
+        console.log("MESSAGES", elements.length)
+        elements.forEach(function(element){
+          element.getText().then(function(text){
+            console.log("MESSAGE", text)
+          })
+        })
 
-// NEW
-
-driver.findElement(By.partialLinkText('new')).click()
-
-
-// SUBMIT
-
-driver.findElement(By.xpath('//button[@type="submit"]')).click()
-
-// FLASH MESSAGES
-
-driver.findElements(By.css("div .alert")).then(function(elements){
-  console.log("MESSAGES", elements.length)
-
-  elements.forEach(function(element){
-    element.getText().then(function(text){
-      console.log("MESSAGE", text)
-    });
-  })
-
-})
-
-//driver.wait(until.titleIs('webdriver - Google Search'), 1500);
-
-driver.quit();
+        driver.quit();
+      }) // FIND MESSAGES
+    }) // CLICK SUBMIT
+  }) // CLICK NEW
+}) // GET INDEX
