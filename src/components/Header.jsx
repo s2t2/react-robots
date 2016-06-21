@@ -1,4 +1,3 @@
-var $ = require('jquery');
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 
@@ -16,39 +15,25 @@ var Header = withRouter(
             <span className="glyphicon glyphicon-plus"></span> new
           </Link>
 
-          <button type="button" className="btn btn-success pull-right" style={buttonStyle} onClick={this.recycleRobots}>
+          <button type="button" className="btn btn-success pull-right" style={buttonStyle} onClick={this.handleRecycle}>
             <span className="glyphicon glyphicon-retweet"></span> recycle
           </button>
         </header>
       )
     },
 
-    recycleRobots: function(){
-      console.log("RECYCLE");
+    handleRecycle: function(){
+      console.log("HANDLE RECYCLE");
+      var component = this;
       var requestUrl = "/api/robots/recycle";
-      $.ajax({
-        url: requestUrl,
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          console.log("DATA", data)
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {success: ["Recycled "+ data.deletedRobotsCount+ " robots into "+ data.createdRobotsCount + " robots."]}
-            }
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log(xhr, status, err);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {danger: ["Couldn't recycle robots"]}
-            }
-          });
-        }.bind(this)
+      var requestOptions = {method: 'post'};
+      fetch(requestUrl, requestOptions).then(function(r) { return r.json(); }).then(function(response) {
+        component.props.router.push({
+          pathname: '/',
+          state: {
+            flash: {success: ["Recycled "+ response.deletedRobotsCount+ " robots into "+ response.createdRobotsCount + " robots."]}
+          }
+        });
       });
     }
   })

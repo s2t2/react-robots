@@ -32,6 +32,44 @@ Start the web server.
 npm start
 ````
 
+### Testing
+
+Run all tests.
+
+```` sh
+npm run test --silent
+
+````
+
+#### API Tests
+
+Run API tests only.
+
+```` sh
+npm run test-api --silent
+````
+
+#### Component Tests
+
+Run all component tests only.
+
+> NOTE: Component tests require a test server to be running on localhost:3000. Use `npm run start-test`.
+
+> NOTE: The .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation.
+
+```` sh
+npm run test-components --silent
+````
+
+Run one of the following component tests only.
+
+```` sh
+npm run test-table --silent
+npm run test-form --silent
+npm run test-form-submit-new --silent
+npm run test-form-submit-edit --silent
+````
+
 ### Deploying
 
 Deploy master branch to production.
@@ -57,8 +95,14 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
+npm install --save-dev mocha expect supertest selenium-webdriver babel-register
+````
+
+Commands used to administer and deploy to production the first time:
+
+```` sh
 heroku create react-robots
 heroku addons:create mongolab:sandbox
 heroku addons:create scheduler
-heroku addons:open scheduler # then add a new job for `npm run db-seed` to run hourly
+heroku addons:open scheduler # then add a new job for `NODE_ENV=production npm run db-seed` to run hourly
 ````

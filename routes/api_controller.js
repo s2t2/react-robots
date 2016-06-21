@@ -1,26 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+var recycleRobots = require('../db/recycle_robots');
 var mongooseError = require("../helpers/mongoose_error");
+require("../helpers/api.js").enableAPIMethods(router); // enables `res.okay()`, `res.notFound()` et. al.
 var Robot = require("../models/robot");
-
-/* CUSTOM RESPONSE METHODS */
-
-router.use(function(req, res, next) {
-  res.okay = function(responseData) {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(responseData);
-  };
-  next();
-});
-
-router.use(function(req, res, next) {
-  res.notFound = function(responseData) {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(404).json(responseData);
-  };
-  next();
-});
 
 /* INDEX */
 
@@ -47,21 +31,13 @@ router.post('/api/robots', function(req, res, next) {
 /* RECYCLE */
 
 router.post('/api/robots/recycle', function(req, res, next) {
-  Robot.find(function (err, bots) {
-    if (err) {
-      res.notFound({messages: ["FIND ERROR"]});
-    } else {
-      Robot.remove(bots, function (rmErr) {
-        if (rmErr){
-          res.notFound({messages: ["REMOVAL ERROR"]});
-        } else {
-          Robot.create(Robot.defaultRobots(), function (err, newBots) {
-            res.okay({messages: ["OK"], deletedRobotsCount: bots.length, createdRobotsCount: newBots.length});
-          }); // Robot.create
-        }; // if rmErr
-      }); // Robot.remove
-    }; // if err
-  }); // Robot.find
+  recycleRobots()
+    .then(function(results){
+      res.okay({messages: ["OK"], deletedRobotsCount: results.deletedRobotsCount, createdRobotsCount: results.createdRobotsCount});
+    })
+    .catch(function(err){
+      res.notFound({messages: ["RECYCLING ERROR"]});
+    })
 });
 
 /* SHOW */
@@ -103,13 +79,18 @@ router.post('/api/robots/:id/update', function(req, res, next) {
 router.post('/api/robots/:id/destroy', function(req, res, next) {
   var robotId = req.params.id;
   Robot.findById(robotId, function(err, bot) {
-    bot.remove( function(rmErr, rmBot) {
-      if (rmErr) {
-        res.notFound({messages: ["DESTRUCTION ERROR"]})
-      } else {
-        res.okay({messages: ["DESTRUCTION OK"] });
-      };
-    });
+    if(err){
+      res.notFound({messages: ["FIND ERROR"]})
+    } else {
+      bot.remove( function(rmErr, rmBot) {
+        if (rmErr) {
+          res.notFound({messages: ["DESTRUCTION ERROR"]})
+        } else {
+          res.okay({messages: ["DESTRUCTION OK"] });
+        };
+      });
+    }
+
   });
 });
 
