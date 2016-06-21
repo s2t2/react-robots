@@ -2,6 +2,13 @@ process.env.NODE_ENV = 'test';
 var expect = require('expect');
 var browser = require('../../helpers/test_browser');
 
+function expectTwoFlashMessages(){
+  console.log("AFTERRRR")
+  var messages = browser.queryAll(".alert")
+  console.log("MESSAGES", messages)
+  expect(messages.length).toEqual(2)
+}
+
 describe("Form Submit", function(){
 
   //
@@ -13,15 +20,69 @@ describe("Form Submit", function(){
     before(function(){  return browser.clickLink('new');  });
 
     context("when submitted with invalid values", function(){
-      before(function() {
-        return browser.pressButton('Submit');
-      });
+      //before(function() {
+      //  return browser.pressButton('Submit');
+      //});
+//
+      //it("flash should include error messages", function(){
+      //  var messages = browser.queryAll(".alert")
+      //  console.log(messages)
+      //  expect(messages.length).toEqual(2)
+      //})
+
+      //it("flash should include error messages", function(){
+      //  browser.pressButton('Submit').then(function(result){
+      //    console.log(result)
+      //    var messages = browser.queryAll(".alert")
+      //    console.log(messages)
+      //    expect(messages.length).toEqual(2)
+      //  })
+      //})
+
+      //it("flash should include error messages", function(){
+      //  browser.pressButton('Submit', function(){
+      //    console.log("AFTERRRR")
+      //    var messages = browser.queryAll(".alert")
+      //    console.log("MESSAGES", messages)
+      //    expect(messages.length).toEqual(2)
+      //  })
+      //})
+
+      //it("flash should include error messages", function(){
+      //  browser.pressButton('Submit', function(err, bowzer){
+      //    console.log("AFTERRRR")
+      //    console.log(bowzer)
+      //    var messages = bowzer.queryAll(".alert")
+      //    console.log("MESSAGES", messages)
+      //    expect(messages.length).toEqual(2)
+      //  })
+      //})
+
+      //it("flash should include error messages", function(){
+      //  browser.pressButton('Submit')
+      //    .then(function(){
+      //      console.log("AFTERRRR")
+      //      var messages = browser.queryAll(".alert")
+      //      console.log("MESSAGES", messages)
+      //      expect(messages.length).toEqual(2)
+      //    })
+      //})
+
+      //it("flash should include error messages", function(){
+      //  browser.pressButton('Submit')
+      //    .then(function(result, browzer){
+      //      console.log("AFTERRRR")
+      //      console.log(result)
+      //      var messages = browzer.queryAll(".alert")
+      //      console.log("MESSAGES", messages)
+      //      expect(messages.length).toEqual(2)
+      //    })
+      //})
 
       it("flash should include error messages", function(){
-        var messages = browser.queryAll(".alert")
-        console.log(messages)
-        expect(messages.length).toEqual(2)
+        browser.pressButton('Submit').then(expectTwoFlashMessages)
       })
+
     })
 
     //context("when submitted with an invalid value", function(){
