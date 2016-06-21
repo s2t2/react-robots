@@ -12,6 +12,7 @@
     "scrape": "node helpers/scrape.js",
     "scrape2": "node helpers/scrape2.js",
     "scrape3": "node helpers/scrape3.js",
+    "scrape4": "node helpers/scrape4.js",
 
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
