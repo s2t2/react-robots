@@ -2,8 +2,8 @@ process.env.NODE_ENV = 'test';
 var expect = require('expect');
 var browser = require('../../helpers/test_browser');
 
-function expectTwoFlashMessages(){
-  console.log("AFTERRRR")
+function expectTwoFlashMessages(promiseResult){
+  console.log("AFTERRRR", promiseResult)
   var messages = browser.queryAll(".alert")
   console.log("MESSAGES", messages)
   expect(messages.length).toEqual(2)
