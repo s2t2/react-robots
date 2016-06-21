@@ -42,6 +42,8 @@ npm run test-api --silent # runs only server-side api tests
 npm run test-components --silent # runs only client-side react component tests. requires the server to be running - use `npm run start-test`
 ````
 
+> NOTE: the .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation.
+
 ### Deploying
 
 Deploy master branch to production.
@@ -67,7 +69,7 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
-npm install --save-dev mocha expect supertest webdriverio
+npm install --save-dev mocha expect supertest selenium-webdriver babel-register
 ````
 
 Commands used to administer and deploy to production the first time:

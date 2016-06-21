@@ -179,6 +179,12 @@
   + http://bites.goodeggs.com/posts/selenium-webdriver-nodejs-tutorial/
   + http://testerstories.com/2016/03/webdriver-in-javascript-with-promises/
 
+#### Leveraging ES6 `import` in Mocha Tests
+
+  + https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-adding-es6-support-to-tests-using-mocha-and-babel
+  + http://krasimirtsonev.com/blog/article/using-mocha-with-es6-spec-files
+  + https://babeljs.io/docs/setup/#installation
+
 ## Node and NPM
 
   + https://firstdoit.com/no-need-for-globals-using-npm-dependencies-in-npm-scripts-3dfb478908#.wdmywnsf5

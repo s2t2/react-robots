@@ -1,36 +1,6 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-var driver = require("../../helpers/test_web_driver.js").driver,
-    By = require("../../helpers/test_web_driver.js").By;
-
-// HELPER FUNCTIONS
-
-function getIndex(){
-  return driver.get('http://localhost:3000/');
-}
-
-function clickNew(){
-  return driver.findElement(By.partialLinkText('new')).click();
-}
-
-function clickSubmit(){
-  return driver.findElement(By.xpath('//button[@type="submit"]')).click();
-}
-
-function findMessages(){
-  return driver.findElements(By.css("div .alert"));
-}
-
-function logMessages(elements){
-  elements.forEach(function(element){
-    element.getText().then(function(text){
-      console.log("MESSAGE", text)
-    })
-  })
-}
-
-
-
+import {driver, getIndex, clickNew, clickSubmit, findMessages} from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
@@ -53,12 +23,6 @@ describe("Form Submit", function(){
         })
       })
     })
-
-
-
-
-
-
 
     //context("when submitted with valid values", function(){
     //  before(function(done) {

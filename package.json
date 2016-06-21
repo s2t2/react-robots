@@ -13,19 +13,16 @@
     "scrape2": "node helpers/scrape2.js",
     "scrape3": "node helpers/scrape3.js",
     "scrape4": "node helpers/scrape4.js",
-
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www",
-
     "test": "NODE_ENV=test mocha --recursive",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
     "test-components": "NODE_ENV=test mocha test/components/ --recursive",
     "test-table": "NODE_ENV=test mocha test/components/table_test.js",
     "test-form": "NODE_ENV=test mocha test/components/form_test.js",
-    "test-form-submit": "NODE_ENV=test mocha test/components/form_submit_test.js",
-
+    "test-form-submit": "NODE_ENV=test mocha --compilers js:babel-register test/components/form_submit_test.js",
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"
@@ -57,6 +54,7 @@
     "webpack": "^1.13.1"
   },
   "devDependencies": {
+    "babel-register": "^6.9.0",
     "expect": "^1.20.1",
     "mocha": "^2.5.3",
     "selenium-webdriver": "^2.53.2",
