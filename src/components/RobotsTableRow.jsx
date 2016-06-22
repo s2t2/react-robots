@@ -14,7 +14,7 @@ var RobotsTableRow = withRouter (
           <td>{ moment(robot.created_at).tz(moment.tz.guess(robot.created_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
           <td>{ moment(robot.updated_at).tz(moment.tz.guess(robot.updated_at)).format('YYYY-MM-DD [at] HH:mm:ss zz') }</td>
           <td>
-            <button className='btn btn-warning' onClick={ this.editRobot.bind(null, robot) }>
+            <button className='btn btn-warning btn-edit-robot' onClick={ this.editRobot.bind(null, robot) }>
               <span className="glyphicon glyphicon-pencil"></span> edit
             </button>
           </td>
