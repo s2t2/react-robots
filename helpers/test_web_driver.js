@@ -1,6 +1,6 @@
 module.exports = {};
 
-// WEB DRIVER INSTANCE
+// WEB DRIVER INSTANCE AND BUILT-IN UTILITY METHODS
 
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
@@ -11,6 +11,7 @@ var driver = new webdriver.Builder()
     .build();
 
 module.exports.driver = driver;
+module.exports.By = By;
 
 //
 // HELPER FUNCTIONS

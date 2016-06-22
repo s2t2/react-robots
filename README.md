@@ -55,7 +55,7 @@ Run all component tests only.
 
 > NOTE: Component tests require a test server to be running on localhost:3000. Use `npm run start-test`.
 
-> NOTE: The .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation.
+> NOTE: The .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation. Using ES2015 for `import` statement and ES2017 for `Object.values()`.
 
 ```` sh
 npm run test-components --silent
@@ -95,7 +95,7 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
-npm install --save-dev mocha expect supertest selenium-webdriver babel-register
+npm install --save-dev mocha expect supertest selenium-webdriver babel-register babel-preset-es2017
 ````
 
 Commands used to administer and deploy to production the first time:

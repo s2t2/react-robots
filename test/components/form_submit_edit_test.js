@@ -1,14 +1,12 @@
 process.env.NODE_ENV = 'test';
-//var expect = require('expect');
-import {driver, getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL} from "../../helpers/test_web_driver.js";
+var expect = require('expect');
+import {driver, By, getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL} from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
+  after(function(){  driver.quit(); })
 
   context("when visited on the 'edit' page", function(){
-    //beforeEach(function(){  return getIndex().then(clickEdit);  });
-    after(function(){  driver.quit(); })
-
     context("when submitted with valid revised value(s)", function(){
       [
         {robotName: "CobblerBot 123"},
@@ -25,16 +23,17 @@ describe("Form Submit", function(){
           expectURL("http://localhost:3000/")
         });
 
-        //it("table row should include revised value(s)", function(revisedValues){
-        //
-        //});
-      })
-    })
-
-
-
-
-
+        it("table row should include revised value(s)", function(){
+          return driver.findElement(By.css('tbody tr')).then(function(element){
+            element.getText().then(function(rowText){
+              Object.values(revisedValues).forEach(function(revVal){
+                expect(rowText).toInclude(revVal)
+              })
+            })
+          });
+        });
+      }); // forEach
+    }) // context
 
     //context("when submitted with invalid revised value(s)", function(){
     //  [
