@@ -1,9 +1,20 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
 import {driver, By, getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL} from "../../helpers/test_web_driver.js";
+var db = require("../../db.js");
+var recycleRobots = require('../../db/recycle_robots');
 
 describe("Form Submit", function(){
   this.timeout(15000)
+  before(function(done){
+    recycleRobots()
+      .then(function(results){  console.log("RESULTS", results);  })
+      .catch(function(err){  console.log("ERROR", err);  })
+      .then(function(){
+        console.log("DONE");
+        db.disconnect().then(done());
+      })
+  })
   after(function(){  driver.quit(); })
 
   context("when visited on the 'edit' page", function(){
