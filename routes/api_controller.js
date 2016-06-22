@@ -57,6 +57,7 @@ router.get('/api/robots/:id', function(req, res, next) {
 
 router.post('/api/robots/:id/update', function(req, res, next) {
   var formBot = { _id: req.params.id, name: req.body.robotName, description: req.body.robotDescription};
+  console.log("FORM BOT", formBot)
   Robot.findById(formBot._id, function(err, bot) {
     if (err){
       res.notFound({messages: mongooseError.toMessages(err), bot: formBot }); // pass-back form values

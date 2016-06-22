@@ -37,12 +37,30 @@ module.exports.fillInRobotDescription = function(){
   return driver.findElement(By.name('robotDescription')).sendKeys("Makes the cakes.");
 };
 
+module.exports.clearFormValues = function(){
+  ["robotName","robotDescription"].forEach(function(attrName){
+    driver.findElement(By.name(attrName)).then(function(element){
+      return element.clear()
+    })
+  })
+};
 // @params [Object] revisedValues keys must match form input names
 // @example reviseFormValues({robotName: "CobblerBot 123"})
 // @example reviseFormValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
 module.exports.reviseFormValues = function(revisedValues){
   Object.keys(revisedValues).forEach(function(attrName){
     driver.findElement(By.name(attrName)).then(function(element){
+
+      //if (revisedValues[attrName]) {
+      //  console.log("SENDING KEYS")
+      //  element.clear().then(function(){
+      //    return element.sendKeys(revisedValues[attrName])
+      //  })
+      //} else {
+      //  console.log("NOT SENDING KEYS")
+      //  return element.clear()
+      //}
+
       element.clear().then(function(){
         return element.sendKeys(revisedValues[attrName])
       })
@@ -88,7 +106,7 @@ var expect = require('expect');
 
 module.exports.expectURL = function(expectedURL){
   return driver.getCurrentUrl().then(function(url){
-    console.log("REDIRECTED TO", url);
+    console.log("CURRENT URL", url);
     expect(url).toEqual(expectedURL)
   })
 }
