@@ -36,40 +36,15 @@ module.exports.fillInRobotDescription = function(){
   return driver.findElement(By.name('robotDescription')).sendKeys("Makes the cakes.");
 };
 
+// @params [Object] revisedValues keys must match form input names
+// @example reviseFormValues({robotName: "CobblerBot 123"})
+// @example reviseFormValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
 module.exports.reviseFormValues = function(revisedValues){
-  var revisedAttributeNames = Object.keys(revisedValues)
-  console.log(revisedAttributeNames)
-
-  //return driver.findElement(By.name('robotDescription')).sendKeys("Makes the cakes.");
-
-  //driver.findElement(By.name('robotDescription')).getAttribute("value").then(function(inputVal){
-  //  console.log("FORM INPUT VALUE IS", inputVal)
-  //})
-
-  //driver.findElement(By.name('robotDescription')).then(function(element){
-  //  return element.getAttribute("value").then(function(inputVal){
-  //    console.log("FORM INPUT VALUE IS", inputVal)
-  //  })
-  //})
-
-  //driver.findElement(By.name('robotDescription')).then(function(element){
-  //  element.clear()
-  //  return element.getAttribute("value").then(function(inputVal){
-  //    console.log("FORM INPUT VALUE IS", inputVal)
-  //  })
-  //})
-
-  //driver.findElement(By.name('robotDescription')).then(function(element){
-  //  element.clear().then(function(){
-  //    return element.getAttribute("value").then(function(inputVal){
-  //      console.log("FORM INPUT VALUE IS", inputVal)
-  //    })
-  //  })
-  //})
-
-  driver.findElement(By.name('robotDescription')).then(function(element){
-    element.clear().then(function(){
-      return element.sendKeys("Makes the cakes.")
+  Object.keys(revisedValues).forEach(function(attrName){
+    driver.findElement(By.name(attrName)).then(function(element){
+      element.clear().then(function(){
+        return element.sendKeys(revisedValues[attrName])
+      })
     })
   })
 };
