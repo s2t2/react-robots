@@ -8,6 +8,7 @@
   },
   "scripts": {
     "db-seed": "node ./db/seed.js",
+    "db-seed-production": "NODE_ENV=production node ./db/seed.js",
     "build": "webpack --config ./webpack.config.js --progress --colors",
     "scrape": "node helpers/scrape.js",
     "scrape2": "node helpers/scrape2.js",
