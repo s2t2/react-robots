@@ -18,7 +18,7 @@
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www",
-    "test": "NODE_ENV=test mocha --recursive",
+    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-register",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
     "test-components": "NODE_ENV=test mocha test/components/ --recursive",
     "test-table": "NODE_ENV=test mocha test/components/table_test.js",
