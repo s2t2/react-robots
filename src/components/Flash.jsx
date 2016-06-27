@@ -27,7 +27,7 @@ var Flash = React.createClass({
       )
     });
     return (
-      <div class="flash-wrapper">
+      <div className="flash-messages">
         {flashMessages}
       </div>
     )
