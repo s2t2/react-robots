@@ -21,5 +21,6 @@ module.exports.devRobots = [
 ];
 
 module.exports.defaultRobots = function(){
-  return (process.env.NODE_ENV == 'production') ? this.productionRobots : this.devRobots
+  //return (process.env.NODE_ENV == 'production') ? this.productionRobots : this.devRobots
+  return this.productionRobots
 };

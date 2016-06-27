@@ -19,7 +19,7 @@ var App = React.createClass({
         <PageHeader pageTitle={this.state.pageTitle} />
         {childrenWithProps}
         <hr style={{marginTop: '2em'}} />
-        <Footer repoUrl="https://github.com/s2t2/react-robots" />
+        <Footer repoUrl="https://github.com/s2t2/react-robots/network" />
       </div>
     )
   },

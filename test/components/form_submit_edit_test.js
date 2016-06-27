@@ -1,21 +1,13 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-import {driver, By, getIndex, clickEdit, reviseFormValues, clearFormValues, clickSubmit, expectURL} from "../../helpers/test_web_driver.js";
-var db = require("../../db.js");
-var recycleRobots = require('../../db/recycle_robots');
+
+import {resetTestDB} from '../../helpers/test_db_helper';
+
+import {getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL, expectTableRowValues} from "../../helpers/wdio_helper.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
-  before(function(done){
-    recycleRobots()
-      .then(function(results){  console.log("RESULTS", results);  })
-      .catch(function(err){  console.log("ERROR", err);  })
-      .then(function(){
-        console.log("DONE");
-        db.disconnect().then(done());
-      })
-  })
-  after(function(){  driver.quit(); })
+  before(function(done){  resetTestDB(done)  })
 
   context("when visited on the 'edit' page", function(){
     context("when submitted with valid revised value(s)", function(){
@@ -35,39 +27,30 @@ describe("Form Submit", function(){
         });
 
         it("table row should include revised value(s)", function(){
-          return driver.findElement(By.css('tbody tr')).then(function(element){
-            element.getText().then(function(rowText){
-              Object.values(revisedValues).forEach(function(revVal){
-                expect(rowText).toInclude(revVal)
-              })
-            })
-          });
+          return expectTableRowValues(revisedValues)
         });
       }); // forEach
     }) // context valid values
 
     context("when submitted with invalid revised value(s)", function(){
       [
-        //{robotName: ""},
+        {robotName: ""},
+        {robotDescription: ""},
         {robotName: "", robotDescription: ""}
       ].forEach(function(invalidRevisedValues){
-        //var expectedMessageCount = Object.keys(invalidRevisedValues).length;
-        //var robotId;
-
         before(function(){
           return getIndex()
             .then(clickEdit)
-            .then(clearFormValues) //.then(reviseFormValues(invalidRevisedValues))
+            .then(reviseFormValues(invalidRevisedValues))
             .then(clickSubmit)
         })
 
         it("browser should not redirect away from 'edit' page", function(){
-          //robotId = "576af2bcf03f61b8c41df829"
-          var editPageURL = "http://localhost:3000/robots/123xyz" // +robotId+"/edit"
-          //console.log("EDIT PAGE URL", editPageURL)
-          return expectURL(editPageURL)
+          var robotId = "123xyz"
+          return expectURL("http://localhost:3000/robots/"+robotId+"/edit")
         });
 
+        //var expectedMessageCount = Object.keys(invalidRevisedValues).length;
         //it("flash should include error message(s)"); // expectedMessageCount
       });
     }); // context invalid values
