@@ -183,39 +183,30 @@ var RobotsForm = withRouter (
     },
 
     updateRobot: function(){
+      var component = this;
       var requestUrl = "/api/robots/"+this.state.bot._id+"/update";
       console.log("AJAX", requestUrl, "WITH DATA", this.state.bot)
-      $.ajax({
-        url: requestUrl,
-        method: "POST",
-        dataType: 'json',
-        cache: false,
-        data: {
-          robotName: this.state.bot.name,
-          robotDescription: this.state.bot.description
-        },
-        success: function(data) {
-          console.log("UPDATED DATA", data);
-          this.props.router.push({
-            pathname: '/',
-            state: {
-              flash: {success: ["Updated robot #"+data._id]}
-            }
-          });
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.log("DIDN'T UPDATE DATA", xhr, status, err);
-          var errorMessages = xhr.responseJSON.messages;
-          var formBot = xhr.responseJSON.bot;
-          this.props.router.push({
-            pathname: '/robots/'+ formBot._id +'/edit',
-            state: {
-              flash: {warning: errorMessages},
-              formBot: formBot
-            }
-          });
-        }.bind(this)
-      });
+      var requestOptions = postRequestOptions({
+        robotName: this.state.bot.name,
+        robotDescription: this.state.bot.description
+      })
+      fetch(requestUrl, requestOptions)
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(function(json){
+          component.redirectToIndex({success: ["Updated robot #"+json._id]})
+        })
+        .catch(function(err){
+          err.response.json().then(function(json){
+            component.props.router.push({
+              pathname: '/robots/'+ json.bot._id +'/edit',
+              state: {
+                flash: {warning: json.messages},
+                formBot: json.bot
+              }
+            }); //component.redirectToEdit({warning: json.messages}, json.bot)
+          })
+        })
     }
   })
 );

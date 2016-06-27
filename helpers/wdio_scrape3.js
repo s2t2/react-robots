@@ -14,16 +14,16 @@ testBrowser
 
   .getValue('#robot-name').then(function(inputVal){ console.log(inputVal);  })
   //.setValue('#robot-name', '')
-  //.setValue('#robot-name', ['', 'Tab'])
+  .setValue('#robot-name', ['', 'Tab'])
   //.clearElement("#robot-name")
-  .setValue('#robot-name', 'test')
+  //.setValue('#robot-name', 'test')
   .getValue('#robot-name').then(function(inputVal){ console.log(inputVal);  })
 
   .getValue('#robot-description').then(function(inputVal){ console.log(inputVal);  })
   //.setValue('#robot-description', '')
-  //.setValue('#robot-description', ['', 'Tab'])
+  .setValue('#robot-description', ['', 'Tab'])
   //.clearElement("#robot-description")
-  .setValue('#robot-description', 'testtt')
+  //.setValue('#robot-description', 'testtt')
   .getValue('#robot-description').then(function(inputVal){ console.log(inputVal);  })
 
   .submitForm("#robots-form").then(function(){ console.log("SUBMITTING...");  })

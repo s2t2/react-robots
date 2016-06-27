@@ -191,6 +191,13 @@
   + http://webdriver.io/api/
   + https://github.com/webdriverio/webdriverio/blob/master/lib/commands/click.js#L26
 
+##### OnChange vs OnInput
+
+  + http://stackoverflow.com/questions/32057081/how-to-test-setting-a-field-to-empty-string-using-webdriverio-mocha-and-phantom
+  + https://github.com/webdriverio/webdriverio/issues/530
+  + https://github.com/SeleniumHQ/selenium/issues/1841
+  + http://www.w3schools.com/jsref/event_oninput.asp
+
 ## Node and NPM
 
   + https://firstdoit.com/no-need-for-globals-using-npm-dependencies-in-npm-scripts-3dfb478908#.wdmywnsf5
