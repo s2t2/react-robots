@@ -1,4 +1,9 @@
+var webdriverio = require('webdriverio');
+
 module.exports = {};
+
+var testBrowser = webdriverio.remote({desiredCapabilities: {browserName: 'firefox'}});
+module.exports.testBrowser = testBrowser;
 
 module.exports.getIndex = function(){
   console.log("GET INDEX PAGE");

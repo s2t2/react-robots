@@ -174,7 +174,6 @@
 #### Selenium
 
   + http://seleniumhq.github.io/selenium/docs/api/javascript/
-  + https://github.com/webdriverio/webdriverio/
   + http://www.seleniumhq.org/docs/03_webdriver.jsp#fetching-a-page
   + http://bites.goodeggs.com/posts/selenium-webdriver-nodejs-tutorial/
   + http://testerstories.com/2016/03/webdriver-in-javascript-with-promises/
@@ -184,6 +183,13 @@
   + https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-adding-es6-support-to-tests-using-mocha-and-babel
   + http://krasimirtsonev.com/blog/article/using-mocha-with-es6-spec-files
   + https://babeljs.io/docs/setup/#installation
+
+#### Webdriver.io
+
+  + https://github.com/webdriverio/webdriverio/
+  + http://webdriver.io/guide.html
+  + http://webdriver.io/api/
+  + https://github.com/webdriverio/webdriverio/blob/master/lib/commands/click.js#L26
 
 ## Node and NPM
 

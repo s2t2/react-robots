@@ -14,14 +14,10 @@
 
 
 var webdriverio = require('webdriverio');
-var options = {
-    desiredCapabilities: {
-        browserName: 'firefox'
-    }
-};
+var options = {desiredCapabilities: {browserName: 'firefox'}};
+var testBrowser = webdriverio.remote(options);
 
-webdriverio
-  .remote(options)
+testBrowser
   .init()
   .url('http://www.google.com')
   .getTitle().then(function(title) {
