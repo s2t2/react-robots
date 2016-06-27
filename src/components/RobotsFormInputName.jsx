@@ -6,7 +6,7 @@ var RobotsFormInputName = React.createClass({
       <div className="form-group">
         <label for="robotName" className="col-sm-2 control-label">Name</label>
         <div className="col-sm-10">
-          <input type="text" className="form-control" name="robotName" ref="robotNameRef" placeholder="My Robot" value={this.props.bot.name} onChange={this.changeName}/>
+          <input id="robot-name" type="text" className="form-control" name="robotName" ref="robotNameRef" placeholder="My Robot" value={this.props.bot.name} onChange={this.changeName}/>
         </div>
       </div>
     )

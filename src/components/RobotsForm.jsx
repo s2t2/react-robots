@@ -12,7 +12,7 @@ var RobotsForm = withRouter (
   React.createClass({
     render: function(){
       return (
-        <form className="form-horizontal" onSubmit={this.submitForm}>
+        <form id="robots-form" className="form-horizontal" onSubmit={this.submitForm}>
           <RobotsFormInputName params={this.props.params} bot={this.state.bot} setName={this.setName}/>
           <RobotsFormInputDescription params={this.props.params} bot={this.state.bot} setDescription={this.setDescription}/>
 
