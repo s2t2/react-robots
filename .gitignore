@@ -2,3 +2,5 @@ node_modules/
 dist/
 bundle.js
 npm-debug.log
+
+selenium-server-standalone-2.53.0.jar

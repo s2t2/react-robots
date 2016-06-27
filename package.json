@@ -15,6 +15,12 @@
     "scrape3": "node helpers/scrape3.js",
     "scrape4": "node helpers/scrape4.js",
     "scrape5": "node helpers/scrape5.js",
+
+    "wdio-config":"wdio config",
+    "wdio-scrape": "node helpers/wdio_scrape.js",
+
+    "wdio-start":"java -jar selenium-server-standalone-2.53.0.jar",
+
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
@@ -63,6 +69,7 @@
     "mocha": "^2.5.3",
     "selenium-webdriver": "^2.53.2",
     "supertest": "^1.2.0",
+    "webdriverio": "^4.1.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   }

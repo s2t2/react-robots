@@ -8,6 +8,20 @@ View this application in production at https://react-robots.herokuapp.com/.
 
 ## Contributing
 
+### Prerequisites for Development
+
+Install Node.
+
+### Prerequisites for Testing
+
+Install Java.
+
+Download selenium standalone server:
+
+```` sh
+curl -O http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
+````
+
 ### Installation
 
 Get source code.
@@ -51,17 +65,17 @@ npm run test-api --silent
 
 #### Component Tests
 
-Run all component tests only.
-
-> NOTE: Component tests require a test server to be running on localhost:3000. Use `npm run start-test`.
-
-> NOTE: The .babelrc file denotes presets for use during tests, while the webpack config files each denote presets for use during bundle compilation. Using ES2015 for `import` statement and ES2017 for `Object.values()`.
+Run all component tests.
 
 ```` sh
 npm run test-components --silent
 ````
 
-Run one of the following component tests only.
+> NOTE: Component tests require a test web server to be running on localhost:3000. Use `npm run start-test`.
+
+> NOTE: Component tests require a webdriver server to be running on http://127.0.0.1:4444/wd/hub. Use `npm run wdio-start`.
+
+Run a single component test.
 
 ```` sh
 npm run test-table --silent
@@ -95,7 +109,7 @@ npm install --save react react-dom react-router
 npm install --save jquery bootstrap file-loader url-loader
 npm install --save moment-timezone json-loader
 npm install --save mongoose
-npm install --save-dev mocha expect supertest selenium-webdriver babel-register babel-preset-es2017
+npm install --save-dev mocha expect supertest webdriverio babel-register babel-preset-es2017
 ````
 
 Commands used to administer and deploy to production the first time:
