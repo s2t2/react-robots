@@ -3,6 +3,8 @@ var By = require('selenium-webdriver').By
 var until = require('selenium-webdriver').until
 var driver = new webdriver.Builder().forBrowser('firefox').build();
 
+const BACKSPACE_UNICODE = "\uE003";
+
 // NAVIGATE TO HOME PAGE
 
 driver.get('http://localhost:3000/');
@@ -49,11 +51,17 @@ function clearFormValues(){
   //driver.findElement(By.name('robotName')).sendKeys("")
   driver.findElement(By.name("robotName")).then(function(element){
     element.clear()
+    element.sendKeys(" ")
+    element.sendKeys(BACKSPACE_UNICODE)
   })
 
   //driver.findElement(By.name('robotDescription')).sendKeys("");
   driver.findElement(By.name("robotDescription")).then(function(element){
-    element.clear()
+    element.clear().then(function(){
+      element.sendKeys(" ").then(function(){
+        element.sendKeys(BACKSPACE_UNICODE)
+      })
+    })
   })
 }
 
