@@ -7,7 +7,7 @@ module.exports.testBrowser = testBrowser;
 
 module.exports.getIndex = function(){
   console.log("GET INDEX PAGE");
-  client.click(selector);
+  //client.click(selector);
   return Promise.resolve()
 }
 

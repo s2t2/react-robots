@@ -44,26 +44,30 @@ module.exports.clearFormValues = function(){
     })
   })
 };
-// @params [Object] revisedValues keys must match form input names
+
+// Revise Form Values
+// @params [Object] revisedValues Object key names must match respective form input "name" values.
 // @example reviseFormValues({robotName: "CobblerBot 123"})
 // @example reviseFormValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
+// @example reviseFormValues({robotName: ""})
+// @example reviseFormValues({robotName: "", robotDescription: ""})
 module.exports.reviseFormValues = function(revisedValues){
   Object.keys(revisedValues).forEach(function(attrName){
     driver.findElement(By.name(attrName)).then(function(element){
-
-      //if (revisedValues[attrName]) {
-      //  console.log("SENDING KEYS")
-      //  element.clear().then(function(){
-      //    return element.sendKeys(revisedValues[attrName])
-      //  })
-      //} else {
-      //  console.log("NOT SENDING KEYS")
-      //  return element.clear()
-      //}
-
-      element.clear().then(function(){
-        return element.sendKeys(revisedValues[attrName])
-      })
+      if (revisedValues[attrName]) {
+        //console.log("PRESSING KEYS")
+        element.clear().then(function(){
+          return element.sendKeys(revisedValues[attrName])
+        })
+      } else {
+        //console.log("PRESSING BACKSPACE") // ... this is a workaround to trigger respective input element's onChange event if incoming value is a blank string, because sending a blank string with webdriver's sendKeys method does not produce the desired affect
+        const BACKSPACE_UNICODE = "\uE003";
+        element.clear().then(function(){
+          element.sendKeys(" ").then(function(){
+            return element.sendKeys(BACKSPACE_UNICODE)
+          })
+        })
+      } // if blank string
     })
   })
 };
@@ -110,3 +114,14 @@ module.exports.expectURL = function(expectedURL){
     expect(url).toEqual(expectedURL)
   })
 }
+
+module.exports.expectTableRowValues = function (expectedValues) {
+  console.log("EXPECT TABLE ROW VALUES")
+  return driver.findElement(By.css('tbody tr')).then(function(element){
+    element.getText().then(function(rowText){
+      Object.values(expectedValues).forEach(function(expectedVal){
+        expect(rowText).toInclude(expectedVal)
+      })
+    })
+  });
+};

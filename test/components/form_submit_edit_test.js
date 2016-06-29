@@ -3,7 +3,7 @@ var expect = require('expect');
 
 import {resetTestDB} from '../../helpers/test_db_helper';
 
-import {getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL, expectTableRowValues} from "../../helpers/wdio_helper.js";
+import {getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL, expectTableRowValues} from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
