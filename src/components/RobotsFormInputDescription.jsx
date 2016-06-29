@@ -7,7 +7,7 @@ var RobotsFormInputDescription = React.createClass({
       <div className="form-group">
         <label for="robotDescription" className="col-sm-2 control-label">Description</label>
         <div className="col-sm-10">
-          <textarea id="robot-description" className="form-control" rows="3" name="robotDescription" ref="robotDescriptionRef" placeholder="All the things..." value={this.props.bot.description} onInput={this.changeDescription}></textarea>
+          <textarea id="robot-description" className="form-control" rows="3" name="robotDescription" ref="robotDescriptionRef" placeholder="All the things..." value={this.props.bot.description} onChange={this.changeDescription}></textarea>
         </div>
       </div>
     )
