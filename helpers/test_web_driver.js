@@ -76,6 +76,15 @@ module.exports.clickSubmit = function(){
   return driver.findElement(By.xpath('//button[@type="submit"]')).click();
 };
 
+
+module.exports.findRobotIdParam = function(){
+  return driver.getCurrentUrl().then(function(url){
+    console.log("FINDING ROBOT ID FROM URL", url)
+    var robotId = url.split("/robots/")[1].split("/edit")[0] // should turn "http://localhost:3000/robots/57741a923cd29410fd8d9d56/edit" into "57741a923cd29410fd8d9d56"
+    return robotId
+  })
+}
+
 module.exports.findSiteTitle = function(){
   return driver.getTitle();
 }

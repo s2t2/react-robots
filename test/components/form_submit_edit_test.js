@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-
 import {resetTestDB} from '../../helpers/test_db_helper';
-
-import {getIndex, clickEdit, reviseFormValues, clickSubmit, expectURL, expectTableRowValues} from "../../helpers/test_web_driver.js";
+import {
+  getIndex, clickEdit, reviseFormValues, clickSubmit,
+  expectURL, expectTableRowValues, findRobotIdParam
+} from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
@@ -33,6 +34,8 @@ describe("Form Submit", function(){
     }) // context valid values
 
     context("when submitted with invalid revised value(s)", function(){
+      var robotId;
+
       [
         {robotName: ""},
         {robotDescription: ""},
@@ -41,12 +44,16 @@ describe("Form Submit", function(){
         before(function(){
           return getIndex()
             .then(clickEdit)
+            .then(findRobotIdParam)
+            .then(function(result){
+              robotId = result
+              //console.log("SETTING ROBOT ID", robotId)
+            })
             .then(reviseFormValues(invalidRevisedValues))
             .then(clickSubmit)
         })
 
         it("browser should not redirect away from 'edit' page", function(){
-          var robotId = "123xyz"
           return expectURL("http://localhost:3000/robots/"+robotId+"/edit")
         });
 
