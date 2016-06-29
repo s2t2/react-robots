@@ -15,6 +15,7 @@
     "scrape3": "node helpers/scrape3.js",
     "scrape4": "node helpers/scrape4.js",
     "scrape5": "node helpers/scrape5.js",
+    "scrape6": "node helpers/scrape6.js",
 
     "wdio-config":"wdio config",
     "wdio-scrape": "node helpers/wdio_scrape.js",

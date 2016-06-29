@@ -99,17 +99,24 @@ module.exports.findRobotName = function(){
   return driver.findElement(By.name('robotName')).getAttribute("value");
 };
 
-module.exports.findMessages = function(messageType){
+var findMessages = function(messageType){
   return driver.findElements(By.css("div .alert-"+messageType));
 };
+module.exports.findMessages = findMessages;
 
-module.exports.logMessages = function(elements){
+var logMessages = function(elements){
   elements.forEach(function(element){
-    element.getText().then(function(text){
-      console.log("MESSAGE", text)
-    })
+    element.getText()
+      .then(function(text){
+        console.log("MESSAGE", text)
+      })
+      .catch(function(err){
+        console.log(err)
+      })
   })
 };
+module.exports.logMessages = logMessages
+
 
 //
 // EXPECTATIONS / ASSERTIONS
@@ -124,6 +131,10 @@ module.exports.expectURL = function(expectedURL){
   })
 }
 
+// Expect values to appear in the table's first row.
+// @params [Object] expectedValues
+// @example expectTableRowValues({robotName: "CobblerBot 123"})
+// @example expectTableRowValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
 module.exports.expectTableRowValues = function (expectedValues) {
   console.log("EXPECT TABLE ROW VALUES")
   return driver.findElement(By.css('tbody tr')).then(function(element){
@@ -133,4 +144,17 @@ module.exports.expectTableRowValues = function (expectedValues) {
       })
     })
   });
+};
+
+// Expect a given number of flash messages of a given type.
+// @params [String] messageType The bootstrap class of expected message(s) (e.g. "success","danger","warning", etc.)
+// @params [Integer] messageCount The number of expected message(s).
+module.exports.expectFlashMessages = function(messageType, messageCount){
+  //return driver.findElements(By.css("div .alert-"+messageType));
+  return findMessages(messageType).then(function(elements){
+    //console.log(elements)
+    console.log("FOUND MESSAGES", elements.length)
+    logMessages(elements)
+    expect(elements.length).toEqual(messageCount)
+  })
 };

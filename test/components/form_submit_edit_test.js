@@ -2,13 +2,14 @@ process.env.NODE_ENV = 'test';
 var expect = require('expect');
 import {resetTestDB} from '../../helpers/test_db_helper';
 import {
-  getIndex, clickEdit, reviseFormValues, clickSubmit,
-  expectURL, expectTableRowValues, findRobotIdParam
+  driver, getIndex, clickEdit, findRobotIdParam, reviseFormValues, clickSubmit,
+  expectURL, expectTableRowValues, expectFlashMessages
 } from "../../helpers/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
   before(function(done){  resetTestDB(done)  })
+  after(function(){  driver.quit(); })
 
   context("when visited on the 'edit' page", function(){
     context("when submitted with valid revised value(s)", function(){
@@ -33,7 +34,7 @@ describe("Form Submit", function(){
       }); // forEach
     }) // context valid values
 
-    context("when submitted with invalid revised value(s)", function(){
+    context.only("when submitted with invalid revised value(s)", function(){
       var robotId;
 
       [
@@ -45,10 +46,7 @@ describe("Form Submit", function(){
           return getIndex()
             .then(clickEdit)
             .then(findRobotIdParam)
-            .then(function(result){
-              robotId = result
-              //console.log("SETTING ROBOT ID", robotId)
-            })
+            .then(function(result){  robotId = result  })
             .then(reviseFormValues(invalidRevisedValues))
             .then(clickSubmit)
         })
@@ -57,8 +55,10 @@ describe("Form Submit", function(){
           return expectURL("http://localhost:3000/robots/"+robotId+"/edit")
         });
 
-        //var expectedMessageCount = Object.keys(invalidRevisedValues).length;
-        //it("flash should include error message(s)"); // expectedMessageCount
+        it("flash should include error message(s)", function(){
+          var expectedMessageCount = Object.keys(invalidRevisedValues).length;
+          return expectFlashMessages("warning", expectedMessageCount)
+        });
       });
     }); // context invalid values
   }); // context edit page
