@@ -14,7 +14,7 @@ module.exports.driver = driver;
 module.exports.By = By;
 
 //
-// HELPER FUNCTIONS
+// BROWSER ACTIONS
 //
 
 module.exports.getIndex = function(){
@@ -52,6 +52,7 @@ module.exports.clearFormValues = function(){
 // @example reviseFormValues({robotName: ""})
 // @example reviseFormValues({robotName: "", robotDescription: ""})
 module.exports.reviseFormValues = function(revisedValues){
+  const BACKSPACE_UNICODE = "\uE003";
   Object.keys(revisedValues).forEach(function(attrName){
     driver.findElement(By.name(attrName)).then(function(element){
       if (revisedValues[attrName]) {
@@ -59,9 +60,11 @@ module.exports.reviseFormValues = function(revisedValues){
         element.clear().then(function(){
           return element.sendKeys(revisedValues[attrName])
         })
-      } else {
-        //console.log("PRESSING BACKSPACE") // ... this is a workaround to trigger respective input element's onChange event if incoming value is a blank string, because sending a blank string with webdriver's sendKeys method does not produce the desired affect
-        const BACKSPACE_UNICODE = "\uE003";
+      } else if (revisedValues[attrName] == ""){
+        //
+        // ... workaround to trigger input element's onChange event, because sending a blank string with sendKeys does not trigger input element's onChange event
+        //
+        //console.log("PRESSING BACKSPACE")
         element.clear().then(function(){
           element.sendKeys(" ").then(function(){
             return element.sendKeys(BACKSPACE_UNICODE)
@@ -76,6 +79,14 @@ module.exports.clickSubmit = function(){
   return driver.findElement(By.xpath('//button[@type="submit"]')).click();
 };
 
+
+module.exports.quitBrowser = function(){
+  return driver.quit();
+};
+
+//
+// HELPER FUNCTIONS
+//
 
 module.exports.findRobotIdParam = function(){
   return driver.getCurrentUrl().then(function(url){
@@ -111,7 +122,7 @@ var logMessages = function(elements){
         console.log("MESSAGE", text)
       })
       .catch(function(err){
-        console.log(err)
+        console.log("ERR", err)
       })
   })
 };
@@ -128,6 +139,13 @@ module.exports.expectURL = function(expectedURL){
   return driver.getCurrentUrl().then(function(url){
     console.log("CURRENT URL", url);
     expect(url).toEqual(expectedURL)
+  })
+}
+
+module.exports.expectURLToInclude = function(str){
+  return driver.getCurrentUrl().then(function(url){
+    console.log("CURRENT URL", url);
+    expect(url).toInclude(str)
   })
 }
 

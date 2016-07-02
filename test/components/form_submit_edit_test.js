@@ -38,8 +38,8 @@ describe("Form Submit", function(){
       var robotId;
 
       [
-        {robotName: ""},
-        {robotDescription: ""},
+        //{robotName: ""},
+        //{robotDescription: ""},
         {robotName: "", robotDescription: ""}
       ].forEach(function(invalidRevisedValues){
         before(function(){
