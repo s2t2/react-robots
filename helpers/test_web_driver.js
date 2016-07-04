@@ -168,8 +168,8 @@ module.exports.expectTableRowValues = function (expectedValues) {
 // @params [String] messageType The bootstrap class of expected message(s) (e.g. "success","danger","warning", etc.)
 // @params [Integer] messageCount The number of expected message(s).
 module.exports.expectFlashMessages = function(messageType, messageCount){
-  //return driver.findElements(By.css("div .alert-"+messageType));
-  return findMessages(messageType).then(function(elements){
+  return driver.findElements(By.css("div .alert-"+messageType)).then(function(elements){
+  //return findMessages(messageType).then(function(elements){
     //console.log(elements)
     console.log("FOUND MESSAGES", elements.length)
     logMessages(elements)

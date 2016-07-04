@@ -68,11 +68,13 @@
   + http://expressjs.com/en/guide/using-middleware.html
   + http://stackoverflow.com/questions/34113590/how-to-add-custom-function-to-response-object-in-node-js
 
-## JSX and JavasScript
+## JSX and JavaScript
 
   + http://wesbos.com/react-jsx-comments/
   + http://www.w3schools.com/js/js_array_methods.asp
   + http://stackoverflow.com/questions/20003676/how-to-get-current-index-in-array-prototype-map
+  + http://javascript.crockford.com/private.html
+  + http://phrogz.net/js/classes/OOPinJS.html
 
 ### AJAX
 
@@ -177,12 +179,14 @@
   + http://www.seleniumhq.org/docs/03_webdriver.jsp#fetching-a-page
   + http://bites.goodeggs.com/posts/selenium-webdriver-nodejs-tutorial/
   + http://testerstories.com/2016/03/webdriver-in-javascript-with-promises/
+  + https://saucelabs.com/resources/selenium-bootcamp/chapter-4-reuse-your-test-code
 
 #### Leveraging ES6 `import` in Mocha Tests
 
   + https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-adding-es6-support-to-tests-using-mocha-and-babel
   + http://krasimirtsonev.com/blog/article/using-mocha-with-es6-spec-files
   + https://babeljs.io/docs/setup/#installation
+  + http://blog.scottlogic.com/2015/03/04/webdriverjs-and-promises.html
 
 #### Webdriver.io
 
