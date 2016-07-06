@@ -9,6 +9,7 @@ describe("Pages with non-root urls", function(){
 
   context("when refreshed", function(){
     var driver, editPageURL;
+    let errorMessage = "Not Found";
 
     before(function(done){
       driver = new webdriver.Builder().forBrowser('firefox').build();
@@ -25,7 +26,7 @@ describe("Pages with non-root urls", function(){
       return driver.findElement(By.tagName("h1")).then(function(element){
         element.getText().then(function(text){
           console.log("PAGE HEADER", text)
-          return expect(text).toNotEqual("Not Found")
+          return expect(text).toNotEqual(errorMessage)
         });
       })
     })
