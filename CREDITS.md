@@ -180,6 +180,7 @@
   + http://bites.goodeggs.com/posts/selenium-webdriver-nodejs-tutorial/
   + http://testerstories.com/2016/03/webdriver-in-javascript-with-promises/
   + https://saucelabs.com/resources/selenium-bootcamp/chapter-4-reuse-your-test-code
+  + http://www.mythoughts.co.in/2012/11/5-different-ways-to-refresh-webpage.html
 
 #### Leveraging ES6 `import` in Mocha Tests
 
