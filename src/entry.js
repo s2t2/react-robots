@@ -10,7 +10,7 @@ import RobotsTable from './components/RobotsTable.jsx';
 import RobotsForm from './components/RobotsForm.jsx';
 
 ReactDOM.render(
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={RobotsTable}/>
       <Route path="robots" component={RobotsTable}/>
