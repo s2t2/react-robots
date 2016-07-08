@@ -1,5 +1,5 @@
-var driver = require("./test_web_driver.js").driver,
-    By = require("./test_web_driver.js").By;
+var driver = require("../lib/test_web_driver.js").driver,
+    By = require("../lib/test_web_driver.js").By;
 
 // USING PROMISES WITH NAMED FUNCTIONS
 

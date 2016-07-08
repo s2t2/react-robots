@@ -1,4 +1,4 @@
-var testBrowser = require("./wdio_helper.js").testBrowser
+var testBrowser = require("../lib/test_web_driver_io.js").testBrowser
 
 const BACKSPACE_UNICODE = "\uE003";
 
