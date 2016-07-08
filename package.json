@@ -9,35 +9,42 @@
   "scripts": {
     "db-seed": "node ./db/seed.js",
     "db-seed-production": "NODE_ENV=production node ./db/seed.js",
+
     "build": "webpack --config ./webpack.config.js --progress --colors",
-    "scrape": "node helpers/scrape.js",
-    "scrape2": "node helpers/scrape2.js",
-    "scrape3": "node helpers/scrape3.js",
-    "scrape4": "node helpers/scrape4.js",
-    "scrape5": "node helpers/scrape5.js",
-    "scrape6": "node helpers/scrape6.js",
-    "scrape7": "node helpers/scrape7.js",
-    "scrape8": "node helpers/scrape8.js",
+
+    "zombie-scrape": "node script/zombie_scrape.js",
+    "scrape": "node script/scrape.js",
+    "scrape2": "node script/scrape2.js",
+    "scrape3": "node script/scrape3.js",
+    "scrape4": "node script/scrape4.js",
+    "scrape5": "node script/scrape5.js",
+    "scrape6": "node script/scrape6.js",
+    "scrape7": "node script/scrape7.js",
+    "scrape8": "node script/scrape8.js",
 
     "wdio-config":"wdio config",
-    "wdio-scrape": "node helpers/wdio_scrape.js",
-    "wdio-scrape2": "node helpers/wdio_scrape2.js",
-    "wdio-scrape3": "node helpers/wdio_scrape3.js",
+
+    "wdio-scrape": "node script/wdio_scrape.js",
+    "wdio-scrape2": "node script/wdio_scrape2.js",
+    "wdio-scrape3": "node script/wdio_scrape3.js",
 
     "wdio-start":"java -jar selenium-server-standalone-2.53.0.jar",
-
     "start": "node ./bin/www",
     "start-test": "NODE_ENV=test node ./bin/www",
     "start-debug": "DEBUG=react-robots:* npm start",
     "start-watch": "nodemon ./bin/www",
-    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-register",
+
+    "test": "NODE_ENV=test mocha test/ --recursive --compilers js:babel-register",
     "test-api": "NODE_ENV=test mocha test/api/ --recursive",
-    "test-components": "NODE_ENV=test mocha test/components/ --recursive",
+    "test-components": "NODE_ENV=test mocha test/components/ --recursive --compilers js:babel-register",
+
+    "test-app": "NODE_ENV=test mocha test/components/app_test.js --compilers js:babel-register",
     "test-table": "NODE_ENV=test mocha test/components/table_test.js",
     "test-form": "NODE_ENV=test mocha test/components/form_test.js",
-    "test-form-submit-new": "NODE_ENV=test mocha --compilers js:babel-register test/components/form_submit_new_test.js",
-    "test-form-submit-edit": "NODE_ENV=test mocha --compilers js:babel-register test/components/form_submit_edit_test.js",
-    "test-app-refresh": "NODE_ENV=test mocha --compilers js:babel-register test/components/app_refresh_test.js",
+    "test-form-submit-new": "NODE_ENV=test mocha test/components/form_submit_new_test.js --compilers js:babel-register",
+    "test-form-submit-edit": "NODE_ENV=test mocha test/components/form_submit_edit_test.js --compilers js:babel-register",
+    "test-app-refresh": "NODE_ENV=test mocha test/components/app_refresh_test.js --compilers js:babel-register",
+
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"

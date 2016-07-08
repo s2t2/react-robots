@@ -2,8 +2,8 @@ var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import {robotUrl, createRobotUrl} from '../../helpers/api'
-import {postRequestOptions, checkStatus, parseJSON, parseError} from '../../helpers/fetch';
+import {robotUrl, createRobotUrl} from '../../lib/api.js'
+import {postRequestOptions, checkStatus, parseJSON, parseError} from '../../lib/fetch.js';
 import RobotsFormInputName from './RobotsFormInputName.jsx';
 import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
 import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';

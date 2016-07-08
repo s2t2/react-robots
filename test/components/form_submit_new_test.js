@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-import {driver, getIndex, clickNew, fillInRobotName, fillInRobotDescription, clickSubmit, findMessages, findPageTitle, findRobotName} from "../../helpers/test_web_driver.js";
+import {driver, getIndex, clickNew, fillInRobotName, fillInRobotDescription, clickSubmit, findMessages, findPageTitle, findRobotName} from "../../lib/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)

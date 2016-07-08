@@ -4,7 +4,7 @@ var request = require('supertest'); // source of `.expect()` within a `request` 
 
 var app = require('../../app.js');
 var recycleRobots = require('../../db/recycle_robots');
-var responseIsArrayOfRobots = require('../../helpers/api_tests.js').responseIsArrayOfRobots;
+var responseIsArrayOfRobots = require('../../lib/test_api.js').responseIsArrayOfRobots;
 
 describe("API", function(){
   describe("INDEX ROUTE", function(){

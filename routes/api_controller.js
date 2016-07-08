@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var recycleRobots = require('../db/recycle_robots');
-var mongooseError = require("../helpers/mongoose_error");
-require("../helpers/api.js").enableAPIMethods(router); // enables `res.okay()`, `res.notFound()` et. al.
+var mongooseError = require("../lib/mongoose_error");
+require("../lib/api.js").enableAPIMethods(router); // enables `res.okay()`, `res.notFound()` et. al.
 var Robot = require("../models/robot");
 
 /* INDEX */

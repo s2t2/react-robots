@@ -1,7 +1,7 @@
 var webdriver = require('selenium-webdriver');
 var By = require('selenium-webdriver').By;
 var expect = require("expect");
-import {resetTestDB} from '../../helpers/test_db_helper';
+import {resetTestDB} from '../../lib/test_db.js';
 
 describe("Pages with non-root urls", function(){
   this.timeout(15000)

@@ -73,7 +73,7 @@ npm run test-components --silent
 
 > NOTE: Component tests require a test web server to be running on localhost:3000. Use `npm run start-test`.
 
-> NOTE: Component tests require a webdriver server to be running on http://127.0.0.1:4444/wd/hub. Use `npm run wdio-start`.
+> NOTE: Component tests using webdriverio require a webdriver server to be running on http://127.0.0.1:4444/wd/hub. Use `npm run wdio-start`.
 
 Run a single component test.
 

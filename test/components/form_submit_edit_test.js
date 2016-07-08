@@ -1,10 +1,10 @@
 process.env.NODE_ENV = 'test';
 var expect = require('expect');
-import {resetTestDB} from '../../helpers/test_db_helper';
+import {resetTestDB} from '../../lib/test_db.js';
 import {
   driver, getIndex, clickEdit, findRobotIdParam, reviseFormValues, clickSubmit,
-  expectURL, expectTableRowValues, expectFlashMessages
-} from "../../helpers/test_web_driver.js";
+  expectURL, expectURLToInclude, expectTableRowValues, expectFlashMessages
+} from "../../lib/test_web_driver.js";
 
 describe("Form Submit", function(){
   this.timeout(15000)
@@ -52,7 +52,7 @@ describe("Form Submit", function(){
         })
 
         it("browser should not redirect away from 'edit' page", function(){
-          return expectURL("http://localhost:3000/robots/"+robotId+"/edit")
+          return expectURLToInclude("/edit")
         });
 
         it("flash should include error message(s)", function(){
