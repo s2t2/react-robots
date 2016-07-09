@@ -1,12 +1,15 @@
-var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import {robotUrl, createRobotUrl} from '../../lib/api.js'
+import RobotsFormInputName from './robots/form/InputName.jsx';
+import RobotsFormInputDescription from './robots/form/InputDescription.jsx';
+import RobotsFormSubmitButton from './robots/form/SubmitButton.jsx';
+
 import {postRequestOptions, checkStatus, parseJSON, parseError} from '../../lib/fetch.js';
-import RobotsFormInputName from './RobotsFormInputName.jsx';
-import RobotsFormInputDescription from './RobotsFormInputDescription.jsx';
-import RobotsFormSubmitButton from './RobotsFormSubmitButton.jsx';
+
+function robotPath(robotId){
+  return "/api/robots/"+robotId
+};
 
 var RobotsForm = withRouter (
   React.createClass({
@@ -101,7 +104,7 @@ var RobotsForm = withRouter (
 
     getRobot: function(robotId){
       var component = this;
-      fetch(robotUrl(robotId))
+      fetch(robotPath(robotId))
         .then(checkStatus)
         .then(parseJSON)
         .then(this.setRobot)
@@ -159,7 +162,7 @@ var RobotsForm = withRouter (
         robotName: this.state.bot.name,
         robotDescription: this.state.bot.description
       })
-      fetch(createRobotUrl, requestOptions)
+      fetch("/api/robots", requestOptions)
         .then(checkStatus)
         .then(parseJSON)
         .then(function(json){

@@ -5,7 +5,7 @@ import Header from './Header.jsx';
 import PageHeader from './PageHeader.jsx';
 import Footer from './Footer.jsx';
 
-var App = React.createClass({
+var Layout = React.createClass({
   render: function(){
     var component = this;
     var childrenWithProps = React.Children.map(this.props.children, function(child) {
@@ -164,4 +164,4 @@ var App = React.createClass({
   }
 });
 
-module.exports = App;
+module.exports = Layout;

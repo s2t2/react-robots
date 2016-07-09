@@ -1,8 +1,7 @@
-var $ = require('jquery');
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import RobotsTableRow from './RobotsTableRow.jsx';
+import RobotsTableRow from './robots/table/body/Row.jsx';
 
 var RobotsTableBody = withRouter (
   React.createClass({

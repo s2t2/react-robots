@@ -1,26 +1,16 @@
-# A CRUD App using React and MongoDB
+# React-Robots
 
-*MERN* Stack: Mongo, Express, React, Node.
+A CRUD Node.js web application built with Express, React, and MongoDB.
 
 ## Usage
 
-View this application in production at https://react-robots.herokuapp.com/.
+View in production at: https://react-robots.herokuapp.com/.
 
 ## Contributing
 
-### Prerequisites for Development
+### Prerequisites
 
-Install Node.
-
-### Prerequisites for Testing
-
-Install Java.
-
-Download selenium standalone server:
-
-```` sh
-curl -O http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
-````
+Install node.js and mongodb.
 
 ### Installation
 
@@ -37,27 +27,20 @@ npm install
 Seed a mongo database.
 
 ```` sh
-npm run db-seed
+npm run db-seed-dev
 ````
 
 Start the web server.
 
 ```` sh
-npm start
+npm run webserver-dev
 ````
 
 ### Testing
 
-Run all tests.
-
-```` sh
-npm run test --silent
-
-````
-
 #### API Tests
 
-Run API tests only.
+Run API tests.
 
 ```` sh
 npm run test-api --silent
@@ -65,58 +48,47 @@ npm run test-api --silent
 
 #### Component Tests
 
-Run all component tests.
+Component tests require a test-environment web server to be running on localhost:3000.
 
 ```` sh
-npm run test-components --silent
+npm run webserver-test
 ````
 
-> NOTE: Component tests require a test web server to be running on localhost:3000. Use `npm run start-test`.
-
-> NOTE: Component tests using webdriverio require a webdriver server to be running on http://127.0.0.1:4444/wd/hub. Use `npm run wdio-start`.
-
-Run a single component test.
+Test layout components:
 
 ```` sh
-npm run test-table --silent
-npm run test-form --silent
-npm run test-form-submit-new --silent
-npm run test-form-submit-edit --silent
+npm run test-layout-components --silent
+````
+
+Test robot components:
+
+```` sh
+npm run test-robot-components --silent
 ````
 
 ### Deploying
 
-Deploy master branch to production.
+#### Initial Deploy
 
-```` sh
-git push heroku master
-````
-
-<hr />
-
-
-
-
-Commands used to make this repo:
-
-```` sh
-express react-robots --ejs
-cd react-robots/
-npm install --save webpack
-npm install --save-dev webpack-dev-middleware webpack-hot-middleware
-npm install --save babel-core babel-loader babel-preset-react babel-preset-es2015 style-loader css-loader
-npm install --save react react-dom react-router
-npm install --save jquery bootstrap file-loader url-loader
-npm install --save moment-timezone json-loader
-npm install --save mongoose
-npm install --save-dev mocha expect supertest webdriverio babel-register babel-preset-es2017
-````
-
-Commands used to administer and deploy to production the first time:
+Commands for initial production deploy:
 
 ```` sh
 heroku create react-robots
 heroku addons:create mongolab:sandbox
 heroku addons:create scheduler
-heroku addons:open scheduler # then add a new job for `npm run db-seed-production` to run hourly
+
+````
+
+Finally, open scheduler (`heroku addons:open scheduler`) and add a new hourly job:
+
+```` sh
+npm run db-seed-prod
+````
+
+#### Subsequent Deploys
+
+Deploy master branch to production.
+
+```` sh
+git push heroku master
 ````

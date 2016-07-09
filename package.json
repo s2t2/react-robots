@@ -1,53 +1,22 @@
 {
   "name": "react-robots",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "5.9.1",
     "npm": "3.7.3"
   },
   "scripts": {
-    "db-seed": "node ./db/seed.js",
-    "db-seed-production": "NODE_ENV=production node ./db/seed.js",
-
-    "build": "webpack --config ./webpack.config.js --progress --colors",
-
-    "zombie-scrape": "node script/zombie_scrape.js",
-    "scrape": "node script/scrape.js",
-    "scrape2": "node script/scrape2.js",
-    "scrape3": "node script/scrape3.js",
-    "scrape4": "node script/scrape4.js",
-    "scrape5": "node script/scrape5.js",
-    "scrape6": "node script/scrape6.js",
-    "scrape7": "node script/scrape7.js",
-    "scrape8": "node script/scrape8.js",
-
-    "wdio-config":"wdio config",
-
-    "wdio-scrape": "node script/wdio_scrape.js",
-    "wdio-scrape2": "node script/wdio_scrape2.js",
-    "wdio-scrape3": "node script/wdio_scrape3.js",
-
-    "wdio-start":"java -jar selenium-server-standalone-2.53.0.jar",
-    "start": "node ./bin/www",
-    "start-test": "NODE_ENV=test node ./bin/www",
-    "start-debug": "DEBUG=react-robots:* npm start",
-    "start-watch": "nodemon ./bin/www",
-
-    "test": "NODE_ENV=test mocha test/ --recursive --compilers js:babel-register",
-    "test-api": "NODE_ENV=test mocha test/api/ --recursive",
-    "test-components": "NODE_ENV=test mocha test/components/ --recursive --compilers js:babel-register",
-
-    "test-app": "NODE_ENV=test mocha test/components/app_test.js --compilers js:babel-register",
-    "test-table": "NODE_ENV=test mocha test/components/table_test.js",
-    "test-form": "NODE_ENV=test mocha test/components/form_test.js",
-    "test-form-submit-new": "NODE_ENV=test mocha test/components/form_submit_new_test.js --compilers js:babel-register",
-    "test-form-submit-edit": "NODE_ENV=test mocha test/components/form_submit_edit_test.js --compilers js:babel-register",
-    "test-app-refresh": "NODE_ENV=test mocha test/components/app_refresh_test.js --compilers js:babel-register",
-
-    "postinstall": "npm run build",
-    "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
-    "heroku-postbuild": "npm run db-seed"
+    "build":                  "webpack --config ./webpack.config.js --progress --colors",
+    "db-seed-dev":            "node ./db/seed.js",
+    "db-seed-prod":           "NODE_ENV=production node ./db/seed.js",
+    "webserver-dev":          "node ./bin/www",
+    "webserver-test":         "NODE_ENV=test node ./bin/www",
+    "postinstall":            "npm run build",
+    "heroku-postbuild":       "npm run db-seed-prod",
+    "test-api":               "NODE_ENV=test mocha test/api/ --recursive",
+    "test-layout-components": "NODE_ENV=test mocha test/components/ --recursive --compilers js:babel-register",
+    "test-robot-components":  "NODE_ENV=test mocha test/components/robots/ --recursive --compilers js:babel-register"
   },
   "dependencies": {
     "babel-core": "^6.8.0",
@@ -62,7 +31,6 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "file-loader": "^0.8.5",
-    "jquery": "^2.2.4",
     "json-loader": "^0.5.4",
     "moment-timezone": "^0.5.4",
     "mongoose": "^4.4.19",
@@ -82,7 +50,6 @@
     "mocha": "^2.5.3",
     "selenium-webdriver": "^2.53.2",
     "supertest": "^1.2.0",
-    "webdriverio": "^4.1.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   }

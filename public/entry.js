@@ -5,13 +5,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, hashHistory, Redirect } from 'react-router';
 
-import App from './components/App.jsx';
-import RobotsTable from './components/RobotsTable.jsx';
-import RobotsForm from './components/RobotsForm.jsx';
+import Layout from './components/Layout.jsx';
+import RobotsTable from './components/robots/Table.jsx';
+import RobotsForm from './components/robots/Form.jsx';
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/" component={App}>
+    <Route path="/" component={Layout}>
       <IndexRoute component={RobotsTable}/>
       <Route path="robots" component={RobotsTable}/>
       <Route path="robots/new" component={RobotsForm}/>

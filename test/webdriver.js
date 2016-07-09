@@ -1,43 +1,45 @@
+var webdriver = require('selenium-webdriver');
+var By = require('selenium-webdriver').By;
+var until = require('selenium-webdriver').until;
+
 module.exports = {};
-
-// WEB DRIVER INSTANCE AND BUILT-IN UTILITY METHODS
-
-var webdriver = require('selenium-webdriver'),
-    By = require('selenium-webdriver').By,
-    until = require('selenium-webdriver').until;
-
-var driver = new webdriver.Builder()
-    .forBrowser('firefox')
-    .build();
-
-module.exports.driver = driver;
 module.exports.By = By;
+
+//
+// BROWSER INSTANCE
+//
+
+var browser = new webdriver.Builder()
+  .forBrowser('firefox')
+  .build();
+
+module.exports.driver = browser;
 
 //
 // BROWSER ACTIONS
 //
 
-module.exports.getIndex = function(){
+module.exports.getIndex = function(driver){
   return driver.get('http://localhost:3000/');
 };
 
-module.exports.clickNew = function(){
+module.exports.clickNew = function(driver){
   return driver.findElement(By.partialLinkText('new')).click();
 };
 
-module.exports.clickEdit = function(){
+module.exports.clickEdit = function(driver){
   return driver.findElement(By.className("btn-edit-robot")).click();
 };
 
-module.exports.fillInRobotName = function(){
+module.exports.fillInRobotName = function(driver){
   return driver.findElement(By.name('robotName')).sendKeys("Baker Bot");
 };
 
-module.exports.fillInRobotDescription = function(){
+module.exports.fillInRobotDescription = function(driver){
   return driver.findElement(By.name('robotDescription')).sendKeys("Makes the cakes.");
 };
 
-module.exports.clearFormValues = function(){
+module.exports.clearFormValues = function(driver){
   ["robotName","robotDescription"].forEach(function(attrName){
     driver.findElement(By.name(attrName)).then(function(element){
       return element.clear()
@@ -51,20 +53,20 @@ module.exports.clearFormValues = function(){
 // @example reviseFormValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
 // @example reviseFormValues({robotName: ""})
 // @example reviseFormValues({robotName: "", robotDescription: ""})
-module.exports.reviseFormValues = function(revisedValues){
+module.exports.reviseFormValues = function(driver, revisedValues){
   const BACKSPACE_UNICODE = "\uE003";
   Object.keys(revisedValues).forEach(function(attrName){
-    driver.findElement(By.name(attrName)).then(function(element){
+    return driver.findElement(By.name(attrName)).then(function(element){
       if (revisedValues[attrName]) {
-        //console.log("PRESSING KEYS")
+        //console.log("PRESSING ALPHABETIC KEYS")
         element.clear().then(function(){
           return element.sendKeys(revisedValues[attrName])
         })
       } else if (revisedValues[attrName] == ""){
+        //console.log("PRESSING BACKSPACE")
         //
         // ... workaround to trigger input element's onChange event, because sending a blank string with sendKeys does not trigger input element's onChange event
         //
-        //console.log("PRESSING BACKSPACE")
         element.clear().then(function(){
           element.sendKeys(" ").then(function(){
             return element.sendKeys(BACKSPACE_UNICODE)
@@ -75,74 +77,29 @@ module.exports.reviseFormValues = function(revisedValues){
   })
 };
 
-module.exports.clickSubmit = function(){
+module.exports.clickSubmit = function(driver){
   return driver.findElement(By.xpath('//button[@type="submit"]')).click();
 };
 
 
-module.exports.quitBrowser = function(){
+module.exports.quitBrowser = function(driver){
   return driver.quit();
 };
 
 //
-// HELPER FUNCTIONS
-//
-
-module.exports.findRobotIdParam = function(){
-  return driver.getCurrentUrl().then(function(url){
-    console.log("FINDING ROBOT ID FROM URL", url)
-    var robotId = url.split("/robots/")[1].split("/edit")[0] // should turn "http://localhost:3000/robots/57741a923cd29410fd8d9d56/edit" into "57741a923cd29410fd8d9d56"
-    return robotId
-  })
-}
-
-module.exports.findSiteTitle = function(){
-  return driver.getTitle();
-}
-
-module.exports.findPageTitle = function(){
-  return driver.findElement(By.tagName("h2")).then(function(element){
-    return element.getText();
-  })
-};
-
-module.exports.findRobotName = function(){
-  return driver.findElement(By.name('robotName')).getAttribute("value");
-};
-
-var findMessages = function(messageType){
-  return driver.findElements(By.css("div .alert-"+messageType));
-};
-module.exports.findMessages = findMessages;
-
-var logMessages = function(elements){
-  elements.forEach(function(element){
-    element.getText()
-      .then(function(text){
-        console.log("MESSAGE", text)
-      })
-      .catch(function(err){
-        console.log("ERR", err)
-      })
-  })
-};
-module.exports.logMessages = logMessages
-
-
-//
-// EXPECTATIONS / ASSERTIONS
+// BROWSER EXPECTATIONS / ASSERTIONS
 //
 
 var expect = require('expect');
 
-module.exports.expectURL = function(expectedURL){
+module.exports.expectURL = function(driver, expectedURL){
   return driver.getCurrentUrl().then(function(url){
     console.log("CURRENT URL", url);
     expect(url).toEqual(expectedURL)
   })
 }
 
-module.exports.expectURLToInclude = function(str){
+module.exports.expectURLToInclude = function(driver, str){
   return driver.getCurrentUrl().then(function(url){
     console.log("CURRENT URL", url);
     expect(url).toInclude(str)
@@ -153,7 +110,7 @@ module.exports.expectURLToInclude = function(str){
 // @params [Object] expectedValues
 // @example expectTableRowValues({robotName: "CobblerBot 123"})
 // @example expectTableRowValues({robotName: "CobblerBot 123", robotDescription: "Makes the shoes."})
-module.exports.expectTableRowValues = function (expectedValues) {
+module.exports.expectTableRowValues = function (driver, expectedValues) {
   console.log("EXPECT TABLE ROW VALUES")
   return driver.findElement(By.css('tbody tr')).then(function(element){
     element.getText().then(function(rowText){
@@ -167,7 +124,7 @@ module.exports.expectTableRowValues = function (expectedValues) {
 // Expect a given number of flash messages of a given type.
 // @params [String] messageType The bootstrap class of expected message(s) (e.g. "success","danger","warning", etc.)
 // @params [Integer] messageCount The number of expected message(s).
-module.exports.expectFlashMessages = function(messageType, messageCount){
+module.exports.expectFlashMessages = function(driver, messageType, messageCount){
   return driver.findElements(By.css("div .alert-"+messageType)).then(function(elements){
   //return findMessages(messageType).then(function(elements){
     //console.log(elements)
@@ -176,3 +133,48 @@ module.exports.expectFlashMessages = function(messageType, messageCount){
     expect(elements.length).toEqual(messageCount)
   })
 };
+
+
+//
+// HELPER FUNCTIONS
+//
+
+//module.exports.findRobotIdParam = function(driver){
+//  return driver.getCurrentUrl().then(function(url){
+//    console.log("FINDING ROBOT ID FROM URL", url)
+//    var robotId = url.split("/robots/")[1].split("/edit")[0] // should turn "http://localhost:3000/robots/57741a923cd29410fd8d9d56/edit" into "57741a923cd29410fd8d9d56"
+//    return robotId
+//  })
+//}
+//
+//module.exports.findSiteTitle = function(driver){
+//  return driver.getTitle();
+//}
+//
+//module.exports.findPageTitle = function(driver){
+//  return driver.findElement(By.tagName("h2")).then(function(element){
+//    return element.getText();
+//  })
+//};
+//
+//module.exports.findRobotName = function(driver){
+//  return driver.findElement(By.name('robotName')).getAttribute("value");
+//};
+//
+//var findMessages = function(driver, messageType){
+//  return driver.findElements(By.css("div .alert-"+messageType));
+//};
+//module.exports.findMessages = findMessages;
+//
+//var logMessages = function(elements){
+//  elements.forEach(function(element){
+//    element.getText()
+//      .then(function(text){
+//        console.log("MESSAGE", text)
+//      })
+//      .catch(function(err){
+//        console.log("ERR", err)
+//      })
+//  })
+//};
+//module.exports.logMessages = logMessages

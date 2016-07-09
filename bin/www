@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var webServer = require('../lib/webserver.js');
 var debug = require('debug')('react-robots:server');
 var http = require('http');
 
@@ -13,13 +13,13 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+webServer.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(webServer);
 
 /**
  * Listen on provided port, on all network interfaces.
