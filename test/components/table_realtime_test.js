@@ -6,10 +6,11 @@ import {resetTestDB} from '../../helpers/test_db_helper';
 
 describe("Table", function(){
   this.timeout(15000)
-  var wd;
+  var wd, wd2;
 
   before(function(done){
     wd = new webdriver.Builder().forBrowser('firefox').build();
+    wd2 = new webdriver.Builder().forBrowser('firefox').build();
     resetTestDB(done);
   });
 
@@ -20,13 +21,15 @@ describe("Table", function(){
 
     context("when a record is deleted off-page by some other user or process", function(){
       before(function(){
-        return wd.findElement(By.className("btn-delete-robot")).click();
-      });
+        return wd2.get('http://localhost:3000').then(function(){
+          return wd2.findElement(By.className("btn-delete-robot")).click();
+        })
+      })
 
       it("should update without a page refresh", function(){
         return wd.findElements(By.css('tbody tr')).then(function(elements){
           console.log("ROW COUNT", elements.length)
-          expect(elements.length).toEqual(3)
+          expect(elements.length).toEqual(2)
         });
       });
     });
