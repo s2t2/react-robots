@@ -19,7 +19,7 @@ var RobotsTableRow = withRouter (
             </button>
           </td>
           <td>
-            <button className='btn btn-danger' onClick={ this.deleteRobot.bind(null, robot._id) }>
+            <button className='btn btn-danger btn-delete-robot' onClick={ this.deleteRobot.bind(null, robot._id) }>
               <span className="glyphicon glyphicon-trash"></span> delete
             </button>
           </td>

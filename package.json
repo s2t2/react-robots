@@ -38,6 +38,7 @@
     "test-form-submit-new": "NODE_ENV=test mocha --compilers js:babel-register test/components/form_submit_new_test.js",
     "test-form-submit-edit": "NODE_ENV=test mocha --compilers js:babel-register test/components/form_submit_edit_test.js",
     "test-app-refresh": "NODE_ENV=test mocha --compilers js:babel-register test/components/app_refresh_test.js",
+    "test-table-realtime":"NODE_ENV=test mocha --compilers js:babel-register test/components/table_realtime_test.js",
     "postinstall": "npm run build",
     "heroku-prebuild": "echo 'This runs before Heroku installs your dependencies.'",
     "heroku-postbuild": "npm run db-seed"
